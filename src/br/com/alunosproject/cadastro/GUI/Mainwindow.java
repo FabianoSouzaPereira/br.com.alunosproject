@@ -22,6 +22,7 @@ import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
@@ -68,6 +69,7 @@ public class Mainwindow extends JFrame {
 	private JTable tabela;
 	public static final int YES_OPTION = 0;
 	public static final int NO_OPTION = 1;
+	public static int tac= 0;
 
 	public Mainwindow() {
 		addWindowFocusListener(new WindowFocusListener() {
@@ -80,8 +82,8 @@ public class Mainwindow extends JFrame {
 		});
 		@SuppressWarnings("unused")
 		Aluno aluno = new Aluno();
-		// criaJTable();
-
+		criaJTable();
+		fotoprincipal();
 		criaPrincipal();
 
 	}
@@ -223,7 +225,8 @@ public class Mainwindow extends JFrame {
 				"C:\\Users\\Fabiano\\workspace\\br.com.alunosproject\\ico\\famfamfam_mini_icons\\action_stop.gif"));
 		btnSair.setActionCommand("Terminar");
 		panel.add(btnSair);
-
+		
+		btnListaCadastro.addActionListener(new btnListaCadastroActionListener());
 		btnNovoCadastro.addActionListener(new btnNovoCadastroActionListener());
 		btnEditarCadastro.addActionListener(new btnEditarCadastroActionListener());
 		btnApagarCadastro.addActionListener(new btnApagarCadastroActionListener());
@@ -233,7 +236,6 @@ public class Mainwindow extends JFrame {
 		btnSalvar.addActionListener(new btnSalvarActionListener());
 		btnEditar.addActionListener(new btnEditarActionListener());
 		btnApagar.addActionListener(new btnApagarActionListener());
-
 		btnSair.addActionListener(new btnSairActionListener());
 
 		JPanel panel_1 = new JPanel();
@@ -243,9 +245,11 @@ public class Mainwindow extends JFrame {
 		getContentPane().add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(new MigLayout("", "[1826px]", "[1826px]")); // largura
 																		// mínima,preferida,maxima.
-
+		
+		
+		
 		Icon img = new ImageIcon(
-				"C:\\Users\\Fabiano\\workspace\\br.com.alunosproject\\imagem\\wallpaper-coffee-1024x576.jpg");
+				"B:\\WorkspaceSVN\\br.com.alunosproject\\imagem\\wallpaper-coffee-1024x576.jpg");
 		JLabel fotoPrincipal = new JLabel();
 		fotoPrincipal.setIcon(img);
 
@@ -258,14 +262,25 @@ public class Mainwindow extends JFrame {
 		 * } ImageIcon icon = new ImageIcon(bufferedImage); JLabel fotoPrincipal
 		 * = new JLabel(); fotoPrincipal.setIcon(icon);
 		 */
-		// JScrollPane scrollPane = new JScrollPane(getTabela());
-		JScrollPane scrollPane = new JScrollPane(fotoPrincipal);
+		
+		if (tac == 1){
+		panel_1.removeAll();
+		JScrollPane scrollPane = new JScrollPane(getTabela());
 		scrollPane.setBounds(new Rectangle(0, 0, 550, 0));
 		scrollPane.setIgnoreRepaint(true);
 		scrollPane.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		scrollPane.setMinimumSize(new Dimension(550, 150));
 		panel_1.add(scrollPane, "cell 0 0,grow");
-
+		} else{
+			panel_1.removeAll();
+			JScrollPane scrollPane = new JScrollPane(fotoPrincipal);
+			scrollPane.setBounds(new Rectangle(0, 0, 550, 0));
+			scrollPane.setIgnoreRepaint(true);
+			scrollPane.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			scrollPane.setMinimumSize(new Dimension(550, 150));
+			panel_1.add(scrollPane, "cell 0 0,grow");
+		}
+	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(10, 10, 450, 300);
 
@@ -348,8 +363,7 @@ public class Mainwindow extends JFrame {
 		mntmApagar.addActionListener(new mntmApagarActionListener());
 		mntmSair.addActionListener(new mntmSairActionListener());
 
-		// tabela.addMouseListener(new doubleClickMouseAdpater());
-
+	
 	}
 
 	private void criaJTable() {
@@ -431,8 +445,26 @@ public class Mainwindow extends JFrame {
 					a.splitDate(a.getDataAtualizacao()), a.getTelefone(), a.getCelular(), a.getFoto() });
 		}
 	}
+	
+	public void fotoprincipal(){
 
-	// listener dos botoes começa aqui.
+		Icon img = new ImageIcon(
+				"B:\\WorkspaceSVN\\br.com.alunosproject\\imagem\\wallpaper-coffee-1024x576.jpg");
+		JLabel fotoPrincipal = new JLabel();
+		fotoPrincipal.setIcon(img);
+
+		/*
+		  InputStream stream =
+		  this.getClass().getClassLoader().getResourceAsStream(
+		  "C://Users//Fabiano//workspace//br.com.alunosproject//imagem//wallpaper-coffee-1024x576.jpg" ); 
+		  BufferedImage bufferedImage = null; try { bufferedImage = ImageIO.read(stream); 
+		  }catch (IOException e) { e.printStackTrace();  }
+	*/
+		
+	}
+	
+
+	// listener of buttons start here.
 
 	public JTable getTabela() {
 		return tabela;
@@ -477,6 +509,23 @@ public class Mainwindow extends JFrame {
 
 	}
 
+	
+	public class btnListaCadastroActionListener implements ActionListener {
+	    @Override
+		public void actionPerformed(ActionEvent e) {
+	    	try{
+	    		tac= 1;
+	    		Mainwindow window = new Mainwindow();
+	    		window.setVisible(true);
+	    		
+	    }catch (Exception o) {
+			o.printStackTrace();
+	    }
+	  }
+	}
+	
+	
+	
 	public class btnNovoCadastroActionListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -609,7 +658,7 @@ public class Mainwindow extends JFrame {
 
 	}
 
-	// listener do menu começa aqui.
+	// listener of menu start here.
 
 	private class mntmCadastrarActionListener implements ActionListener {
 		@Override
@@ -675,45 +724,47 @@ public class Mainwindow extends JFrame {
 	}
 
 	// Listener da tabela começa aqui
-	/*
-	 * public class doubleClickMouseAdpater implements MouseListener {
-	 * 
-	 * @Override public void mouseClicked(MouseEvent e) { if (e.getClickCount()
-	 * == 2) { try { Aluno a = new Aluno(); a.setStatusTelacadastro("Editar");
-	 * int linhaSelecionada = -1; linhaSelecionada =
-	 * getTabela().getSelectedRow(); if (linhaSelecionada >= 0) { int idAluno =
-	 * (int) getTabela().getValueAt(linhaSelecionada, 0); AlunoCadastrarJframe
-	 * frame = new AlunoCadastrarJframe(modelo, idAluno, linhaSelecionada);
-	 * frame.setVisible(true);
-	 * frame.getTfdataAtualizacao().setText(getDateTime()); } else {
-	 * JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
-	 * 
-	 * } } catch (Exception o) { o.printStackTrace(); } }
-	 * 
-	 * }
-	 * 
-	 * @Override public void mouseEntered(MouseEvent e) { // TODO Auto-generated
-	 * method stub
-	 * 
-	 * }
-	 * 
-	 * @Override public void mouseExited(MouseEvent e) { // TODO Auto-generated
-	 * method stub
-	 * 
-	 * }
-	 * 
-	 * @Override public void mousePressed(MouseEvent e) { // TODO Auto-generated
-	 * method stub
-	 * 
-	 * }
-	 * 
-	 * @Override public void mouseReleased(MouseEvent e) { // TODO
-	 * Auto-generated method stub
-	 * 
-	 * }
-	 *
-	 * }
-	 */
+	
+	  public class doubleClickMouseAdpater implements MouseListener {
+	  
+		  @Override public void mouseClicked(MouseEvent e) {
+			  if (e.getClickCount()== 2) { 
+				  try { Aluno a = new Aluno(); a.setStatusTelacadastro("Editar");
+				  int linhaSelecionada = -1; linhaSelecionada = getTabela().getSelectedRow();
+				  if (linhaSelecionada >= 0) { int idAluno =(int) getTabela().getValueAt(linhaSelecionada, 0);
+				  AlunoCadastrarJframe frame = new AlunoCadastrarJframe(modelo, idAluno, linhaSelecionada);
+				  frame.setVisible(true);
+				  frame.getTfdataAtualizacao().setText(getDateTime()); 
+				  } else {
+					  JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");} 
+				  } catch (Exception o) { o.printStackTrace(); } 
+
+			  }
+
+		  }
+	  
+	  @Override public void mouseEntered(MouseEvent e) { // TODO Auto-generated
+	  
+	  
+	  }
+	  
+	  @Override public void mouseExited(MouseEvent e) { // TODO Auto-generated
+	  
+	  
+	  }
+	  
+	  @Override public void mousePressed(MouseEvent e) { // TODO Auto-generated
+	 
+	  
+	  }
+	  
+	  @Override public void mouseReleased(MouseEvent e) { // TODO
+	  
+	  
+	  }
+	 
+	  }
+	 
 	private String getDateTime() {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = new Date();

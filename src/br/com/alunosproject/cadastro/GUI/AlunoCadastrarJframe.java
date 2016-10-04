@@ -602,7 +602,7 @@ public class AlunoCadastrarJframe extends JFrame implements ActionListener {
 	private class btnCadastrarListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			Aluno a = new Aluno();
-			a.setMatricula(matricula);// parei aqui
+			a.setMatricula(matricula);
 			a.setNome(tfnome.getText());
 			a.setApelido(tfapelido.getText());
 			a.setIdade(tfidade.getText().trim());
@@ -696,6 +696,7 @@ public class AlunoCadastrarJframe extends JFrame implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			limparTodosCampos(rootPane);
+			Mainwindow.tac = 0;
 			dispose();
 		}
 	}
