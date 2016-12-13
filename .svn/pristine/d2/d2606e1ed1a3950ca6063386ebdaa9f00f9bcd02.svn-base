@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry including="DEUCERTO.jpg|Tulips.jpg|pessoa.png|wallpaper-coffee-1024x576.jpg" kind="src" path="imagem"/>
+	<classpathentry kind="src" path="ico">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/Fabiano/workspace/br.com.alunosproject/ico"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="src/|imagem/|ico/" kind="src" path=""/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/MySqlLibrery"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Oracle"/>
+	<classpathentry exported="true" kind="lib" path="miglayout15-swing.jar" sourcepath="miglayout-src.zip"/>
+	<classpathentry kind="lib" path="B:/workspace/drivers/mysql-connector-java-5.1.39.tar/mysql-connector-java-5.1.39/mysql-connector-java-5.1.39-bin.jar" sourcepath="C:/Users/Fabiano/workspace/drivers/mysql-connector-java-5.1.39.tar/mysql-connector-java-5.1.39">
+		<attributes>
+			<attribute name="source_encoding" value="UTF-8"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

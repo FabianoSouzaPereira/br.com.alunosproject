@@ -6,11 +6,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class ConnectionFactory {
 	private static final String USUARIO = "root";
 	private static final String SENHA = "";
-	private static final String DATABASE = "cadastroalunos";
+	private static final String DATABASE = "projetoalunos";
 	@SuppressWarnings("unused")
 	private static final String DRIVER_CONEXAO = "com.mysql.jdbc.Driver";
 	private static final String STR_CONEXAO = "jdbc:mysql://localhost/";
@@ -78,6 +79,22 @@ public class ConnectionFactory {
   
 	}
 
+	public static void fechaConexao(Connection conn, Statement stmt, ResultSet rs){
+		try{
+			if (conn != null) {
+				conn.close();
+			}
+			if (stmt != null) {
+				stmt.close();
+			}
+			if (rs != null) {
+				rs.close();
+			//	System.out.println("ResultSet fechado com sucesso");
+			}
+		}catch(Exception e){
+			System.out.println("Não foi possível fechar o ResultSet " + e.getMessage());
+		}
+	}
 }
   
 

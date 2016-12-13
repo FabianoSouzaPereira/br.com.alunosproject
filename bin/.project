@@ -15,4 +15,10 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<variableList>
+		<variable>
+			<name>Imagem</name>
+			<value>file:/B:/WorkspaceSVN/projetoescola/src/projetoescola/imagens</value>
+		</variable>
+	</variableList>
 </projectDescription>

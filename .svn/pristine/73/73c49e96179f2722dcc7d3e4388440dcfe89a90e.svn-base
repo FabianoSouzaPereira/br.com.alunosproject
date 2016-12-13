@@ -1,0 +1,181 @@
+package br.com.alunosproject.cadastro.GUI;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import javax.swing.JTextField;
+import java.awt.Insets;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextPane;
+import javax.swing.UIManager;
+import java.awt.Dimension;
+import java.awt.Component;
+import javax.swing.Box;
+import java.awt.Color;
+
+@SuppressWarnings("serial")
+public class Tela_de_Consulta extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField tfCPF;
+	private JTextField tfNome;
+	private JTextField tfMatricula;
+
+	/**
+	 * Create the frame.
+	 */
+	public Tela_de_Consulta() {
+		setMinimumSize(new Dimension(596, 360));
+		setSize(new Dimension(596, 360));
+		setResizable(false);
+		setType(Type.NORMAL);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(null);
+		setContentPane(contentPane);
+		GridBagLayout gbl_contentPane = new GridBagLayout();
+		gbl_contentPane.columnWidths = new int[] { 52, 0, 0, 61, 0, 133, 0, 0 };
+		gbl_contentPane.rowHeights = new int[] { 40, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_contentPane.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		contentPane.setLayout(gbl_contentPane);
+
+		Component verticalStrut = Box.createVerticalStrut(20);
+		GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
+		gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
+		gbc_verticalStrut.gridx = 1;
+		gbc_verticalStrut.gridy = 0;
+		contentPane.add(verticalStrut, gbc_verticalStrut);
+
+		Component horizontalStrut = Box.createHorizontalStrut(20);
+		GridBagConstraints gbc_horizontalStrut = new GridBagConstraints();
+		gbc_horizontalStrut.insets = new Insets(0, 0, 5, 5);
+		gbc_horizontalStrut.gridx = 0;
+		gbc_horizontalStrut.gridy = 2;
+		contentPane.add(horizontalStrut, gbc_horizontalStrut);
+
+		JLabel lblCpf = new JLabel("CPF:");
+		GridBagConstraints gbc_lblCpf = new GridBagConstraints();
+		gbc_lblCpf.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCpf.anchor = GridBagConstraints.EAST;
+		gbc_lblCpf.gridx = 1;
+		gbc_lblCpf.gridy = 2;
+		contentPane.add(lblCpf, gbc_lblCpf);
+
+		tfCPF = new JTextField();
+		GridBagConstraints gbc_tfCPF = new GridBagConstraints();
+		gbc_tfCPF.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfCPF.insets = new Insets(0, 0, 5, 5);
+		gbc_tfCPF.gridx = 2;
+		gbc_tfCPF.gridy = 2;
+		contentPane.add(tfCPF, gbc_tfCPF);
+		tfCPF.setColumns(10);
+
+		JTextPane txt = new JTextPane();
+		txt.setForeground(Color.RED);
+		txt.setText("Para criar um novo cadastro verifique\r\nprimeiro, o cpf e/ou o nome do cliente. ");
+		txt.setBackground(UIManager.getColor("ColorChooser.background"));
+		GridBagConstraints gbc_txt = new GridBagConstraints();
+		gbc_txt.gridheight = 3;
+		gbc_txt.insets = new Insets(0, 0, 5, 5);
+		gbc_txt.fill = GridBagConstraints.BOTH;
+		gbc_txt.gridx = 5;
+		gbc_txt.gridy = 2;
+		contentPane.add(txt, gbc_txt);
+
+		JLabel lblMatricula = new JLabel("Matricula:");
+		GridBagConstraints gbc_lblMatricula = new GridBagConstraints();
+		gbc_lblMatricula.anchor = GridBagConstraints.EAST;
+		gbc_lblMatricula.insets = new Insets(0, 0, 5, 5);
+		gbc_lblMatricula.gridx = 1;
+		gbc_lblMatricula.gridy = 3;
+		contentPane.add(lblMatricula, gbc_lblMatricula);
+
+		JButton btnConsultar = new JButton("Consultar");
+		btnConsultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadastroAlunos frame = new CadastroAlunos();
+				frame.setVisible(true);
+			}
+		});
+		
+		
+		tfMatricula = new JTextField();
+		GridBagConstraints gbc_tfMatricula = new GridBagConstraints();
+		gbc_tfMatricula.insets = new Insets(0, 0, 5, 5);
+		gbc_tfMatricula.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfMatricula.gridx = 2;
+		gbc_tfMatricula.gridy = 3;
+		contentPane.add(tfMatricula, gbc_tfMatricula);
+		tfMatricula.setColumns(10);
+
+		JLabel lblNome = new JLabel("Nome:");
+		GridBagConstraints gbc_lblNome = new GridBagConstraints();
+		gbc_lblNome.anchor = GridBagConstraints.EAST;
+		gbc_lblNome.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNome.gridx = 1;
+		gbc_lblNome.gridy = 4;
+		contentPane.add(lblNome, gbc_lblNome);
+
+		tfNome = new JTextField();
+		GridBagConstraints gbc_tfNome = new GridBagConstraints();
+		gbc_tfNome.gridwidth = 2;
+		gbc_tfNome.insets = new Insets(0, 0, 5, 5);
+		gbc_tfNome.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfNome.gridx = 2;
+		gbc_tfNome.gridy = 4;
+		contentPane.add(tfNome, gbc_tfNome);
+		tfNome.setColumns(10);
+		GridBagConstraints gbc_btnConsultar = new GridBagConstraints();
+		gbc_btnConsultar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnConsultar.gridx = 2;
+		gbc_btnConsultar.gridy = 6;
+		contentPane.add(btnConsultar, gbc_btnConsultar);
+
+		JButton btnNovoCadastro = new JButton("Novo Cadastro");
+		btnNovoCadastro.setEnabled(false);
+		GridBagConstraints gbc_btnNovoCadastro = new GridBagConstraints();
+		gbc_btnNovoCadastro.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNovoCadastro.gridx = 5;
+		gbc_btnNovoCadastro.gridy = 6;
+		contentPane.add(btnNovoCadastro, gbc_btnNovoCadastro);
+		
+	}
+
+	public JPanel getContentPane() {
+		return contentPane;
+	}
+
+	public void setContentPane(JPanel contentPane) {
+		this.contentPane = contentPane;
+	}
+
+	public JTextField getTfCPF() {
+		return tfCPF;
+	}
+
+	public void setTfCPF(JTextField tfCPF) {
+		this.tfCPF = tfCPF;
+	}
+
+	public JTextField getTfNome() {
+		return tfNome;
+	}
+
+	public void setTfNome(JTextField tfNome) {
+		this.tfNome = tfNome;
+	}
+
+	public JTextField getTfMatricula() {
+		return tfMatricula;
+	}
+
+	public void setTfMatricula(JTextField tfMatricula) {
+		this.tfMatricula = tfMatricula;
+	}
+}

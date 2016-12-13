@@ -1,0 +1,240 @@
+package br.com.alunosproject.cadastro.cadastros;
+
+import java.util.Date;
+
+public class Mae extends Pessoa {
+	private String nomeMae;
+	private String cpfMae;
+	private String rgMae;
+	private String profissaoMae;
+	private String localTrabalhoMae;
+	private String flagMae;
+	private String ruaMae;
+	private String bairroMae;
+	private String cidadeMae;
+	private String cepMae;
+	private String telefoneMae; 
+	private String celularMae;  
+	private String trabalhoMae; // job phone
+	private String emailMae;
+
+	
+	public Mae(){
+		this.setNomeMae(nomeMae);
+		this.setCpfMae(cpfMae);
+		this.setRgMae(rgMae);
+		this.setProfissaoMae(profissaoMae);
+		this.setTrabalhoMae(localTrabalhoMae);
+		this.setRuaMae(ruaMae);
+		this.setBairroMae(bairroMae);
+		this.setCidadeMae(cidadeMae);
+		this.setCepMae(cepMae);
+		this.setTelefoneMae(telefoneMae);
+		this.setCelularMae(celularMae);
+		this.setTrabalhoMae(trabalhoMae);
+		this.setEmailMae(emailMae);
+		this.setFlagMae(flagMae);
+		
+	}
+	
+	private void setRgMae(String rgMae) {
+		this.rgMae = rgMae;
+		
+	}
+	private String getRgMae(){
+		return rgMae;
+	}
+	
+	private void setProfissaoMae(String profissaoMae) {
+		this.profissaoMae = profissaoMae;
+		
+	}
+
+	private void setFlagMae(String flagMae) {
+		this.flagMae = flagMae;
+		
+	}
+
+	public void setCpfMae(String cpfMae) {
+		this.cpfMae = cpfMae;
+	}
+	
+	public String getCpfMae(){
+		return cpfMae;
+	}
+
+	public void setNomeMae(String nomeMae) {
+		this.nomeMae = nomeMae;
+	}
+	
+	public String getNomeMae(){
+		return nomeMae;
+	}
+	
+	public void setRuaMae(String RuaMae) {
+		this.ruaMae = ruaMae;
+	}
+	
+	public String getRuaMae(){
+		return ruaMae = ruaMae;
+	}
+
+	public void setBairroMae(String bairroMae) {
+		this.bairroMae = bairroMae;
+		
+	}
+	
+	public String getBairroMae(){
+		return bairroMae;
+	}
+	
+	public void setCidadeMae(String cidadeMae) {
+		this.cidadeMae = cidadeMae;		
+	}
+	
+	public String getCidadeMae(){
+		return cidadeMae;
+	}
+
+	public void setCepMae(String text) {
+		this.cepMae = cepMae;
+		
+	}
+
+	public String getCepMae(){
+		return cepMae = cepMae;
+	}
+	
+	public void setCelularMae(String celularMae) {
+		this.celularMae = celularMae;		
+	}
+	
+	public String getCelularMae(){
+		return celularMae;
+	}
+	
+	public void setEmailMae(String emailMae) {
+		this.emailMae = emailMae;
+		
+	}
+	
+	public String getEmailMae(){
+		return emailMae;
+	}
+	
+	
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
+
+	@Override
+	public String toString() {
+		return super.toString();
+	}
+
+	@Override
+	protected void finalize() throws Throwable {
+		super.finalize();
+	}
+
+
+
+	@Override
+	public String splitstring(String splited) {
+		return super.splitstring(splited);
+	}
+
+	@Override
+	public String splitDate(String s) {
+		return super.splitDate(s);
+	}
+
+	@Override
+	public String joinDate(String o) {
+		return super.joinDate(o);
+	}
+
+	@Override
+	public String converteDataToString(Date data) {
+		return super.converteDataToString(data);
+	}
+
+	@Override
+	public long getCpf() {
+		return super.getCpf();
+	}
+
+	@Override
+	public void setCpf(long cpf) {
+		super.setCpf(cpf);
+	}
+
+	@Override
+	public long getRg() {
+		return super.getRg();
+	}
+
+	@Override
+	public void setRg(long rg) {
+		super.setRg(rg);
+	}
+
+	@Override
+	public String getNome() {
+		return super.getNome();
+	}
+
+	@Override
+	public void setNome(String nome) {
+		super.setNome(nome);
+	}
+
+	@Override
+	public String getIdade() {
+		return super.getIdade();
+	}
+
+	@Override
+	public void setIdade(String idade) {
+		super.setIdade(idade);
+	}
+
+	@Override
+	public String getSexo() {
+		return super.getSexo();
+	}
+
+	@Override
+	public void setSexo(String sexo) {
+		super.setSexo(sexo);
+	}
+
+	public String getTelefoneMae() {
+		return telefoneMae;
+	}
+
+	public void setTelefoneMae(String telefoneMae) {
+		this.telefoneMae = telefoneMae;
+	}
+
+	public String getTrabalhoMae() {
+		return trabalhoMae;
+	}
+
+	public void setTrabalhoMae(String trabalhoMae) {
+		this.trabalhoMae = trabalhoMae;
+	}
+
+
+}

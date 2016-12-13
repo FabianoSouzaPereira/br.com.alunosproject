@@ -1,0 +1,1138 @@
+package br.com.alunosproject.dao;
+
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+
+import br.com.alunosproject.cadastro.cadastros.Aluno;
+import br.com.alunosproject.cadastro.cadastros.Mae;
+import br.com.alunosproject.cadastro.cadastros.OutroResponsavel;
+import br.com.alunosproject.cadastro.cadastros.Pai;
+import br.com.alunosproject.cadastro.cadastros.Pessoa;
+import br.com.alunosproject.cadastro.cadastros.responsaveis;
+
+
+public class Conexao {
+	
+	@SuppressWarnings("unused")
+	private Connection Connection = null;
+	
+	private final String INSERT_RESPONSAVEIS = 
+			" INSERT INTO responsaveis "
+			+ " (idResp)"
+			+ " value(?);";
+			
+	private final String INSERT_ALUNO = " INSERT INTO aluno "  //não inserido turma
+			+ "  (matriculaAluno,"
+			+ "  nomeAluno,"
+			+ "  apelidoAluno,"
+			+ "  sexoAluno,"
+			+ "  idadeAluno,"
+			+ "  periodoAluno,"
+			+ "  nacionalidadeAluno,"
+			+ "  naturalidadeAluno,"
+			+ "  dataNascimentoAluno,"
+			+ "  dataCadastroAluno,"   
+			+ "  dataAtualizacaoAluno,"
+			+ "  infoMedicaAluno,"
+			+ "  infoAdicionalAluno,"
+			+ "  relAfetivoAluno,"
+			+ "  flagAluno,"
+			+ "  status)"
+			+ "  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);" ;
+
+	private final String INSERT_ENDERECO_ALUNO = " INSERT INTO enderecoAluno"
+			+ "  (enderecoAluno,"
+			+ "  bairroAluno,"
+			+ "  cidadeAluno,"
+			+ "  estadoAluno,"
+			+ "  cepAluno)"
+			+ "  VALUES (?,?,?,?,?);";
+
+
+	private final String INSERT_TELEFONE_ALUNO = " INSERT INTO telefoneAluno"
+			+ "  (celularAluno,"
+			+ "  casaAluno,"
+			+ "  trabalhoAluno)"
+			+ "  VALUES (?,?,?);";
+
+	private final String INSERT_EMAIL_ALUNO = " INSERT INTO emailAluno"
+			+ "  (emailAluno,"
+			+ "  email2Aluno,"
+			+ "  emailTrabalhoAluno)"
+			+ "  VALUES (?,?,?);";
+
+																
+	private final String INSERT_PAI =  "INSERT INTO pai "
+			+ " (cpfPai,"
+			+ " rgPai,"
+			+ " nomePai,"
+			+ " dataNascimentoPai,"
+			+ " profissaoPai,"
+			+ " localTrabalhoPai,"
+			+ " nacionalidadePai,"
+			+ " naturalidadePai)"
+		 	+ " VALUES (?,?,?,?,?,?,?,?);";
+
+	public final String INSERT_ENDERECO_PAI = "INSERT INTO enderecopai "
+			 + " (enderecoPai,"
+			 + " bairroPai,"
+		     + " cidadePai,"
+		     + " estadoPai,"
+			 + " cepPai)"
+		 	 + " VALUES (?,?,?,?,?);";
+
+		       
+	public final String INSERT_TELEFONE_PAI = " INSERT INTO telefonepai"
+			 + "  (CelularPai,"
+		 	 + "  CasaPai,"
+		 	 + "  TrabalhoPai)"
+		 	 + "  VALUES (?,?,?);";
+
+	public final String INSERT_EMAIL_PAI = " INSERT INTO emailPai"
+			+ " (emailPai,"
+		 	+ " email2Pai,"
+		 	+ " emailTrabalhoPai)"
+		 	+ " VALUES (?,?,?);";
+			
+		
+	
+	private final String INSERT_MAE = "INSERT INTO mae "
+		+ "  (cpfMae,"
+		+ "  rgMae,"
+		+ "  nomeMae,"
+		+ "  dataNascimentoMae,"
+		+ "  profissaoMae,"
+		+ "  localTrabalhoMae,"
+		+ "  nacionalidadeMae,"
+		+ "  naturalidadeMae)"
+		+ "  VALUES (?,?,?,?,?,?,?,?);";
+	
+	private final String INSERT_ENDERECO_MAE = 	" INSERT INTO enderecomae"
+		+ " (EnderecoMae,"
+		+ "  bairroMae,"
+		+ "  cidadeMae,"
+		+ "  estadoMae,"
+		+ "  cepMae)"
+		+ "  VALUES (?,?,?,?,?);";
+	
+	private final String INSERT_TELEFONE_MAE =  " INSERT INTO telefonemae"
+		+ "  (CelularMae,"
+		+ "  CasaMae,"
+		+ "  TrabalhoMae)"
+		+ "  VALUES (?,?,?);";
+	
+	private final String INSERT_EMAIL_MAE =  " INSERT INTO emailmae"
+		+ "  (emailMae,"
+		+ "  email2Mae,"
+		+ "  emailTrabalhoMae)"
+		+ "  VALUES (?,?,?);";
+	
+	
+	private final String INSERT_OUTRO = "INSERT INTO outroresponsavel "
+			+ "  (cpfOutroResp,"
+ 			+ "  rgOutroResp,"
+ 			+ "  nomeOutroResp,"
+ 			+ "  dataNascimentoOutroResp,"
+ 			+ "  profissaoOutroresp,"
+ 			+ "  localTrabalhoOutroResp,"
+ 			+ "  nacionalidadeOutroResp,"
+ 			+ "  naturalidadeOutroResp)"
+  			+ "  VALUES (?,?,?,?,?,?,?,?);";
+
+	private final String INSERT_ENDERECO_OUTRO = "  INSERT INTO enderecoOutroresp"
+			+ "   (EnderecoOutroResp,"
+			+ "   bairroOutroResp,"
+			+ "   cidadeOutroResp,"
+			+ "   estadoOutroResp,"
+			+ "   cepOutroResp)"
+			+ "   VALUES (?,?,?,?,?);";
+
+	private final String INSERT_TELEFONE_OUTRO =  "  INSERT INTO telefoneoutroresp"
+			+ "  (celularOutroResp,"
+			+ "  casaOutroResp,"
+			+ "  trabalhoOutroresp)"
+			+ "  VALUES (?,?,?);";
+
+	private final String INSERT_EMAIL_OUTRO =  "  INSERT INTO emailoutroresp"
+			+ "   emailOutroresp,"
+			+ "   email2Outroresp,"
+			+ "   emailTrabalhoOutroresp)"
+			+ "   VALUES (?,?,?)";
+	
+	
+	private final String INSERT_PROFESSOR = "INSERT INTO professor"
+			+ " cpfProfessor,"
+			+ " rgProfessor,"
+			+ " nomeProfessor,"
+			+ " disciplina,"
+			+ " qualificacao,"
+			+ " dataCadastro,"
+			+ " dataNascimento,"
+			+ " flagProfessor)"
+			+ " VALUES (?,?,?,?,?,?,?,?);";
+
+	private final String INSERT_ENDERECO_PROFESSOR = " INSERT INTO enderecoprofessor"
+			+ " endereco,"
+			+ " bairro,"
+			+ " cidade,"
+			+ " cep)"
+			+ " VALUES (?,?,?,?);";
+
+	private final String INSERT_TELEFONE_PROFESSOR =  " INSERT INTO telefoneprofessor"
+			+ "  celularprofessor,"
+			+ "  casaProfessor,"
+			+ "  TrabalhoProfessor)"
+			+ "  VALUES (?,?,?);";
+
+	private final String INSERT_EMAIL_PROFESSOR = " INSERT INTO emailprofessor"
+			+ "  emailprofessor,"
+			+ "  email2professor,"
+			+ "  emailTrabalhoprofessor)"
+			+ "  VALUES (?,?,?);";
+
+			
+	private final String INSERT_TURMA = "INSERT INTO turma"
+			+ " (qtdAlunos,"
+			+ " serieturma,"
+			+ " nometurma)"
+			+ " VALUES (?,?,?);";
+	
+										
+//	Aluno a = new Aluno();								
+	private int idaluno =  Aluno.getId();
+	private final String UPDATE_ALUNO = "UPDATE aluno SET " 
+			+ "  nomeAluno,"
+			+ "  sexoAluno,"
+			+ "  idadeAluno,"
+			+ "  cbIdade,"
+			+ "  dataNascimentoAluno,"
+			+ "  dataAtualizacaoAluno,"
+			+ "  infoMedicaAluno,"
+			+ "  infoAdicionalAluno,"
+			+ "  relAfetivoAluno,"
+			+ "  flagAluno)"
+			+ "  VALUES (?,?,?,?,?,?,?,?,?,?);"
+
+			+ " UPDATE enderecoAluno SET "
+			+ "  (enderecoAluno,"
+			+ "  bairroAluno,"
+			+ "  cidadeAluno,"
+			+ "  cepAluno)"
+			+ "  VALUES (?,?,?,?);"
+
+
+			+ " UPDATE telefoneAluno SET "
+			+ "  (CelularAluno,"
+			+ "  CasaAluno,"
+			+ "  TrabalhoAluno)"
+			+ "  VALUES (?,?,?);"
+
+			+ " UPDATE emailAluno ALUNO "
+			+ "  (emailAluno,"
+			+ "  email2Aluno,"
+			+ "  emailTrabalhoAluno)"
+			+ "  VALUES (?,?,?);";
+	
+	private final String UPDATE_PAI = "UPDATE 	pai SET "
+			+ " nomePai,"
+		 	+ " cpfPai," 
+		 	+ " profissaoPai,"
+		 	+ " localTrabalhoPai,"
+		 	+ " rgPai,"
+		 	+ " flagPai)"
+		 	+ " VALUES (?,?,?,?,?,?);"
+
+		+ " UPDATE enderecopai SET "
+			 + " ruaPai,"
+			 + " bairroPai,"
+		     + " cidadePai,"
+			 + " cepPai)"
+		 	 + " VALUES (?,?,?,?);"
+
+		       
+			+ " INSERT INTO telefonepai"
+			 + "  CelularPai,"
+		 	 + "  CasaPai,"
+		 	 + "  TrabalhoPai)"
+		 	 + "  VALUES (?,?,?);"
+
+		+ " INSERT INTO emailPai"
+			+ " emailPai,"
+		 	+ " email2Pai,"
+		 	+ " emailTrabalhoPai)"
+		 	+ " VALUES (?,?,?);"
+			+ " WHERE idAluno = ?;";
+	
+	private final String UPDATE_MAE = "UPDATE mae SET "
+			+ "  cpfMae,"
+			+ "  rgMae,"
+			+ "  nomeMae,"
+			+ "  localTrabalhoMae,"
+			+ "  profissaoMae,"
+			+ "  flagMae)"
+			+ "  VALUES (?,?,?,?,?,?)"
+			+ "  WHERE idAluno = ?;"
+
+			+ " UPDATE enderecomae SET"
+			+ " (ruaMae,"
+			+ "  bairroMae,"
+			+ "  cidadeMae,"
+			+ "  cepMae)"
+			+ "  VALUES (?,?,?,?)"
+			+ "  WHERE idAluno = ?;"
+
+			+ "  INSERT INTO telefonemae SET"
+			+ "  (CelularMae,"
+			+ "  CasaMae,"
+			+ "  TrabalhoMae)"
+			+ "  VALUES (?,?,?)"
+			+ "  WHERE idAluno = ?;"
+
+			+ " INSERT INTO emailmae SET"
+			+ "  (emailMae,"
+			+ "  email2Mae,"
+			+ "  emailTrabalhoMae)"
+			+ "  VALUES (?,?,?)"
+			+ " WHERE idAluno = ?;";
+	
+	private final String UPDATE_OUTRORESPONSAVEL = "UPDATE outroresponsavel SET"
+			+ "  (nomeOutroResp,"
+ 			+ "  cpfOutroResp,"
+ 			+ "  rgOutroResp,"
+ 			+ "  profissaoOutroresp,"
+ 			+ "  localTrabalhoOutroResp,"
+ 			+ "  flagOutroResp)"
+ 			+ "  VALUES (?,?,?,?,?,?)"
+ 			+ " WHERE idAluno = ?;"
+
+			+ "  UPDATE enderecoOutroresp SET "
+			+ "   (ruaOutroResp,"
+			+ "   bairroOutroResp,"
+			+ "   cidadeOutroResp,"
+			+ "   cepOutroResp)"
+			+ "   VALUES (?,?,?,?)"
+			+ "   WHERE idAluno = ?;"
+
+			+ "  UPDATE telefoneoutroresp SET"
+			+ "  (Celularoutroresp,"
+			+ "  Casaoutroresp,"
+			+ "  Trabalhooutroresp)"
+			+ "  VALUES (?,?,?)"
+			+ "  WHERE idAluno = ?;"
+
+			+ "  UPDATE emailoutroresp SET "
+			+ "   emailOutroresp,"
+			+ "   email2Outroresp,"
+			+ "   emailTrabalhoOutroresp)"
+			+ "   VALUES (?,?,?)"
+			+ " WHERE idAluno = ?;";
+	
+	private final String UPDATE_PROFESSOR = "UPDATE professor SET "
+			+ " cpfProfessor,"
+			+ " rgProfessor,"
+			+ " nomeProfessor,"
+			+ " disciplina,"
+			+ " qualificacao,"
+			+ " dataCadastro,"
+			+ " dataNascimento,"
+			+ " flagProfessor)"
+			+ " VALUES (?,?,?,?,?,?,?,?)"
+			+ " WHERE idAluno = ?;"
+
+			+ " UPDATE enderecoprofessor SET "
+			+ " rua,"
+			+ " bairro,"
+			+ " cidade,"
+			+ " cep)"
+			+ " VALUES (?,?,?,?)"
+			+ " WHERE idAluno = ?;"
+
+			+ " UPDATE telefoneprofessor SET "
+			+ "  celularprofessor,"
+			+ "  casaProfessor,"
+			+ "  TrabalhoProfessor)"
+			+ "  VALUES (?,?,?)"
+			+ " WHERE idAluno = ?;"
+
+			+ " UPDATE emailprofessor SET "
+			+ "  emailprofessor,"
+			+ "  email2professor,"
+			+ "  emailTrabalhoprofessor)"
+			+ "  VALUES (?,?,?)"
+			+ " WHERE idAluno = ?;";
+			
+	private final String UPDATE_TURMA = "INSERT INTO turma"
+			+ " (qtdAlunos,"
+			+ " serieturma,"
+			+ " nometurma)"
+			+ " VALUES (?,?,?);";
+	
+	private final String DELETE_REGISTRO = 
+	
+			"DELETE FROM ALUNO WHERE idAluno = ?;"
+
+			+ "DELETE FROM EMAILALUNO WHERE idEmailAluno = ?;"
+
+			+ "DELETE FROM EMAILMAE WHERE idEmailMae = ?;"
+
+			+ "DELETE FROM EMAILOUTRORESP WHERE idEmailOutroresp = ?;"
+
+			+ "DELETE FROM EMAILPAI WHERE idEmailPai = ?;"
+
+			+ "DELETE FROM EMAILPROFESSOR WHERE idEmailProfessor = ?;"
+
+			+ "DELETE FROM ENDERECOALUNO WHERE idEnderecoAluno = ?;"
+
+			+ "DELETE FROM ENDERECOMAE WHERE idEnderco = ?;"
+
+			+ "DELETE FROM ENDERECOOUTRORESP WHERE idEnderecooutroresp = ?;"
+
+			+ "DELETE FROM ENDERECOPAI WHERE idEnderecoPai = ?;"
+
+			+ "DELETE FROM ENDERECOPROFESSOR WHERE idEnderecoProfessor = ?;"
+
+			+ "DELETE FROM MAE WHERE idMae = ?;"
+
+			+ "DELETE FROM PAI WHERE idPai = ?;"
+
+			+ "DELETE FROM OUTRORESPONSAVEL WHERE idOutroresp = ?;"
+
+			+ "DELETE FROM TELEFONEPAI WHERE idTelefonePai = ?;"
+
+			+ "DELETE FROM TELEFONEALUNO WHERE idTelefone = ?;"
+
+			+ "DELETE FROM TELEFONEMAE WHERE idTelefone = ?;"
+
+			+ "DELETE FROM TELEFONEOUTRORESP WHERE idTelefoneOutroresp = ?;"
+
+			+ "DELETE FROM PROFESSOR WHERE idTelefoneProfessor = ?;"
+
+			+ "DELETE FROM TURMA WHERE idTurma = ?;";
+
+
+	private final String LISTALUNO = 
+			"SELECT idAluno as IdAluno,"
+			+ " nomeAluno as NomeAluno,"
+			+ " sexoAluno as SexoAluno,"
+			+ " idadeAluno as IdadeAluno, "
+			+ " dataCadastroAluno as DataCadastro,"
+			+ " dataNascimentoAluno as DataNascimento,"
+			+ " dataAtualizacaoAluno as DataAtualizacao,"
+			+ " infoMedicaAluno as InfoMedica,"
+			+ " infoAdicionalAluno as InfoAdicional,"
+			+ " relAfetivoAluno as RelAfetivo,"
+			+ " matriculaAluno as MatriculaAluno,"
+			+ " enderecoAluno as Endereco,"
+			+ " bairroAluno as Bairro, "
+			+ " cidadeAluno as Cidade,"
+			+ " cepAluno as Cep,"
+			+ " idTurma as IdTurma"
+			+ " FROM aluno as a "
+			+ " INNER JOIN telefonealuno as b "
+			+ " ON b.IdTelefoneAluno = a.IdAluno"
+			+ " INNER JOIN enderecoaluno as c"
+			+ " ON c.IdEnderecoAluno = a.IdAluno"
+			+ " INNER JOIN emailaluno as d"
+			+ " ON d.IdEmailAluno = c.IdEnderecoAluno";
+			
+
+	private final String LIST_PAI = 
+			"SELECT a.* , b.* , c.* , d.* "
+			+ " FROM pai a "
+			+ " join enderecoPai b "
+			+ " on a.idPai = b.idEnderecoPai "
+			+ " join telefonePai c "
+			+ " on b.idEnderecoPai = c.idTelefonePai "
+			+ " join emailPai d "
+			+ " on c.idTelefonePai = d.idEmailPai "
+			+ " where a.idPai = ?;";
+	
+	private final String LIST_MAE = 
+			"SELECT DISTINCT a.* , b.* , c.* , d.* "
+			+"FROM mae a "
+			+"JOIN enderecomae b "
+			+"on a.idMae = b.idEnderecoMae "
+			+"JOIN telefonemae c "
+			+"on b.idEnderecoMae = c.idTelefoneMae "
+			+"JOIN emailmae d "
+			+"ON c.idTelefoneMae = d.idEmailMae "
+			+"where a.idMae = ?;";
+	
+	
+	private final String LIST_OUTRO = "SELECT idOutroResp FROM outroresponsavel WHERE cpfOutroresp = ?;";
+	
+	private final String LIST = 
+			"SELECT idAluno,"
+			+ " idTurma,"
+			+ "  nomeAluno,"
+			+ "  sexoAluno,"
+			+ "  idadeAluno,"
+			+ "  dataCadastroAluno,"
+			+ "  dataNascimentoAluno,"
+			+ "  dataAtualizacaoAluno,"
+			+ "  infoMedicaALuno,"
+			+ "  infoAdicionalAluno,"
+			+ "  relAfetivoAluno,"
+			+ "  matriculaAluno"
+			+ " FROM "
+			+ "  aluno "
+			+ " WHERE idAluno = ?;";
+			
+			
+	private final String LISTBYID = // "SELECT * FROM ALUNO WHERE idAluno =  ?; ";
+			"SELECT DISTINCT a.*,b.*,c.*, d.* , e.* "
+		+	"FROM aluno a "
+		+	"join enderecoaluno b "
+		+	"ON  a.idAluno= b.idEnderecoAluno "
+		+	"JOIN telefonealuno c "
+		+	"on c.idTelefoneAluno = b.idEnderecoAluno "
+		+	"join emailaluno d " 
+		+	"on d.idEmailAluno = c.idTelefoneAluno "
+		+   "join pai e "
+		+   "on e.idPai = d.idEmailAluno "
+		+	"WHERE A.idAluno=?;";
+
+	private final String LISTSELECTED = "SELECT * " 
+								+"	FROM aluno  a , telefonealuno t , enderecoaluno e , emailaluno em "
+								+"	WHERE a.idAluno = t.idTelefoneAluno = e.idEnderecoAluno = em.idEmailAluno = ?;";
+	
+	
+	private final String MAXVALOR = "SELECT MAX(matriculaAluno) FROM alunos;";
+	
+	private final String FINDCPFPAI = "SELECT 	idPai as IdPai FROM pai where cpfPai = ?;";
+
+									
+	
+	private final String LISTAPESQUISA = "select * from aluno where idaluno = ?";
+			
+										
+
+	
+									
+	public void inserir(Aluno aluno){
+		if (aluno != null) {
+			 
+		 try {
+				Connection conn = ConnectionFactory.getConnection();  
+				PreparedStatement pstm;
+				pstm = conn.prepareStatement(INSERT_RESPONSAVEIS);
+				
+				pstm.setInt(1, aluno.getIdResp());
+				pstm.execute();
+				pstm.clearParameters();	
+				pstm = conn.prepareStatement(INSERT_ALUNO);
+				pstm.setInt(1, aluno.getMatricula());
+				pstm.setString(2, aluno.getNome());
+				pstm.setString(3, aluno.getApelido());
+				pstm.setString(4, aluno.getSexo());
+				pstm.setString(5, aluno.getIdade());
+				pstm.setString(6, aluno.getCbIdade());
+				pstm.setString(7, aluno.getNacionalidade());
+				pstm.setString(8, aluno.getNaturalidade());
+				pstm.setString(9, aluno.getDataNasc());
+				pstm.setString(10, aluno.getDataCadastro());
+				pstm.setString(11, aluno.getDataAtualizacao());
+				pstm.setString(12, aluno.getInfoMedica());
+				pstm.setString(13, aluno.getInfoAdicional());
+				pstm.setString(14, aluno.getRelAfetivo());
+				pstm.setString(15, aluno.getFlagAluno());
+				pstm.setInt(16, aluno.getStatus());
+				pstm.execute();
+				pstm.clearParameters();
+				pstm = conn.prepareStatement(INSERT_ENDERECO_ALUNO);
+				pstm.setString(1, aluno.getEndereco());
+				pstm.setString(2, aluno.getBairro());
+				pstm.setString(3, aluno.getCidade());
+				pstm.setString(4, aluno.getEstado());
+				pstm.setString(5, aluno.getCep());
+				pstm.execute();
+				pstm.clearParameters();	
+				pstm = conn.prepareStatement(INSERT_TELEFONE_ALUNO);
+				pstm.setString(1, aluno.getCelular());
+				pstm.setString(2, aluno.getTelefone());
+				pstm.setString(3, aluno.getFonetrabalho());
+				pstm.execute();
+				pstm.clearParameters();	
+				pstm = conn.prepareStatement(INSERT_EMAIL_ALUNO);							
+				pstm.setString(1, aluno.getEmail());
+				pstm.setString(2, aluno.getEmail2());
+				pstm.setString(3, aluno.getEmailtrabalhoAluno());
+				
+				pstm.execute();
+				
+				JOptionPane.showMessageDialog(null, "Aluno cadastrado com sucesso");
+		//		getAlunos();
+				ConnectionFactory.fechaConexao(conn, pstm); 
+		
+
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Erro ao inserir Aluno no banco de "
+						+ "dados " + e.getMessage());
+			}
+		} else {
+			System.out.println("O Aluno enviado por parâmetro está vazio");
+		}
+	}
+	
+	public void inserir(Pai pai){
+		if (pai != null){
+			try {
+				Connection conn = ConnectionFactory.getConnection();  
+				PreparedStatement pstm;
+				pstm = conn.prepareStatement(INSERT_PAI);
+				
+				pstm.setString(1, Pessoa.MaskFormatterPull(pai.getCpfPai()));
+				pstm.setString(2, pai.getRgPai());
+				pstm.setString(3, pai.getNomePai());
+				pstm.setString(4, pai.getDataNascimentoPai());
+				pstm.setString(5, pai.getProfissaoPai());
+				pstm.setString(6, pai.getLocaltrabalhoPai());
+				pstm.setString(7, pai.getNacionalidadePai());
+				pstm.setString(8, pai.getNaturalidadePai());
+	
+				pstm.execute();
+				pstm.clearParameters();
+				pstm = conn.prepareStatement(INSERT_ENDERECO_PAI);
+				pstm.setString(1, pai.getEnderecoPai());
+				pstm.setString(2, pai.getBairroPai());
+				pstm.setString(3, pai.getCidadePai());
+				pstm.setString(4, pai.getCepPai());
+				
+				pstm.execute();
+				pstm.clearParameters();
+				pstm = conn.prepareStatement(INSERT_TELEFONE_PAI);
+				pstm.setString(1, pai.getCelularPai());
+				pstm.setString(2, pai.getTelefonePai());
+				pstm.setString(3, pai.getFoneTabalhoPai());
+				
+				pstm.execute();
+				pstm.clearParameters();
+				pstm = conn.prepareStatement(INSERT_EMAIL_PAI);
+				pstm.setString(1, pai.getEmailPai());
+				pstm.setString(2, pai.getEmail2Pai());
+				pstm.setString(3, pai.getEmailTrabalhoPai());
+				
+				pstm.execute();
+				
+				JOptionPane.showMessageDialog(null, "Pai do aluno cadastrado com sucesso");
+		//		getAlunos();
+				ConnectionFactory.fechaConexao(conn, pstm); 
+		
+
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Erro ao inserir informações sobre os Pai da criança no banco de "
+						+ "dados " + e.getMessage());
+			}
+		} else {
+			System.out.println("O campo nome da Pai enviado está vazio");
+		}
+	}
+	
+	public void inserir(Mae mae){
+		if(mae != null){
+			try {
+				Connection conn = ConnectionFactory.getConnection();  
+				PreparedStatement pstm;
+				pstm = conn.prepareStatement(INSERT_MAE);
+				
+				 
+				pstm.setString(1, mae.getCpfMae()); 
+				pstm.setString(2, mae.getRgMae());
+				pstm.setString(3, mae.getNomeMae());
+				pstm.setString(4, mae.getDataNascimentoMae());
+				pstm.setString(5, mae.getProfissaoMae()); 
+				pstm.setString(6, mae.getLocalTrabalhoMae());
+				pstm.setString(7, mae.getNacionalidadeMae());
+				pstm.setString(8, mae.getNaturalidadeMae());
+						
+				pstm.execute();
+		/*		pstm.clearParameters();
+				pstm = conn.prepareStatement(INSERT_ENDERECO_MAE);
+				pstm.setString(1,  mae.getEnderecoMae());
+				pstm.setString(2,  mae.getBairroMae());
+				pstm.setString(3,  mae.getCidadeMae());
+				pstm.setString(4,  mae.getCepMae());
+				
+				pstm.execute();
+				pstm.clearParameters();
+				pstm = conn.prepareStatement(INSERT_TELEFONE_MAE);
+				pstm.setString(1,  mae.getCelularMae());
+				pstm.setString(2,  mae.getTelefoneMae());
+				pstm.setString(3,  mae.getfoneTrabalhoMae());
+				
+				pstm.execute();
+				pstm.clearParameters();
+				pstm = conn.prepareStatement(INSERT_EMAIL_MAE);
+				pstm.setString(1,  mae.getEmailMae());
+				pstm.setString(2,  mae.getEmail2Mae());
+				pstm.setString(3, mae.getEmailTrabalhoMae());
+				
+				pstm.execute();
+		*/		
+				JOptionPane.showMessageDialog(null, "Mãe do aluno cadastrado com sucesso");
+			//	getAlunos();
+				ConnectionFactory.fechaConexao(conn, pstm); 
+				
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Erro ao inserir informações sobre a Mãe da criança no banco de "
+						+ "dados " + e.getMessage());
+			}
+		} else {
+			System.out.println("O campo nome da Mãe enviado está vazio");
+		}
+	}
+	
+	public void inserir(OutroResponsavel outro){
+		if(outro != null){
+			try {
+				Connection conn = ConnectionFactory.getConnection();  
+				PreparedStatement pstm;
+				pstm = conn.prepareStatement(INSERT_OUTRO);
+				
+				pstm.setString(1, outro.getCpfOutroResp()); 
+				pstm.setString(2, outro.getRgOutroResp());
+				pstm.setString(3, outro.getNomeOutroResp());
+				pstm.setString(4, outro.getDataNascimentoOutroResp());
+				pstm.setString(5, outro.getProfissaoOutroresp()); 
+				pstm.setString(6, outro.getLocalTrabalhoOutroResp()); 
+				pstm.setString(7, outro.getNacionalidadeOutroResp());
+				pstm.setString(8, outro.getNaturalidadeOutroResp());
+						
+				pstm.execute();
+	/*			pstm.clearParameters();
+				pstm = conn.prepareStatement(INSERT_ENDERECO_OUTRO);
+				pstm.setString(1, outro.getEnderecoOutroResp());
+				pstm.setString(2, outro.getBairroOutroResp());
+				pstm.setString(3, outro.getCidadeOutroResp());
+				pstm.setString(4, outro.getCepOutroResp());
+				
+				pstm.execute();
+				pstm.clearParameters();
+				pstm = conn.prepareStatement(INSERT_TELEFONE_OUTRO);
+				pstm.setString(1, outro.getCelularOutroResp());
+				pstm.setString(2, outro.getTelefoneOutroResp());
+				pstm.setString(3, outro.getFoneTrabalhoOutroResp());
+				
+				pstm.execute();
+				pstm.clearParameters();
+				pstm = conn.prepareStatement(INSERT_EMAIL_OUTRO);
+				pstm.setString(1, outro.getEmailOutroResp());
+				pstm.setString(2, outro.getEmail2OutroResp());
+				pstm.setString(3, outro.getEmailTrabalhoOutroResp());
+				
+				pstm.execute();
+		*/		
+				JOptionPane.showMessageDialog(null, "Outro Responsável do aluno cadastrado com sucesso");
+			//	getAlunos();
+				ConnectionFactory.fechaConexao(conn, pstm); 
+				
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Erro ao inserir informações sobre o Outro responsável da criança no banco de "
+						+ "dados " + e.getMessage());
+			}
+		} else {
+			System.out.println("O campo nome do Responsável enviado está vazio");
+		}
+	}
+	
+	public void atualizar(Aluno aluno){
+		if (aluno != null) {
+			 
+			 try {
+					Connection conn = ConnectionFactory.getConnection();  
+					PreparedStatement pstm;
+					pstm = conn.prepareStatement(UPDATE_ALUNO);
+					pstm.setString(1, aluno.getNome());
+					pstm.setString(2, aluno.getApelido());
+					pstm.setString(3, aluno.getIdade());
+					pstm.setString(4, aluno.getCbIdade());
+					pstm.setString(5, aluno.getSexo());
+					pstm.setString(6, aluno.getPai());
+					
+					pstm.setString(7, aluno.getMae());
+					pstm.setString(8, aluno.getOutResp());
+					pstm.setString(9, aluno.getDataNasc());
+					pstm.setString(10, aluno.getNacionalidade());
+					pstm.setString(11, aluno.getNaturalidade());
+					
+					pstm.setString(12, aluno.getEndereco());
+					pstm.setString(13, aluno.getBairro());
+					pstm.setString(14, aluno.getCidade());
+					pstm.setString(15, aluno.getCep());
+					pstm.setString(16, aluno.getRelAfetivo());
+					
+					pstm.setString(17, aluno.getInfoAdicional());
+					pstm.setString(18, aluno.getDataAtualizacao());
+					pstm.setString(19, aluno.getFoto());
+							
+					pstm.setString(20, aluno.getTelefone());
+					pstm.setString(21, aluno.getCelular());
+				//	pstm.setInt(22, aluno.getId());
+					pstm.execute();
+										
+					JOptionPane.showMessageDialog(null, "Aluno alterado com sucesso");
+					ConnectionFactory.fechaConexao(conn, pstm); 
+				
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "Erro ao alterar Aluno no banco de "
+							+ "dados " + e.getMessage());
+				}
+			} else {
+				System.out.println("As informações enviadas estão vazias, verifique sua inserção!");
+			}
+	}
+	
+	public void apagar(int id){
+		
+		try {
+			Connection conn = ConnectionFactory.getConnection();  
+			PreparedStatement pstm;
+			pstm = conn.prepareStatement(DELETE_REGISTRO);
+
+			pstm.setInt(1, id);
+			pstm.setInt(2, id);
+
+			pstm.execute();
+			JOptionPane.showMessageDialog(null, "Excluido Aluno com sucesso");
+			ConnectionFactory.fechaConexao(conn, pstm);
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Erro ao excluir Aluno do banco de "
+					+ "dados " + e.getMessage());
+		}
+		
+	}
+	
+	public List<Aluno> getAlunos() {
+		Connection conn = null; 
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		ArrayList<Aluno> alunos = new ArrayList<Aluno>();
+		try {
+			conn = ConnectionFactory.getConnection(); 
+			pstm = conn.prepareStatement(LISTALUNO);
+			rs = pstm.executeQuery();
+	
+						
+			while (rs.next()) {
+				Aluno aluno = new Aluno();
+				
+				Aluno.setId(rs.getInt("idAluno"));
+				aluno.setMatricula(rs.getInt("matriculaAluno"));
+				aluno.setNome(rs.getString("nomeAluno"));
+				aluno.setApelido(rs.getString("apelidoAluno"));
+				aluno.setIdade(rs.getString("idadeAluno"));
+				aluno.setCbIdade(rs.getString("cbIdadeAluno"));
+				
+				aluno.setSexo(rs.getString("sexoAluno"));
+				aluno.setPai(rs.getString("paiAluno"));
+				aluno.setMae(rs.getString("maeAluno"));
+				aluno.setOutResp(rs.getString("outRespAluno"));
+				aluno.setDataNasc(rs.getString("dataNascAluno"));
+				
+				aluno.setNacionalidade(rs.getString("nacionalidadeAluno"));
+				aluno.setNaturalidade(rs.getString("naturalidadeAluno"));
+				aluno.setEndereco(rs.getString("endAluno"));
+				aluno.setBairro(rs.getString("bairAluno"));
+				aluno.setCidade(rs.getString("cidAluno"));
+				
+				aluno.setCep(rs.getString("cepAluno"));
+				aluno.setRelAfetivo(rs.getString("relAfetivoAluno"));
+				aluno.setInfoAdicional(rs.getString("infoAdicionalAluno"));
+				aluno.setDataCadastro(rs.getString("dataCadastroAluno"));
+				aluno.setDataAtualizacao(rs.getString("dataAtualizacaoAluno"));
+				
+				aluno.setTelefone(rs.getString("telefonesAluno"));
+				aluno.setCelular(rs.getString("celularAluno"));
+				aluno.setStatus(rs.getInt("status"));	
+				alunos.add(aluno);
+				
+			}
+			ConnectionFactory.fechaConexao(conn, pstm, rs); 
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Erro ao listar alunos " + e.getMessage());
+		}
+		return alunos;
+	}
+	
+	
+		public Aluno getAlunoById(int id) {
+			
+			PreparedStatement pstm = null;
+			ResultSet rs = null;
+			Aluno aluno = new Aluno();
+
+			try {
+				Connection conn = ConnectionFactory.getConnection();
+				pstm = conn.prepareStatement(LISTBYID);
+				pstm.setInt(1, id);
+				rs = pstm.executeQuery();
+				
+				while (rs.next()) {
+					
+					Aluno.setId(rs.getInt("idAluno"));
+					aluno.setMatricula(rs.getInt("matriculaAluno"));
+					aluno.setNome(rs.getString("nomeAluno"));
+					aluno.setApelido(rs.getString("apelidoAluno"));
+					aluno.setIdade(rs.getString("idadeAluno"));
+					aluno.setCbIdade(rs.getString("periodoAluno"));
+					aluno.setSexo(rs.getString("sexoAluno"));
+					aluno.setDataNasc(Pessoa.splitDate(rs.getString("dataNascimentoAluno")));
+					
+					aluno.setNacionalidade(rs.getString("nacionalidadeAluno"));
+					aluno.setNaturalidade(rs.getString("naturalidadeAluno"));
+					aluno.setEndereco(rs.getString("enderecoAluno"));
+					aluno.setBairro(rs.getString("bairroAluno"));
+					aluno.setCidade(rs.getString("cidadeAluno"));
+					
+					aluno.setCep(rs.getString("cepAluno"));
+					aluno.setRelAfetivo(rs.getString("relAfetivoAluno"));
+					aluno.setInfoAdicional(rs.getString("infoAdicionalAluno"));
+					aluno.setDataCadastro(Pessoa.splitDate(rs.getString("dataCadastroAluno")));
+					aluno.setDataAtualizacao(Pessoa.splitDate(rs.getString("dataAtualizacaoAluno")));
+								
+					aluno.setTelefone(rs.getString("casaAluno"));
+					aluno.setCelular(rs.getString("celularAluno"));
+					aluno.setFonetrabalho("trabalhoAluno");
+					aluno.setEmail(rs.getString("emailAluno"));
+					aluno.setEmail2(rs.getString("email2Aluno"));
+					aluno.setEmailtrabalhoAluno("emailtrabalhoAluno");
+					
+									
+				}
+				ConnectionFactory.fechaConexao(conn, pstm, rs); 
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Erro ao listar alunos " + e.getMessage());
+			}
+			return aluno;
+		}
+		
+		
+
+		public Pai getPaiById(int id){
+			PreparedStatement pstm = null;
+			ResultSet rs = null;
+			Pai p = new Pai();
+					
+			try {
+				Connection conn = ConnectionFactory.getConnection(); 
+				pstm = conn.prepareStatement(LIST_PAI);
+				pstm.setInt(1, id);
+				rs = pstm.executeQuery();
+			
+				while (rs.next()) {
+					
+			p.setIdPai(rs.getInt("idPai"));
+			p.setCpfPai(rs.getString("cpfPai"));
+			p.setRg(rs.getString("rgPai"));
+			p.setNomePai(rs.getString("nomePai"));
+			p.setEnderecoPai(rs.getString("enderecoPai"));
+			p.setBairroPai(rs.getString("bairroPai"));
+			p.setCidadePai(rs.getString("cidadePai"));
+			p.setCepPai(rs.getString("cepPai"));
+			p.setLocaltrabalhaoPai(rs.getString("LocalTrabalhoPai"));
+			p.setProfissaoPai(rs.getString("profissaoPai"));
+			p.setCelularPai(rs.getString("celularPai")); 
+			p.setTelefonePai(rs.getString("casaPai")); 
+			p.setFoneTabalhoPai(rs.getString("TrabalhoPai"));
+			p.setEmailPai(rs.getString("emailPai"));
+			p.setEmail2Pai(rs.getString("email2Pai"));
+			p.setEmailTrabalhoPai(rs.getString("emailTrabalhoPai"));
+			p.setDataNascimentoPai(Pessoa.splitDate(rs.getString("dataNascimentoPai")));
+			p.setNacionalidadePai(rs.getString("nacionalidadePai"));
+			p.setNaturalidadePai(rs.getString("naturalidadePai"));
+		
+			
+			}
+			ConnectionFactory.fechaConexao(conn, pstm, rs); 
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Erro ao listar informações sobre os pais " + e.getMessage());
+		}
+		return p;
+
+		}
+		
+		public Mae getMaesById(int id){
+			PreparedStatement pstm = null;
+			ResultSet rs = null;
+			Mae m = new Mae();
+			
+			try {
+				Connection conn = ConnectionFactory.getConnection(); 
+				pstm = conn.prepareStatement(LIST_MAE);
+				pstm.setInt(1, id);
+				rs = pstm.executeQuery();
+				
+				while (rs.next()) {
+						
+			 
+			m.setCpfMae(rs.getString("cpfMae"));
+			m.setRg(rs.getString("rgMae"));
+			m.setNomeMae(rs.getString("nomeMae"));
+			m.setProfissaoMae(rs.getString("profissaoMae"));
+			m.setLocalTrabalhoMae(rs.getString("localTrabalho"));
+			m.setCelularMae(rs.getString("celularMae"));
+			m.setTelefoneMae(rs.getString("telefoneMae")); 
+			m.setFoneTrabalhoMae(rs.getString("foneTrabalhoMae"));
+					
+				}
+				
+				ConnectionFactory.fechaConexao(conn, pstm, rs);
+			}catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Erro ao listar informações sobre as mae do aluno " + e.getMessage());
+			}
+			return m;
+			
+		}
+		
+		public Aluno getAlunoByMatricula(int i) {
+			Connection conn = null; 
+			PreparedStatement pstm = null;
+			ResultSet rs = null;
+			Aluno aluno = new Aluno();
+	
+			try {
+				conn = ConnectionFactory.getConnection(); 
+				pstm = conn.prepareStatement(LISTAPESQUISA);
+				pstm.setInt(1, i);
+				rs = pstm.executeQuery();
+				
+				
+				Aluno.setId(rs.getInt("idAluno"));
+				aluno.setMatricula(rs.getInt("matriculaAluno"));
+				aluno.setNome(rs.getString("nomeAluno"));
+				aluno.setApelido(rs.getString("apelidoAluno"));
+				aluno.setIdade(rs.getString("idadeAluno"));
+				aluno.setCbIdade(rs.getString("cbIdadeAluno"));
+				aluno.setSexo(rs.getString("sexoAluno"));
+				
+				aluno.setPai(rs.getString("paiAluno"));
+				aluno.setMae(rs.getString("maeAluno"));
+				aluno.setOutResp(rs.getString("outRespAluno"));
+				aluno.setDataNasc(rs.getString("dataNascAluno"));
+				
+				aluno.setNacionalidade(rs.getString("nacionalidadeAluno"));
+				aluno.setNaturalidade(rs.getString("naturalidadeAluno"));
+				aluno.setEndereco(rs.getString("endAluno"));
+				aluno.setBairro(rs.getString("bairAluno"));
+				aluno.setCidade(rs.getString("cidAluno"));
+				
+				aluno.setCep(rs.getString("cepAluno"));
+				aluno.setRelAfetivo(rs.getString("relAfetivoAluno"));
+				aluno.setInfoAdicional(rs.getString("infoAdicionalAluno"));
+				aluno.setDataCadastro(rs.getString("dataCadastroAluno"));
+				aluno.setDataAtualizacao(rs.getString("dataAtualizacaoAluno"));
+				aluno.setFoto(rs.getString("fotoAluno"));
+				
+				aluno.setTelefone(rs.getString("telefonesAluno"));
+				aluno.setCelular(rs.getString("celularAluno"));
+						
+				
+				ConnectionFactory.fechaConexao(conn, pstm, rs); 
+				
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, " Erro ao buscar o ultimo registro no banco de dados " + e.getMessage());
+			}
+			return aluno;
+		}
+		
+		
+		public Aluno listaPesquisa(int i){
+			Connection conn = null; 
+			PreparedStatement pstm = null;
+			ResultSet rs = null;
+			Aluno aluno = new Aluno();
+			
+			try {
+				conn = ConnectionFactory.getConnection(); 
+				pstm = conn.prepareStatement(LISTSELECTED);
+				pstm.setInt(1, i);
+				pstm.setInt(2, i);
+				pstm.setInt(3, i);
+			
+				rs = pstm.executeQuery();
+				
+				while(rs.next()){
+				Aluno.setId(rs.getInt("idAluno"));
+			
+							
+				}
+				ConnectionFactory.fechaConexao(conn, pstm, rs); 
+				
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, " Erro ao buscar o ultimo registro no banco de dados " + e.getMessage());
+			}
+			return aluno;
+		}
+		
+	
+		
+		public String getLISTSELECTED() {
+			return LISTSELECTED;
+		}
+		
+		public void getmaximaMatricula(){
+			Connection conn = null; 
+			PreparedStatement pstm = null;
+			ResultSet rs = null;
+			Aluno aluno = new Aluno();
+	
+			try {
+				conn = ConnectionFactory.getConnection(); 
+				pstm = conn.prepareStatement(MAXVALOR);
+				rs = pstm.executeQuery();
+				
+				
+				aluno.setMatricula(rs.getInt("matriculaAluno"));			
+				
+				ConnectionFactory.fechaConexao(conn, pstm, rs); 	
+				
+			} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, " Erro ao buscar o ultimo registro no banco de dados " + e.getMessage());
+			}
+			
+		}
+		
+		
+		public String getMAXVALOR(){
+			return MAXVALOR;
+		}
+		
+		public  int getIdFromTables(String cpf){
+			Connection conn = null; 
+			PreparedStatement pstm = null;
+			ResultSet rs = null;
+			Pai p = new Pai();
+	
+			int id = 0;
+			try {
+				conn = ConnectionFactory.getConnection(); 
+				pstm = conn.prepareStatement(FINDCPFPAI);
+				pstm.setString(1, cpf);
+				rs = pstm.executeQuery();
+				while(rs.next()){
+				
+					p.setIdPai(rs.getInt("idPai"));
+
+				}
+				id=(p.getIdPai());			
+				
+				ConnectionFactory.fechaConexao(conn, pstm, rs); 	
+				
+			} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, " Erro ao buscar registro " + e.getMessage());
+			}
+			return id;
+		}
+}	
+
+
+

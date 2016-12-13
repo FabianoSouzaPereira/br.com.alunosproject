@@ -1,0 +1,1077 @@
+package br.com.alunosproject.cadastro.GUI;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.sql.Connection;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.xml.bind.ParseConversionEvent;
+
+import br.com.alunosproject.cadastro.cadastros.Aluno;
+import br.com.alunosproject.dao.Conexao;
+import java.awt.GridLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ScrollPaneConstants;
+import java.awt.Rectangle;
+
+public class CadastroAlunos extends JFrame {
+	/**
+	 *  Fabiano de Souza Pereira
+	 */
+	private static final long serialVersionUID = 1L;
+	static DefaultTableModel modelo = new DefaultTableModel();
+	private JTextField jtfCPF;
+	private JTextField jtfNome;
+	private JTextField jtfTelefone;
+	private JTextField jtfCelular;
+	private Connection connection = null;
+	private JPanel contentPane;
+	private final JButton btnCadastrar = new JButton("CADASTRAR");
+	private JTextField jtfMatricula;
+	private JTable table;
+	private JTextField tfcep;
+	private JTextField tfdatanascimento;
+	private int tfmatricula;
+	private JTextField tfendereco;
+	private JTextField tfbairro;
+	private JTextField tfcidade;
+	private JComboBox cBoxSexo;
+	private JComboBox cbIdade;
+	private JTextField tfnome;
+	private JTextField tfidade;
+	private JTextField textField;
+	private JTextField tfdataCadastro;
+	private JTextField tfapelido;
+	private JTextField tfdataAtualizacao;
+	private JTextField tfnacionalidade;
+	private JTextField tfnaturalidade;
+	private JTextField tfpai;
+	private JTextField tfmae;
+	private JTextField textField_10;
+	private JTextField textField_11;
+	private JTextField textField_12;
+	private JTextField textField_13;
+	private JTextField textField_14;
+	private JTextField textField_15;
+	private JTextField textField_16;
+	private JTextField textField_17;
+	private JTextField textField_18;
+	
+	
+
+	/**
+	 * Create the frame.
+	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public CadastroAlunos() {
+		
+	
+		setSize(new Dimension(950, 750));
+		setMinimumSize(new Dimension(950, 750));
+		setExtendedState(Frame.MAXIMIZED_BOTH);
+		setPreferredSize(new Dimension(950, 402));
+		setTitle("Cadastro de alunos");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 945, 746);
+		contentPane = new JPanel();
+		contentPane.setMinimumSize(new Dimension(10, 630));
+		contentPane.setPreferredSize(new Dimension(10, 630));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panelPesquisa = new JPanel();
+		panelPesquisa.setPreferredSize(new Dimension(0, 120));
+		panelPesquisa.setMinimumSize(new Dimension(0, 120));
+		panelPesquisa.setName("painelpesquisa");
+		getContentPane().add(panelPesquisa, BorderLayout.NORTH);
+		
+		JLabel lblPesqua = new JLabel("Pesquisar");
+		
+		JLabel lblCPF = new JLabel("CPF");
+		lblCPF.setName("lblcpf");
+		
+		jtfCPF = new JTextField();
+		jtfCPF.setName("jtfCPF");
+		jtfCPF.setColumns(10);
+		
+		JLabel lblNome = new JLabel("Nome");
+		
+		jtfNome = new JTextField();
+		jtfNome.setName("jtfnome");
+		jtfNome.setColumns(10);
+		
+		JLabel lblTelefone = new JLabel("Telefone");
+		lblTelefone.setName("lbltelefone");
+		
+		jtfTelefone = new JTextField();
+		jtfTelefone.setName("jtftelefone");
+		jtfTelefone.setColumns(10);
+		
+		JLabel lblCelular = new JLabel("Celular");
+		lblCelular.setName("lblcelular");
+		
+		jtfCelular = new JTextField();
+		jtfCelular.setName("jtfcelular");
+		jtfCelular.setColumns(10);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "Filtros de pesquisa", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		
+		JLabel lblMatricula = new JLabel("Matricula");
+		lblMatricula.setName("lblmatricula");
+		
+		jtfMatricula = new JTextField();
+		jtfMatricula.setName("jtfmatricula");
+		jtfMatricula.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(CadastroAlunos.class.getResource("/famfamfam_mini_icons/page_find.gif")));
+		GroupLayout gl_panelPesquisa = new GroupLayout(panelPesquisa);
+		gl_panelPesquisa.setHorizontalGroup(
+			gl_panelPesquisa.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelPesquisa.createSequentialGroup()
+					.addGap(22)
+					.addGroup(gl_panelPesquisa.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panelPesquisa.createSequentialGroup()
+							.addComponent(lblPesqua)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblNewLabel)
+							.addGap(26)
+							.addComponent(lblCPF))
+						.addComponent(lblMatricula))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panelPesquisa.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(gl_panelPesquisa.createSequentialGroup()
+							.addGap(1)
+							.addComponent(jtfMatricula, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(12)
+							.addComponent(lblTelefone)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(jtfTelefone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblCelular)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(jtfCelular, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelPesquisa.createSequentialGroup()
+							.addComponent(jtfCPF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(lblNome)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(jtfNome, GroupLayout.PREFERRED_SIZE, 301, GroupLayout.PREFERRED_SIZE)))
+					.addGap(92)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		gl_panelPesquisa.setVerticalGroup(
+			gl_panelPesquisa.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelPesquisa.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelPesquisa.createParallelGroup(Alignment.LEADING)
+						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+						.addGroup(gl_panelPesquisa.createSequentialGroup()
+							.addGroup(gl_panelPesquisa.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panelPesquisa.createParallelGroup(Alignment.BASELINE)
+									.addComponent(lblCPF)
+									.addComponent(jtfCPF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblNome)
+									.addComponent(jtfNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblNewLabel))
+							.addGroup(gl_panelPesquisa.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panelPesquisa.createSequentialGroup()
+									.addGap(18)
+									.addGroup(gl_panelPesquisa.createParallelGroup(Alignment.BASELINE)
+										.addComponent(jtfCelular, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblCelular)
+										.addComponent(jtfTelefone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblTelefone)))
+								.addGroup(gl_panelPesquisa.createSequentialGroup()
+									.addGap(18)
+									.addGroup(gl_panelPesquisa.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblMatricula)
+										.addComponent(jtfMatricula, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+							.addContainerGap(45, Short.MAX_VALUE))
+						.addGroup(gl_panelPesquisa.createSequentialGroup()
+							.addComponent(lblPesqua)
+							.addContainerGap(91, Short.MAX_VALUE))))
+		);
+		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+		
+		JCheckBox cbCidade = new JCheckBox("Cidade");
+		cbCidade.setName("cbcidade");
+		panel.add(cbCidade);
+		
+		JCheckBox chckbxNewCheckBox_3 = new JCheckBox("Cep");
+		panel.add(chckbxNewCheckBox_3);
+		
+		JCheckBox chckbxNewCheckBox_2 = new JCheckBox("Bairro");
+		chckbxNewCheckBox_2.setName("cbBairro");
+		panel.add(chckbxNewCheckBox_2);
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("Sexo");
+		panel.add(chckbxNewCheckBox);
+		panelPesquisa.setLayout(gl_panelPesquisa);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setPreferredSize(new Dimension(0, 50));
+		panel_1.setSize(new Dimension(0, 50));
+		panel_1.setMinimumSize(new Dimension(0, 50));
+		getContentPane().add(panel_1, BorderLayout.SOUTH);
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Aluno a = new Aluno();
+				a.setMatricula(tfmatricula);
+				a.setNome(tfnome.getText());
+				a.setApelido(tfapelido.getText());
+				a.setIdade(tfidade.getText().trim());
+				a.setCbIdade((String) cbIdade.getSelectedItem());
+				a.setSexo((String) cBoxSexo.getSelectedItem());
+				a.setDataNasc(tfdatanascimento.getText());
+				a.setNacionalidade(tfnacionalidade.getText());
+				a.setNaturalidade(tfnaturalidade.getText());
+				a.setPai(tfpai.getText());
+				a.setMae(tfmae.getText());
+				a.setOutResp(tfoutResp.getText());
+				a.setEndereco(tfendereco.getText());
+				a.setBairro(tfbairro.getText());
+				a.setCidade(tfcidade.getText());
+				a.setCep(tfcep.getText());
+				a.setRelAfetivo(txtrrelAfetivo.getText());
+				a.setInfoAdicional(txtrinfoAdicional.getText());
+				a.setDataCadastro(tfdataCadastro.getText());
+				a.setDataAtualizacao(tfdataAtualizacao.getText());
+				a.setFoto(Aluno.getCaminhofoto());
+				a.setTelefone(tftelefone.getText().trim());
+				a.setCelular(tfcelular.getText().trim());
+
+				Conexao conn = new Conexao();
+				conn.inserir(a);
+			}
+		});
+		panel_1.add(btnCadastrar);
+		
+		JButton btnNewButton = new JButton("New button");
+		panel_1.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("New button");
+		panel_1.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("New button");
+		panel_1.add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("New button");
+		panel_1.add(btnNewButton_3);
+		
+		
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setPreferredSize(new Dimension(1150, 630));
+		getContentPane().add(panel_2, BorderLayout.CENTER);
+		panel_2.setLayout(new BorderLayout(0, 0));
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		panel_2.add(tabbedPane, BorderLayout.CENTER);
+		
+		JPanel painelFichaMedica = new JPanel();
+		painelFichaMedica.setPreferredSize(new Dimension(0, 0));
+		painelFichaMedica.setMinimumSize(new Dimension(0, 0));
+		painelFichaMedica.setName("painelfichamedica");
+		tabbedPane.addTab("Ficha Médica", null, painelFichaMedica, null);
+		
+		JPanel painelTabela = new JPanel();
+		painelTabela.setName("paineltabela");
+		tabbedPane.addTab("Resultado Pesquisa", null, painelTabela, null);
+		painelTabela.setLayout(new BorderLayout(0, 0));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		painelTabela.add(scrollPane, BorderLayout.CENTER);
+		
+		criaJTable();
+		scrollPane.setViewportView(table);
+		
+		JPanel Aluno = new JPanel();
+		tabbedPane.addTab("Aluno", null, Aluno, null);
+		Aluno.setName("painelaluno");
+		GridBagLayout gbl_Aluno = new GridBagLayout();
+		gbl_Aluno.columnWidths = new int[]{75, 0, 0, 215, 69, 44, 120, 0, 107, 0, 0};
+		gbl_Aluno.rowHeights = new int[]{49, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0};
+		gbl_Aluno.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_Aluno.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		Aluno.setLayout(gbl_Aluno);
+		
+		JLabel lblMatricula_1 = new JLabel("Matricula");
+		lblMatricula_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GridBagConstraints gbc_lblMatricula_1 = new GridBagConstraints();
+		gbc_lblMatricula_1.anchor = GridBagConstraints.EAST;
+		gbc_lblMatricula_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblMatricula_1.gridx = 2;
+		gbc_lblMatricula_1.gridy = 1;
+		Aluno.add(lblMatricula_1, gbc_lblMatricula_1);
+		
+		tfmatricula = new JTextField();
+		tfmatricula.setPreferredSize(new Dimension(6, 30));
+		GridBagConstraints gbc_tfmatricula = new GridBagConstraints();
+		gbc_tfmatricula.insets = new Insets(0, 0, 5, 5);
+		gbc_tfmatricula.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfmatricula.gridx = 3;
+		gbc_tfmatricula.gridy = 1;
+		Aluno.add(tfmatricula, gbc_tfmatricula);
+		tfmatricula.setColumns(10);
+		
+		textField = new JTextField();
+		textField.setPreferredSize(new Dimension(6, 30));
+		textField.setMinimumSize(new Dimension(6, 30));
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.insets = new Insets(0, 0, 5, 5);
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.gridx = 3;
+		gbc_textField.gridy = 1;
+		Aluno.add(textField, gbc_textField);
+		textField.setColumns(10);
+		
+		JLabel lblNome_1 = new JLabel("Nome");
+		lblNome_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GridBagConstraints gbc_lblNome_1 = new GridBagConstraints();
+		gbc_lblNome_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNome_1.anchor = GridBagConstraints.EAST;
+		gbc_lblNome_1.gridx = 2;
+		gbc_lblNome_1.gridy = 2;
+		Aluno.add(lblNome_1, gbc_lblNome_1);
+		
+		tfnome = new JTextField();
+		tfnome.setPreferredSize(new Dimension(6, 30));
+		GridBagConstraints gbc_tfnome = new GridBagConstraints();
+		gbc_tfnome.fill = GridBagConstraints.BOTH;
+		gbc_tfnome.gridwidth = 6;
+		gbc_tfnome.insets = new Insets(0, 0, 5, 5);
+		gbc_tfnome.gridx = 3;
+		gbc_tfnome.gridy = 2;
+		Aluno.add(tfnome, gbc_tfnome);
+		tfnome.setColumns(10);
+		
+		JLabel lblEndereo = new JLabel("Endereço");
+		lblEndereo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GridBagConstraints gbc_lblEndereo = new GridBagConstraints();
+		gbc_lblEndereo.anchor = GridBagConstraints.EAST;
+		gbc_lblEndereo.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEndereo.gridx = 2;
+		gbc_lblEndereo.gridy = 3;
+		Aluno.add(lblEndereo, gbc_lblEndereo);
+		
+		tfendereco = new JTextField();
+		tfendereco.setPreferredSize(new Dimension(6, 30));
+		GridBagConstraints gbc_tfendereco = new GridBagConstraints();
+		gbc_tfendereco.anchor = GridBagConstraints.NORTH;
+		gbc_tfendereco.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfendereco.gridwidth = 6;
+		gbc_tfendereco.insets = new Insets(0, 0, 5, 5);
+		gbc_tfendereco.gridx = 3;
+		gbc_tfendereco.gridy = 3;
+		Aluno.add(tfendereco, gbc_tfendereco);
+		tfendereco.setColumns(10);
+		
+		JLabel lblBairro = new JLabel("Bairro");
+		lblBairro.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GridBagConstraints gbc_lblBairro = new GridBagConstraints();
+		gbc_lblBairro.anchor = GridBagConstraints.EAST;
+		gbc_lblBairro.insets = new Insets(0, 0, 5, 5);
+		gbc_lblBairro.gridx = 2;
+		gbc_lblBairro.gridy = 4;
+		Aluno.add(lblBairro, gbc_lblBairro);
+		
+		tfbairro = new JTextField();
+		tfbairro.setPreferredSize(new Dimension(6, 30));
+		GridBagConstraints gbc_tfbairro = new GridBagConstraints();
+		gbc_tfbairro.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfbairro.gridwidth = 6;
+		gbc_tfbairro.insets = new Insets(0, 0, 5, 5);
+		gbc_tfbairro.gridx = 3;
+		gbc_tfbairro.gridy = 4;
+		Aluno.add(tfbairro, gbc_tfbairro);
+		tfbairro.setColumns(10);
+		
+		JLabel lblCidade = new JLabel("Cidade");
+		lblCidade.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GridBagConstraints gbc_lblCidade = new GridBagConstraints();
+		gbc_lblCidade.anchor = GridBagConstraints.EAST;
+		gbc_lblCidade.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCidade.gridx = 2;
+		gbc_lblCidade.gridy = 5;
+		Aluno.add(lblCidade, gbc_lblCidade);
+		
+		tfcidade = new JTextField();
+		tfcidade.setPreferredSize(new Dimension(6, 30));
+		GridBagConstraints gbc_tfcidade = new GridBagConstraints();
+		gbc_tfcidade.gridwidth = 6;
+		gbc_tfcidade.insets = new Insets(0, 0, 5, 5);
+		gbc_tfcidade.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfcidade.gridx = 3;
+		gbc_tfcidade.gridy = 5;
+		Aluno.add(tfcidade, gbc_tfcidade);
+		tfcidade.setColumns(10);
+		
+		JLabel lblCep = new JLabel("CEP");
+		lblCep.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblCep.setPreferredSize(new Dimension(22, 30));
+		lblCep.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblCep = new GridBagConstraints();
+		gbc_lblCep.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblCep.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCep.gridx = 2;
+		gbc_lblCep.gridy = 6;
+		Aluno.add(lblCep, gbc_lblCep);
+		
+		tfcep = new JTextField();
+		tfcep.setPreferredSize(new Dimension(6, 30));
+		GridBagConstraints gbc_tfcep = new GridBagConstraints();
+		gbc_tfcep.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfcep.insets = new Insets(0, 0, 5, 5);
+		gbc_tfcep.gridx = 3;
+		gbc_tfcep.gridy = 6;
+		Aluno.add(tfcep, gbc_tfcep);
+		tfcep.setColumns(10);
+		
+		JLabel lblApelido = new JLabel("Apelido");
+		lblApelido.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GridBagConstraints gbc_lblApelido = new GridBagConstraints();
+		gbc_lblApelido.anchor = GridBagConstraints.EAST;
+		gbc_lblApelido.insets = new Insets(0, 0, 5, 5);
+		gbc_lblApelido.gridx = 5;
+		gbc_lblApelido.gridy = 6;
+		Aluno.add(lblApelido, gbc_lblApelido);
+		
+		tfapelido = new JTextField();
+		tfapelido.setMinimumSize(new Dimension(6, 30));
+		tfapelido.setPreferredSize(new Dimension(6, 30));
+		GridBagConstraints gbc_tfapelido = new GridBagConstraints();
+		gbc_tfapelido.gridwidth = 3;
+		gbc_tfapelido.insets = new Insets(0, 0, 5, 5);
+		gbc_tfapelido.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfapelido.gridx = 6;
+		gbc_tfapelido.gridy = 6;
+		Aluno.add(tfapelido, gbc_tfapelido);
+		tfapelido.setColumns(10);
+		
+		JLabel lblNascionalidade = new JLabel("Nascionalidade");
+		lblNascionalidade.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GridBagConstraints gbc_lblNascionalidade = new GridBagConstraints();
+		gbc_lblNascionalidade.anchor = GridBagConstraints.EAST;
+		gbc_lblNascionalidade.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNascionalidade.gridx = 2;
+		gbc_lblNascionalidade.gridy = 7;
+		Aluno.add(lblNascionalidade, gbc_lblNascionalidade);
+		
+		tfnacionalidade = new JTextField();
+		tfnacionalidade.setMinimumSize(new Dimension(6, 30));
+		tfnacionalidade.setPreferredSize(new Dimension(6, 30));
+		GridBagConstraints gbc_tfnacionalidade = new GridBagConstraints();
+		gbc_tfnacionalidade.gridwidth = 4;
+		gbc_tfnacionalidade.insets = new Insets(0, 0, 5, 5);
+		gbc_tfnacionalidade.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfnacionalidade.gridx = 3;
+		gbc_tfnacionalidade.gridy = 7;
+		Aluno.add(tfnacionalidade, gbc_tfnacionalidade);
+		tfnacionalidade.setColumns(10);
+		
+		JLabel lblNaturalidade = new JLabel("Naturalidade");
+		lblNaturalidade.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GridBagConstraints gbc_lblNaturalidade = new GridBagConstraints();
+		gbc_lblNaturalidade.anchor = GridBagConstraints.EAST;
+		gbc_lblNaturalidade.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNaturalidade.gridx = 2;
+		gbc_lblNaturalidade.gridy = 8;
+		Aluno.add(lblNaturalidade, gbc_lblNaturalidade);
+		
+		tfnaturalidade = new JTextField();
+		tfnaturalidade.setMinimumSize(new Dimension(6, 30));
+		tfnaturalidade.setPreferredSize(new Dimension(6, 30));
+		GridBagConstraints gbc_tfnaturalidade = new GridBagConstraints();
+		gbc_tfnaturalidade.gridwidth = 4;
+		gbc_tfnaturalidade.insets = new Insets(0, 0, 5, 5);
+		gbc_tfnaturalidade.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfnaturalidade.gridx = 4;
+		gbc_tfnaturalidade.gridy = 9;
+		Aluno.add(tfnaturalidade, gbc_tfnaturalidade);
+		tfnaturalidade.setColumns(10);
+		
+		JLabel lblIdade = new JLabel("Idade");
+		GridBagConstraints gbc_lblIdade = new GridBagConstraints();
+		gbc_lblIdade.anchor = GridBagConstraints.EAST;
+		gbc_lblIdade.insets = new Insets(0, 0, 5, 5);
+		gbc_lblIdade.gridx = 2;
+		gbc_lblIdade.gridy = 10;
+		Aluno.add(lblIdade, gbc_lblIdade);
+		
+		tfidade = new JTextField();
+		tfidade.setMinimumSize(new Dimension(6, 30));
+		tfidade.setPreferredSize(new Dimension(6, 30));
+		GridBagConstraints gbc_tfidade = new GridBagConstraints();
+		gbc_tfidade.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfidade.insets = new Insets(0, 0, 5, 5);
+		gbc_tfidade.gridx = 3;
+		gbc_tfidade.gridy = 10;
+		Aluno.add(tfidade, gbc_tfidade);
+		tfidade.setColumns(10);
+		
+		JComboBox cbIdade_1 = new JComboBox();
+		cbIdade_1.setName("cbidade");
+		cbIdade_1.setModel(new DefaultComboBoxModel(new String[] {"ano", "mês", "anos", "meses"}));
+		GridBagConstraints gbc_cbIdade_1 = new GridBagConstraints();
+		gbc_cbIdade_1.insets = new Insets(0, 0, 5, 5);
+		gbc_cbIdade_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbIdade_1.gridx = 4;
+		gbc_cbIdade_1.gridy = 10;
+		Aluno.add(cbIdade_1, gbc_cbIdade_1);
+		
+		JLabel lblSexo = new JLabel("Sexo");
+		lblSexo.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblSexo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblSexo.setMaximumSize(new Dimension(28, 30));
+		lblSexo.setMinimumSize(new Dimension(28, 30));
+		lblSexo.setPreferredSize(new Dimension(28, 30));
+		GridBagConstraints gbc_lblSexo = new GridBagConstraints();
+		gbc_lblSexo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblSexo.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSexo.gridx = 5;
+		gbc_lblSexo.gridy = 10;
+		Aluno.add(lblSexo, gbc_lblSexo);
+		
+		JComboBox cBoxSexo_1 = new JComboBox();
+		cBoxSexo_1.setName("cboxsexo");
+		cBoxSexo_1.setModel(new DefaultComboBoxModel(new String[] {"Selecione um item", "MASCULINO", "FEMININO"}));
+		cBoxSexo_1.setPreferredSize(new Dimension(31, 30));
+		cBoxSexo_1.setMinimumSize(new Dimension(31, 30));
+		GridBagConstraints gbc_cBoxSexo_1 = new GridBagConstraints();
+		gbc_cBoxSexo_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cBoxSexo_1.insets = new Insets(0, 0, 5, 5);
+		gbc_cBoxSexo_1.gridx = 6;
+		gbc_cBoxSexo_1.gridy = 10;
+		Aluno.add(cBoxSexo_1, gbc_cBoxSexo_1);
+		
+		JLabel lblDataNasc = new JLabel("Data Nasc");
+		lblDataNasc.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblDataNasc = new GridBagConstraints();
+		gbc_lblDataNasc.anchor = GridBagConstraints.EAST;
+		gbc_lblDataNasc.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDataNasc.gridx = 2;
+		gbc_lblDataNasc.gridy = 11;
+		Aluno.add(lblDataNasc, gbc_lblDataNasc);
+		
+		tfdatanascimento = new JTextField();
+		tfdatanascimento.setPreferredSize(new Dimension(6, 30));
+		tfdatanascimento.setHorizontalAlignment(SwingConstants.TRAILING);
+		GridBagConstraints gbc_tfdatanascimento = new GridBagConstraints();
+		gbc_tfdatanascimento.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfdatanascimento.insets = new Insets(0, 0, 5, 5);
+		gbc_tfdatanascimento.gridx = 3;
+		gbc_tfdatanascimento.gridy = 11;
+		Aluno.add(tfdatanascimento, gbc_tfdatanascimento);
+		tfdatanascimento.setColumns(10);
+		
+		JLabel lblDataCadastro = new JLabel("Data Cadastro");
+		lblDataCadastro.setMinimumSize(new Dimension(81, 30));
+		GridBagConstraints gbc_lblDataCadastro = new GridBagConstraints();
+		gbc_lblDataCadastro.anchor = GridBagConstraints.EAST;
+		gbc_lblDataCadastro.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDataCadastro.gridx = 5;
+		gbc_lblDataCadastro.gridy = 11;
+		Aluno.add(lblDataCadastro, gbc_lblDataCadastro);
+		
+		tfdataCadastro = new JTextField();
+		tfdataCadastro.setMinimumSize(new Dimension(6, 30));
+		tfdataCadastro.setPreferredSize(new Dimension(6, 30));
+		GridBagConstraints gbc_tfdataCadastro = new GridBagConstraints();
+		gbc_tfdataCadastro.insets = new Insets(0, 0, 5, 5);
+		gbc_tfdataCadastro.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfdataCadastro.gridx = 6;
+		gbc_tfdataCadastro.gridy = 11;
+		Aluno.add(tfdataCadastro, gbc_tfdataCadastro);
+		tfdataCadastro.setColumns(10);
+		
+		JLabel lblDataAlualizacao = new JLabel("Atualização");
+		GridBagConstraints gbc_lblDataAlualizacao = new GridBagConstraints();
+		gbc_lblDataAlualizacao.anchor = GridBagConstraints.EAST;
+		gbc_lblDataAlualizacao.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDataAlualizacao.gridx = 7;
+		gbc_lblDataAlualizacao.gridy = 11;
+		Aluno.add(lblDataAlualizacao, gbc_lblDataAlualizacao);
+		
+		tfdataAtualizacao = new JTextField();
+		tfdataAtualizacao.setMinimumSize(new Dimension(6, 30));
+		tfdataAtualizacao.setPreferredSize(new Dimension(6, 30));
+		GridBagConstraints gbc_tfdataAtualizacao = new GridBagConstraints();
+		gbc_tfdataAtualizacao.insets = new Insets(0, 0, 5, 5);
+		gbc_tfdataAtualizacao.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfdataAtualizacao.gridx = 8;
+		gbc_tfdataAtualizacao.gridy = 11;
+		Aluno.add(tfdataAtualizacao, gbc_tfdataAtualizacao);
+		tfdataAtualizacao.setColumns(10);
+		
+		JLabel lblPai = new JLabel("Pai");
+		GridBagConstraints gbc_lblPai = new GridBagConstraints();
+		gbc_lblPai.anchor = GridBagConstraints.EAST;
+		gbc_lblPai.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPai.gridx = 2;
+		gbc_lblPai.gridy = 12;
+		Aluno.add(lblPai, gbc_lblPai);
+		
+		tfpai = new JTextField();
+		tfpai.setMinimumSize(new Dimension(6, 30));
+		tfpai.setPreferredSize(new Dimension(6, 30));
+		GridBagConstraints gbc_tfpai = new GridBagConstraints();
+		gbc_tfpai.gridwidth = 6;
+		gbc_tfpai.insets = new Insets(0, 0, 5, 5);
+		gbc_tfpai.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfpai.gridx = 3;
+		gbc_tfpai.gridy = 12;
+		Aluno.add(tfpai, gbc_tfpai);
+		tfpai.setColumns(10);
+		
+		JLabel lblMae = new JLabel("Mae");
+		GridBagConstraints gbc_lblMae = new GridBagConstraints();
+		gbc_lblMae.anchor = GridBagConstraints.EAST;
+		gbc_lblMae.insets = new Insets(0, 0, 0, 5);
+		gbc_lblMae.gridx = 2;
+		gbc_lblMae.gridy = 13;
+		Aluno.add(lblMae, gbc_lblMae);
+		
+		tfmae = new JTextField();
+		tfmae.setMinimumSize(new Dimension(6, 30));
+		tfmae.setPreferredSize(new Dimension(6, 30));
+		GridBagConstraints gbc_tfmae = new GridBagConstraints();
+		gbc_tfmae.gridwidth = 6;
+		gbc_tfmae.insets = new Insets(0, 0, 0, 5);
+		gbc_tfmae.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfmae.gridx = 3;
+		gbc_tfmae.gridy = 13;
+		Aluno.add(tfmae, gbc_tfmae);
+		tfmae.setColumns(10);
+		
+		JPanel Responsaveis = new JPanel();
+		tabbedPane.addTab("Info. Responsáveis", null, Responsaveis, null);
+		GridBagLayout gbl_Responsaveis = new GridBagLayout();
+		gbl_Responsaveis.columnWidths = new int[]{917, 0};
+		gbl_Responsaveis.rowHeights = new int[]{495, 495, 495, 495, 0};
+		gbl_Responsaveis.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_Responsaveis.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		Responsaveis.setLayout(gbl_Responsaveis);
+		
+		JScrollPane scrollPane_InfoResp = new JScrollPane();
+		scrollPane_InfoResp.setBounds(new Rectangle(0, 0, 700, 600));
+		scrollPane_InfoResp.setAutoscrolls(true);
+		scrollPane_InfoResp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane_InfoResp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		GridBagConstraints gbc_scrollPane_InfoResp = new GridBagConstraints();
+		gbc_scrollPane_InfoResp.gridheight = 4;
+		gbc_scrollPane_InfoResp.insets = new Insets(0, 0, 5, 0);
+		gbc_scrollPane_InfoResp.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane_InfoResp.gridx = 0;
+		gbc_scrollPane_InfoResp.gridy = 0;
+		Responsaveis.add(scrollPane_InfoResp, gbc_scrollPane_InfoResp);
+		
+		JPanel infoResponsaveis = new JPanel();
+		scrollPane_InfoResp.setRowHeaderView(infoResponsaveis);
+		GridBagLayout gbl_infoResponsaveis = new GridBagLayout();
+		gbl_infoResponsaveis.columnWidths = new int[]{45, 39, 116, 60, 116, 37, 116, 43, 116, 22, 116, 0};
+		gbl_infoResponsaveis.rowHeights = new int[]{0, 0, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_infoResponsaveis.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_infoResponsaveis.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		infoResponsaveis.setLayout(gbl_infoResponsaveis);
+		
+		JLabel label_10 = new JLabel("Informações sobre o Pai do aluno");
+		GridBagConstraints gbc_label_10 = new GridBagConstraints();
+		gbc_label_10.fill = GridBagConstraints.HORIZONTAL;
+		gbc_label_10.gridwidth = 4;
+		gbc_label_10.insets = new Insets(0, 0, 5, 5);
+		gbc_label_10.gridx = 1;
+		gbc_label_10.gridy = 1;
+		infoResponsaveis.add(label_10, gbc_label_10);
+		
+		JLabel label_11 = new JLabel("Nome");
+		label_11.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GridBagConstraints gbc_label_11 = new GridBagConstraints();
+		gbc_label_11.anchor = GridBagConstraints.WEST;
+		gbc_label_11.insets = new Insets(0, 0, 5, 5);
+		gbc_label_11.gridx = 1;
+		gbc_label_11.gridy = 2;
+		infoResponsaveis.add(label_11, gbc_label_11);
+		
+		textField_10 = new JTextField();
+		textField_10.setPreferredSize(new Dimension(6, 30));
+		textField_10.setColumns(10);
+		GridBagConstraints gbc_textField_10 = new GridBagConstraints();
+		gbc_textField_10.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_10.anchor = GridBagConstraints.NORTH;
+		gbc_textField_10.gridwidth = 9;
+		gbc_textField_10.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_10.gridx = 2;
+		gbc_textField_10.gridy = 2;
+		infoResponsaveis.add(textField_10, gbc_textField_10);
+		
+		JLabel label_12 = new JLabel("Endereço");
+		label_12.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GridBagConstraints gbc_label_12 = new GridBagConstraints();
+		gbc_label_12.anchor = GridBagConstraints.WEST;
+		gbc_label_12.insets = new Insets(0, 0, 5, 5);
+		gbc_label_12.gridx = 1;
+		gbc_label_12.gridy = 3;
+		infoResponsaveis.add(label_12, gbc_label_12);
+		
+		textField_11 = new JTextField();
+		textField_11.setPreferredSize(new Dimension(6, 30));
+		textField_11.setColumns(10);
+		GridBagConstraints gbc_textField_11 = new GridBagConstraints();
+		gbc_textField_11.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_11.anchor = GridBagConstraints.NORTH;
+		gbc_textField_11.gridwidth = 9;
+		gbc_textField_11.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_11.gridx = 2;
+		gbc_textField_11.gridy = 3;
+		infoResponsaveis.add(textField_11, gbc_textField_11);
+		
+		JLabel label_13 = new JLabel("Bairro");
+		label_13.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GridBagConstraints gbc_label_13 = new GridBagConstraints();
+		gbc_label_13.anchor = GridBagConstraints.WEST;
+		gbc_label_13.insets = new Insets(0, 0, 5, 5);
+		gbc_label_13.gridx = 1;
+		gbc_label_13.gridy = 4;
+		infoResponsaveis.add(label_13, gbc_label_13);
+		
+		textField_12 = new JTextField();
+		textField_12.setPreferredSize(new Dimension(6, 30));
+		textField_12.setColumns(10);
+		GridBagConstraints gbc_textField_12 = new GridBagConstraints();
+		gbc_textField_12.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_12.anchor = GridBagConstraints.NORTH;
+		gbc_textField_12.gridwidth = 9;
+		gbc_textField_12.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_12.gridx = 2;
+		gbc_textField_12.gridy = 4;
+		infoResponsaveis.add(textField_12, gbc_textField_12);
+		
+		JLabel label_14 = new JLabel("Cidade");
+		label_14.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GridBagConstraints gbc_label_14 = new GridBagConstraints();
+		gbc_label_14.anchor = GridBagConstraints.WEST;
+		gbc_label_14.insets = new Insets(0, 0, 5, 5);
+		gbc_label_14.gridx = 1;
+		gbc_label_14.gridy = 5;
+		infoResponsaveis.add(label_14, gbc_label_14);
+		
+		textField_13 = new JTextField();
+		textField_13.setPreferredSize(new Dimension(6, 30));
+		textField_13.setColumns(10);
+		GridBagConstraints gbc_textField_13 = new GridBagConstraints();
+		gbc_textField_13.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_13.anchor = GridBagConstraints.NORTH;
+		gbc_textField_13.gridwidth = 9;
+		gbc_textField_13.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_13.gridx = 2;
+		gbc_textField_13.gridy = 5;
+		infoResponsaveis.add(textField_13, gbc_textField_13);
+		
+		JLabel label_15 = new JLabel("Cep");
+		GridBagConstraints gbc_label_15 = new GridBagConstraints();
+		gbc_label_15.anchor = GridBagConstraints.WEST;
+		gbc_label_15.insets = new Insets(0, 0, 5, 5);
+		gbc_label_15.gridx = 1;
+		gbc_label_15.gridy = 6;
+		infoResponsaveis.add(label_15, gbc_label_15);
+		
+		textField_14 = new JTextField();
+		textField_14.setPreferredSize(new Dimension(6, 30));
+		textField_14.setColumns(10);
+		GridBagConstraints gbc_textField_14 = new GridBagConstraints();
+		gbc_textField_14.anchor = GridBagConstraints.NORTHWEST;
+		gbc_textField_14.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_14.gridx = 2;
+		gbc_textField_14.gridy = 6;
+		infoResponsaveis.add(textField_14, gbc_textField_14);
+		
+		JLabel label_16 = new JLabel("Telefone");
+		GridBagConstraints gbc_label_16 = new GridBagConstraints();
+		gbc_label_16.anchor = GridBagConstraints.EAST;
+		gbc_label_16.insets = new Insets(0, 0, 5, 5);
+		gbc_label_16.gridx = 3;
+		gbc_label_16.gridy = 6;
+		infoResponsaveis.add(label_16, gbc_label_16);
+		
+		textField_15 = new JTextField();
+		textField_15.setPreferredSize(new Dimension(6, 30));
+		textField_15.setMinimumSize(new Dimension(6, 30));
+		textField_15.setColumns(10);
+		GridBagConstraints gbc_textField_15 = new GridBagConstraints();
+		gbc_textField_15.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_15.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_15.gridx = 4;
+		gbc_textField_15.gridy = 6;
+		infoResponsaveis.add(textField_15, gbc_textField_15);
+		
+		JLabel label_17 = new JLabel("Celular");
+		GridBagConstraints gbc_label_17 = new GridBagConstraints();
+		gbc_label_17.anchor = GridBagConstraints.EAST;
+		gbc_label_17.insets = new Insets(0, 0, 5, 5);
+		gbc_label_17.gridx = 5;
+		gbc_label_17.gridy = 6;
+		infoResponsaveis.add(label_17, gbc_label_17);
+		
+		textField_16 = new JTextField();
+		textField_16.setPreferredSize(new Dimension(6, 30));
+		textField_16.setMinimumSize(new Dimension(6, 30));
+		textField_16.setColumns(10);
+		GridBagConstraints gbc_textField_16 = new GridBagConstraints();
+		gbc_textField_16.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_16.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_16.gridx = 6;
+		gbc_textField_16.gridy = 6;
+		infoResponsaveis.add(textField_16, gbc_textField_16);
+		
+		JLabel label_18 = new JLabel("Trabalho");
+		GridBagConstraints gbc_label_18 = new GridBagConstraints();
+		gbc_label_18.anchor = GridBagConstraints.EAST;
+		gbc_label_18.insets = new Insets(0, 0, 5, 5);
+		gbc_label_18.gridx = 7;
+		gbc_label_18.gridy = 6;
+		infoResponsaveis.add(label_18, gbc_label_18);
+		
+		textField_17 = new JTextField();
+		textField_17.setPreferredSize(new Dimension(6, 30));
+		textField_17.setMinimumSize(new Dimension(6, 30));
+		textField_17.setColumns(10);
+		GridBagConstraints gbc_textField_17 = new GridBagConstraints();
+		gbc_textField_17.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_17.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_17.gridx = 8;
+		gbc_textField_17.gridy = 6;
+		infoResponsaveis.add(textField_17, gbc_textField_17);
+		
+		JLabel label_19 = new JLabel("Email");
+		GridBagConstraints gbc_label_19 = new GridBagConstraints();
+		gbc_label_19.anchor = GridBagConstraints.WEST;
+		gbc_label_19.insets = new Insets(0, 0, 5, 5);
+		gbc_label_19.gridx = 1;
+		gbc_label_19.gridy = 7;
+		infoResponsaveis.add(label_19, gbc_label_19);
+		
+		textField_18 = new JTextField();
+		textField_18.setPreferredSize(new Dimension(6, 30));
+		textField_18.setMinimumSize(new Dimension(6, 30));
+		textField_18.setColumns(10);
+		GridBagConstraints gbc_textField_18 = new GridBagConstraints();
+		gbc_textField_18.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_18.gridwidth = 5;
+		gbc_textField_18.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_18.gridx = 2;
+		gbc_textField_18.gridy = 7;
+		infoResponsaveis.add(textField_18, gbc_textField_18);
+				
+		
+	}
+	
+	private void criaJTable() {
+		table = new JTable(modelo);
+		getTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		getTable().setFont(new Font("Tahoma", Font.PLAIN, 15));
+		getTable().setRowHeight(30);
+		getTable().setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		getTable().setMinimumSize(new Dimension(550, 0));
+		getTable().setPreferredScrollableViewportSize(new Dimension(550, 400));
+		getTable().setDefaultEditor(Object.class, null); // elimina editor de
+															// celulas da tabela
+
+		modelo.addColumn("Id");
+		modelo.addColumn("Matrícula");
+		modelo.addColumn("Nome");
+		modelo.addColumn("Apelido");
+		modelo.addColumn("Idade");
+		modelo.addColumn("Tempo");
+		modelo.addColumn("Sexo");
+		modelo.addColumn("Pai");
+		modelo.addColumn("Mae");
+		modelo.addColumn("Outro Responsável");
+		modelo.addColumn("Data Nascimento");
+		modelo.addColumn("Nacionalidade");
+		modelo.addColumn("Naturalidade");
+		modelo.addColumn("Endereço");
+		modelo.addColumn("Bairro");
+		modelo.addColumn("Cidade");
+		modelo.addColumn("CEP");
+		modelo.addColumn("Relacionamento Afetivo");
+		modelo.addColumn("Informação Adicional");
+		modelo.addColumn("Data Cadastro");
+		modelo.addColumn("Data Atualização");
+
+		modelo.addColumn("Telefone");
+		modelo.addColumn("Celular");
+
+		getTable().getColumnModel().getColumn(0).setPreferredWidth(50);
+		getTable().getColumnModel().getColumn(1).setPreferredWidth(80);
+		getTable().getColumnModel().getColumn(2).setPreferredWidth(300);
+		getTable().getColumnModel().getColumn(3).setPreferredWidth(70);
+		getTable().getColumnModel().getColumn(4).setPreferredWidth(50);
+		getTable().getColumnModel().getColumn(5).setPreferredWidth(55);
+		getTable().getColumnModel().getColumn(6).setPreferredWidth(85);
+
+		getTable().getColumnModel().getColumn(7).setPreferredWidth(300);
+		getTable().getColumnModel().getColumn(8).setPreferredWidth(300);
+		getTable().getColumnModel().getColumn(9).setPreferredWidth(300);
+		getTable().getColumnModel().getColumn(10).setPreferredWidth(100);
+		getTable().getColumnModel().getColumn(11).setPreferredWidth(110);
+
+		getTable().getColumnModel().getColumn(12).setPreferredWidth(110);
+		getTable().getColumnModel().getColumn(13).setPreferredWidth(180);
+		getTable().getColumnModel().getColumn(14).setPreferredWidth(160);
+		getTable().getColumnModel().getColumn(15).setPreferredWidth(150);
+		getTable().getColumnModel().getColumn(16).setPreferredWidth(100);
+
+		getTable().getColumnModel().getColumn(17).setPreferredWidth(120);
+		getTable().getColumnModel().getColumn(18).setPreferredWidth(120);
+		getTable().getColumnModel().getColumn(19).setPreferredWidth(120);
+		getTable().getColumnModel().getColumn(20).setPreferredWidth(120);
+		getTable().getColumnModel().getColumn(21).setPreferredWidth(120);
+
+		getTable().getColumnModel().getColumn(22).setPreferredWidth(120);
+
+		pesquisar(modelo);
+	}
+
+	public static void pesquisar(DefaultTableModel modelo) {
+		modelo.setNumRows(0);
+		Conexao conn = new Conexao();
+
+		for (Aluno a : conn.getAlunos()) {
+			modelo.addRow(new Object[] { a.getId(), a.getMatricula(), a.getNome(), a.getApelido(), a.getIdade(),
+					a.getCbIdade(), a.getSexo(), a.getPai(), a.getMae(), a.getOutResp(), a.splitDate(a.getDataNasc()),
+					a.getNacionalidade(), a.getNaturalidade(), a.getEndereco(), a.getBairro(), a.getCidade(),
+					a.getCep(), a.getRelAfetivo(), a.getInfoAdicional(), a.splitDate(a.getDataCadastro()),
+					a.splitDate(a.getDataAtualizacao()), a.getTelefone(), a.getCelular(), a.getFoto() });
+		}
+	}
+	
+	
+	public JTable getTable() {
+		return table;
+	}
+
+	public void setTable(JTable table) {
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				isCellEditable(table.getSelectedRow(), table.getSelectedColumn());
+				if (e.getClickCount() == 2) {
+					try {
+						Aluno a = new Aluno();
+						a.setStatusTelacadastro("Editar");
+						int linhaSelecionada = -1;
+						linhaSelecionada = getTable().getSelectedRow();
+						if (linhaSelecionada >= 0) {
+							int idAluno = (int) getTable().getValueAt(linhaSelecionada, 0);
+							AlunoCadastrarJframe frame = new AlunoCadastrarJframe(modelo, idAluno, linhaSelecionada);
+							frame.setVisible(true);
+							frame.getTfdataAtualizacao().setText(getDateTime());
+						} else {
+							JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+
+						}
+					} catch (Exception o) {
+						o.printStackTrace();
+					}
+				}
+
+			}
+		});
+		table.setName("tabelaAlunos");
+	}
+
+	public boolean isCellEditable(int Row, int mColIndex) {
+		if (table.isCellEditable(table.getSelectedRow(), table.getSelectedColumn()) == true) {
+			return false;
+		}
+		return false;
+
+	}
+	
+	// Listener da tabela começa aqui
+	
+	  public class doubleClickMouseAdpater implements MouseListener {
+	  
+		  @Override public void mouseClicked(MouseEvent e) {
+			  if (e.getClickCount()== 2) { 
+				  try { Aluno a = new Aluno(); a.setStatusTelacadastro("Editar");
+				  int linhaSelecionada = -1; linhaSelecionada = getTable().getSelectedRow();
+				  if (linhaSelecionada >= 0) { int idAluno =(int) getTable().getValueAt(linhaSelecionada, 0);
+				  AlunoCadastrarJframe frame = new AlunoCadastrarJframe(modelo, idAluno, linhaSelecionada);
+				  frame.setVisible(true);
+				  frame.getTfdataAtualizacao().setText(getDateTime()); 
+				  } else {
+					  JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");} 
+				  } catch (Exception o) { o.printStackTrace(); } 
+
+			  }
+
+		  }
+	  
+	  @Override public void mouseEntered(MouseEvent e) { // TODO Auto-generated
+	  
+	  
+	  }
+	  
+	  @Override public void mouseExited(MouseEvent e) { // TODO Auto-generated
+	  
+	  
+	  }
+	  
+	  @Override public void mousePressed(MouseEvent e) { // TODO Auto-generated
+	 
+	  
+	  }
+	  
+	  @Override public void mouseReleased(MouseEvent e) { // TODO
+	  
+	  
+	  }
+	 
+	  }
+	  
+
+		 
+		private String getDateTime() {
+			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			Date date = new Date();
+			return dateFormat.format(date);
+		}
+}

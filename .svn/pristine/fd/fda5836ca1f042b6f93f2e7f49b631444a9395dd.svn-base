@@ -1,0 +1,310 @@
+package br.com.alunosproject.cadastro.GUI;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.ParseException;
+
+import javax.swing.Box;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.UIManager;
+
+import br.com.alunosproject.cadastro.cadastros.Aluno;
+import br.com.alunosproject.cadastro.cadastros.Mae;
+import br.com.alunosproject.cadastro.cadastros.OutroResponsavel;
+import br.com.alunosproject.cadastro.cadastros.Pai;
+import br.com.alunosproject.dao.Conexao;
+import br.com.alunosproject.dao.ConnectionFactory;
+
+@SuppressWarnings("serial")
+public class Tela_de_Consulta extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField tfCPF;
+	private JTextField tfNome;
+	private JTextField tfMatricula;
+
+	/**
+	 * Create the frame.
+	 */
+	public Tela_de_Consulta() {
+		setMinimumSize(new Dimension(515, 330));
+		setSize(new Dimension(515, 330));
+		setResizable(false);
+		setType(Type.NORMAL);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(null);
+		setContentPane(contentPane);
+		GridBagLayout gbl_contentPane = new GridBagLayout();
+		gbl_contentPane.columnWidths = new int[] { 52, 0, 0, 109, 32, 133, 0, 0 };
+		gbl_contentPane.rowHeights = new int[] { 40, 0, 0, 0, 0, 0, 47, 0 };
+		gbl_contentPane.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		contentPane.setLayout(gbl_contentPane);
+
+		Component verticalStrut = Box.createVerticalStrut(20);
+		GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
+		gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
+		gbc_verticalStrut.gridx = 1;
+		gbc_verticalStrut.gridy = 0;
+		contentPane.add(verticalStrut, gbc_verticalStrut);
+
+		Component horizontalStrut = Box.createHorizontalStrut(20);
+		GridBagConstraints gbc_horizontalStrut = new GridBagConstraints();
+		gbc_horizontalStrut.insets = new Insets(0, 0, 5, 5);
+		gbc_horizontalStrut.gridx = 0;
+		gbc_horizontalStrut.gridy = 2;
+		contentPane.add(horizontalStrut, gbc_horizontalStrut);
+
+		JLabel lblCpf = new JLabel("CPF:");
+		GridBagConstraints gbc_lblCpf = new GridBagConstraints();
+		gbc_lblCpf.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCpf.anchor = GridBagConstraints.EAST;
+		gbc_lblCpf.gridx = 1;
+		gbc_lblCpf.gridy = 2;
+		contentPane.add(lblCpf, gbc_lblCpf);
+
+		tfCPF = new JTextField();
+		GridBagConstraints gbc_tfCPF = new GridBagConstraints();
+		gbc_tfCPF.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfCPF.insets = new Insets(0, 0, 5, 5);
+		gbc_tfCPF.gridx = 2;
+		gbc_tfCPF.gridy = 2;
+		contentPane.add(tfCPF, gbc_tfCPF);
+		tfCPF.setColumns(10);
+
+		JTextPane txt = new JTextPane();
+		txt.setEditable(false);
+		txt.setForeground(Color.RED);
+		txt.setText("Para criar um novo cadastro verifique\r\nprimeiro, o cpf e/ou o nome do cliente. ");
+		txt.setBackground(UIManager.getColor("ColorChooser.background"));
+		GridBagConstraints gbc_txt = new GridBagConstraints();
+		gbc_txt.gridheight = 3;
+		gbc_txt.insets = new Insets(0, 0, 5, 5);
+		gbc_txt.fill = GridBagConstraints.BOTH;
+		gbc_txt.gridx = 5;
+		gbc_txt.gridy = 2;
+		contentPane.add(txt, gbc_txt);
+
+		JLabel lblMatricula = new JLabel("Matricula:");
+		GridBagConstraints gbc_lblMatricula = new GridBagConstraints();
+		gbc_lblMatricula.anchor = GridBagConstraints.EAST;
+		gbc_lblMatricula.insets = new Insets(0, 0, 5, 5);
+		gbc_lblMatricula.gridx = 1;
+		gbc_lblMatricula.gridy = 3;
+		contentPane.add(lblMatricula, gbc_lblMatricula);
+
+		JButton btnConsultar = new JButton("Consultar");
+		btnConsultar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (tfCPF.getText() == "" || tfCPF.getText().equals("")){
+					tfCPF.setText("0");
+				}
+				if (tfMatricula.getText() == "" || tfMatricula.getText().equals("")) {
+					tfMatricula.setText("0");
+				}
+				OutroResponsavel o = new OutroResponsavel();
+				Mae m = new Mae();
+				Pai p = new Pai(); 
+				Aluno a = new Aluno();
+				a.setCpf(tfCPF.getText());
+				a.setMatricula(Integer.parseInt(tfMatricula.getText()));
+				a.setNome(tfNome.getText());
+				
+				CadastroAlunos frame = null;
+				try {
+					frame = new CadastroAlunos();
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+					
+				Conexao conn = new Conexao();
+				int var= conn.getIdFromTables(a.getCpf());
+					a = conn.getAlunoById(var);
+					
+					frame.getTfmatricula().setText(String.valueOf(a.getMatricula()));
+					frame.getTfnome().setText(a.getNome());
+					frame.getTfapelido().setText(a.getApelido());
+					frame.getTfidade().setText(a.getIdade());
+					frame.getCbIdade().setSelectedItem(a.getCbIdade());
+					frame.getcBoxSexo().setSelectedItem(a.getSexo());
+					frame.getTfdatanascimento().setText(a.getDataNasc());
+					frame.getTfnacionalidade().setText(a.getNacionalidade());
+					frame.getTfnaturalidade().setText(a.getNaturalidade());
+					frame.getTfendereco().setText(a.getEndereco());
+					frame.getTfbairro().setText(a.getBairro());
+					frame.getTfcidade().setText(a.getCidade());
+					frame.getTfestadoAluno().setText(a.getEstado());
+					frame.getTfcep().setText(a.getCep());
+					frame.getTxRelAfetivo().setText(a.getRelAfetivo());
+					frame.getTxInfoAdicional().setText(a.getInfoAdicional());
+					frame.getTfdataCadastro().setText(a.getDataCadastro());
+					frame.getTfdataAtualizacao().setText(a.getDataAtualizacao());
+					frame.getTftelefone().setText(a.getTelefone());
+					frame.getTfcelular().setText(a.getCelular());
+					frame.getTfEmailAluno().setText(a.getEmail());
+					frame.getTfEmail2Aluno().setText(a.getEmail2());
+					frame.getTfEmailTrabalhoAluno().setText(a.getEmailtrabalhoAluno());
+					
+					
+					
+					p = conn.getPaiById(var);
+					frame.getTfCpfpai().setText(p.getCpfPai());
+					frame.getTfRgPai().setText(p.getRgPai());
+					frame.getTfNomePai().setText(p.getNomePai());
+					frame.getTfDataNascimentoPai().setText(p.getDataNascimentoPai());
+					frame.getTfEnderecoPai().setText(p.getEnderecoPai());
+					frame.getTfBairroPai().setText(p.getBairroPai());
+					frame.getTfCidadePai().setText(p.getCidadePai());
+					
+					frame.getTfCepPai().setText(p.getCepPai());
+					frame.getTfTelefonePai().setText(p.getTelefonePai());
+					frame.getTfCelularPai().setText(p.getCelularPai());
+					frame.getTfFoneTrabalhoPai().setText(p.getFoneTabalhoPai());
+					frame.getTfEmailPai().setText(p.getEmailPai());
+					frame.getTfEmail2Pai().setText(p.getEmail2Pai());
+					frame.getTfEmailTrabalhoPai().setText(p.getEmailTrabalhoPai());
+					frame.getTfDataNascimentoPai().setText(p.getDataNascimentoPai());
+					frame.getTfProfissaoPai().setText(p.getProfissaoPai());
+					frame.getTfLocalTrabalhoPai().setText(p.getLocaltrabalhoPai());
+					frame.getTfNacionalidadePai().setText(p.getNacionalidadePai());
+					frame.getTfNaturalidadePai().setText(p.getNaturalidadePai());
+					
+					frame.getTfpai().setText(p.getNomePai()); //jtextField in Aluno
+					
+					m = conn.getMaesById(var);
+					frame.getTfCpfMae().setText(m.getCpfMae());
+					frame.getTfRgMae().setText(m.getRgMae());
+					frame.getTfNomeMae().setText(m.getNomeMae());
+					frame.getTfEnderecoMae().setText(m.getEnderecoMae());
+					frame.getTfBairroMae().setText(m.getBairroMae());
+					frame.getTfCidadeMae().setText(m.getCidadeMae());
+					
+					frame.getTfCepMae().setText(m.getCepMae());
+					frame.getTfDataNascimentoMae().setText(m.getDataNascimentoMae());
+					frame.getTfProfissaoMae().setText(m.getProfissaoMae());
+					frame.getTfLocalTrabalhoMae().setText(m.getLocalTrabalhoMae());
+					frame.getTfEmailMae().setText(m.getEmailMae());
+					frame.getTfEmail2Mae().setText(m.getEmail2Mae());
+					frame.getTfEmailtrabalhoMae().setText(m.getEmailTrabalhoMae());
+					frame.getTfTelefoneMae().setText(m.getTelefoneMae());
+					frame.getTfCelularMae().setText(m.getCelularMae());
+					frame.getTfTrabalhoMae().setText(m.getfoneTrabalhoMae());
+					frame.getTfNacionalidadeMae().setText(m.getNacionalidadeMae());
+					frame.getTfNaturalidadeMae().setText(m.getNaturalidadeMae());
+					
+					frame.getTfmae().setText(m.getNomeMae()); //jtextField in Mae
+					
+					o = conn.getOutroResponsavelByID(var);
+					frame.getTfCpfOutro().setText(o.getCpfOutroResp());
+					frame.getTfRgOutroResp().setText(o.getRgOutroResp());
+					frame.getTfNomeOutro().setText(o.getNomeOutroResp());
+					frame.getTfEnderecoOutro().setText(o.getEnderecoOutroResp());
+					frame.getTfBairroOutro().setText(o.getBairroOutroResp());
+					frame.getTfCidadeOutro().setText(o.getCidadeOutroResp());
+					
+					frame.getTfCepOutro().setText(o.getCepOutroResp());
+					frame.getTfDataNascimentoOutroResp().setText(o.getDataNascimentoOutroResp());
+					frame.getTfProfissaoOutroResp().setText(o.getProfissaoOutroresp());
+					frame.getTfLocalTrabalhoOutroResp().setText(o.getLocalTrabalhoOutroResp());
+					frame.getTfEmailOutro().setText(o.getEmailOutroResp());
+					frame.getTfEmail2OutroResp().setText(o.getEmail2OutroResp());
+					frame.getTfEmailTrabalhoOutroResp().setText(o.getEmailTrabalhoOutroResp());
+					frame.getTfTelefoneOutro().setText(o.getTelefoneOutroResp());
+					frame.getTfCelularOutro().setText(o.getCelularOutroResp());
+					frame.getTfTrabalhoOutro().setText(o.getFoneTrabalhoOutroResp());
+					frame.getTfNacionalidadeOutroResp().setText(o.getNacionalidadeOutroResp());
+					frame.getTfNaturalidadeOutroResp().setText(o.getNaturalidadeOutroResp());
+					
+					
+					
+			frame.setVisible(true);
+			dispose();
+			}
+		});
+		
+		
+		tfMatricula = new JTextField();
+		GridBagConstraints gbc_tfMatricula = new GridBagConstraints();
+		gbc_tfMatricula.insets = new Insets(0, 0, 5, 5);
+		gbc_tfMatricula.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfMatricula.gridx = 2;
+		gbc_tfMatricula.gridy = 3;
+		contentPane.add(tfMatricula, gbc_tfMatricula);
+		tfMatricula.setColumns(10);
+
+		JLabel lblNome = new JLabel("Nome:");
+		GridBagConstraints gbc_lblNome = new GridBagConstraints();
+		gbc_lblNome.anchor = GridBagConstraints.EAST;
+		gbc_lblNome.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNome.gridx = 1;
+		gbc_lblNome.gridy = 4;
+		contentPane.add(lblNome, gbc_lblNome);
+
+		tfNome = new JTextField();
+		GridBagConstraints gbc_tfNome = new GridBagConstraints();
+		gbc_tfNome.gridwidth = 2;
+		gbc_tfNome.insets = new Insets(0, 0, 5, 5);
+		gbc_tfNome.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfNome.gridx = 2;
+		gbc_tfNome.gridy = 4;
+		contentPane.add(tfNome, gbc_tfNome);
+		tfNome.setColumns(10);
+		GridBagConstraints gbc_btnConsultar = new GridBagConstraints();
+		gbc_btnConsultar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnConsultar.gridx = 2;
+		gbc_btnConsultar.gridy = 6;
+		contentPane.add(btnConsultar, gbc_btnConsultar);
+
+		JButton btnNovoCadastro = new JButton("Novo Cadastro");
+		btnNovoCadastro.setEnabled(false);
+		GridBagConstraints gbc_btnNovoCadastro = new GridBagConstraints();
+		gbc_btnNovoCadastro.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNovoCadastro.gridx = 5;
+		gbc_btnNovoCadastro.gridy = 6;
+		contentPane.add(btnNovoCadastro, gbc_btnNovoCadastro);
+		
+	}
+
+	public JTextField getTfCPF() {
+		return tfCPF;
+	}
+
+	public void setTfCPF(JTextField tfCPF) {
+		this.tfCPF = tfCPF;
+	}
+
+	public JTextField getTfNome() {
+		return tfNome;
+	}
+
+	public void setTfNome(JTextField tfNome) {
+		this.tfNome = tfNome;
+	}
+
+	public JTextField getTfMatricula() {
+		return tfMatricula;
+	}
+
+	public void setTfMatricula(JTextField tfMatricula) {
+		this.tfMatricula = tfMatricula;
+	}
+	
+}

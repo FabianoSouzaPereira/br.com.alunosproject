@@ -1,0 +1,158 @@
+package br.com.alunosproject.cadastro.cadastros;
+
+import java.util.Date;
+
+public class Pai extends Pessoa{
+	private String cpfPai;
+	private String nomePai;
+	private String endPai;
+	private String baiPai;
+	private String cidPai;
+	private String estPai;
+	private String cepPai;
+	private String profissaoPai;
+	private String dataNascimentoPai;
+	private String NascionalidadePai;
+	private String NaturalidadePai;
+	private String localdetrabalhaoPai;
+	private int Status;
+	
+	@Override
+	public String splitstring(String splited) {
+		return super.splitstring(splited);
+	}
+	@Override
+	public String splitDate(String s) {
+		return super.splitDate(s);
+	}
+	@Override
+	public String joinDate(String o) {
+		return super.joinDate(o);
+	}
+	@Override
+	public String converteDataToString(Date data) {
+		return super.converteDataToString(data);
+	}
+	@Override
+	public long getCpf() {
+		return super.getCpf();
+	}
+	@Override
+	public void setCpf(long cpf) {
+		super.setCpf(cpf);
+	}
+	@Override
+	public long getRg() {
+		return super.getRg();
+	}
+	@Override
+	public void setRg(long rg) {
+		super.setRg(rg);
+	}
+	@Override
+	public String getNome() {
+		return super.getNome();
+	}
+	@Override
+	public void setNome(String nome) {
+		super.setNome(nome);
+	}
+	@Override
+	public String getIdade() {
+		return super.getIdade();
+	}
+	@Override
+	public void setIdade(String idade) {
+		super.setIdade(idade);
+	}
+	@Override
+	public String getSexo() {
+		return super.getSexo();
+	}
+	@Override
+	public void setSexo(String sexo) {
+		super.setSexo(sexo);
+	}
+
+	
+	
+	public String getCpfPai() {
+		return cpfPai;
+	}
+	public void setCpfPai(String string) {
+		this.cpfPai = string;
+	}
+	public String getNomePai() {
+		return nomePai;
+	}
+	public void setNomePai(String nomePai) {
+		this.nomePai = nomePai;
+	}
+	public String getEndPai() {
+		return endPai;
+	}
+	public void setEndPai(String endPai) {
+		this.endPai = endPai;
+	}
+	public String getBaiPai() {
+		return baiPai;
+	}
+	public void setBaiPai(String baiPai) {
+		this.baiPai = baiPai;
+	}
+	public String getCidPai() {
+		return cidPai;
+	}
+	public void setCidPai(String cidPai) {
+		this.cidPai = cidPai;
+	}
+	public String getEstPai() {
+		return estPai;
+	}
+	public void setEstPai(String estPai) {
+		this.estPai = estPai;
+	}
+	public String getCepPai() {
+		return cepPai;
+	}
+	public void setCepPai(String cepPai) {
+		this.cepPai = cepPai;
+	}
+	public String getProfissaoPai() {
+		return profissaoPai;
+	}
+	public void setProfissaoPai(String profissaoPai) {
+		this.profissaoPai = profissaoPai;
+	}
+	public String getDataNascimentoPai() {
+		return dataNascimentoPai;
+	}
+	public void setDataNascimentoPai(String dataNascimentoPai) {
+		this.dataNascimentoPai = dataNascimentoPai;
+	}
+	public String getNascionalidadePai() {
+		return NascionalidadePai;
+	}
+	public void setNascionalidadePai(String nascionalidadePai) {
+		NascionalidadePai = nascionalidadePai;
+	}
+	public String getNaturalidadePai() {
+		return NaturalidadePai;
+	}
+	public void setNaturalidadePai(String naturalidadePai) {
+		NaturalidadePai = naturalidadePai;
+	}
+	public String getLocaldetrabalhaoPai() {
+		return localdetrabalhaoPai;
+	}
+	public void setLocaldetrabalhaoPai(String localdetrabalhaoPai) {
+		this.localdetrabalhaoPai = localdetrabalhaoPai;
+	}
+	public int getStatus() {
+		return Status;
+	}
+	public void setStatus(int status) {
+		Status = status;
+	}
+
+}

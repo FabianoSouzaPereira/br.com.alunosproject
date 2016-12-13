@@ -1,0 +1,399 @@
+package br.com.alunosproject.cadastro.cadastros;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.swing.JComboBox;
+
+import br.com.alunosproject.dao.Conexao;
+
+public class Aluno {
+	private int id;
+	private int matricula;
+	private String nome;
+	private String apelido;
+	private String idade;
+	private String cbIdade;
+	private String sexo;
+	private String dataNasc;
+	private String pai;
+	private String mae;
+	private String outResp;
+	private String nacionalidade;
+	private String naturalidade;
+	private String endereco;
+	private String bairro;
+	private String cidade; 
+	private String cep;
+	private String relAfetivo;
+	private String infoAdicional;
+	private String dataCadastro;
+	private String dataAtualizacao;
+	private String foto;
+	private String telefone;
+	private String celular;
+	private int status=1;
+	private static String statusTelacadastro;
+	private int linhaSelecionada;
+	private static String caminhofoto;
+	private static String pastaImg;
+	
+	
+	
+	/** Cria uma lista de alunos. Depois � procurada pelo haschcode e equals
+	 *  que trabalham juntos 
+	 */
+//	List<Aluno> listaAluno = new ArrayList<Aluno>();
+	
+		
+	public Aluno() {
+		this.setMatricula(matricula);
+		this.setNome(nome);
+		this.setApelido(apelido);
+		this.setIdade(idade);
+		this.setDataNasc(dataNasc);
+		this.setSexo(sexo);
+		this.setPai(pai);
+		this.setMae(mae);
+		this.setOutResp(outResp);
+		this.setNacionalidade(nacionalidade);
+		this.setNaturalidade(naturalidade);
+		this.setEndereco(endereco);
+		this.setBairro(bairro);
+		this.setCidade(cidade);
+		this.setCep(cep);
+		this.setRelAfetivo(relAfetivo);
+		this.setInfoAdicional(infoAdicional);
+		this.SetDataCadastro(dataCadastro);
+		this.setDataAtualizacao(dataAtualizacao);
+		this.setFoto(foto);
+		this.setTelefone(telefone);
+		this.setCelular(celular);
+		this.setStatus(status);
+		this.setStatusTelacadastro(statusTelacadastro);
+		this.setLinhaSelecionada(linhaSelecionada);
+	}
+
+
+
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public int getMatricula() {
+		return matricula;
+	}
+	public void setMatricula(int matricula) {
+		this.matricula = matricula;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public String getApelido() {
+		return apelido;
+	}
+	public void setApelido(String apelido) {
+		this.apelido = apelido;
+	}
+	public String getSexo() {
+		return sexo;
+	}
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+	public String getIdade() {
+		return idade;
+	}
+	public void setIdade(String idade) {
+		this.idade = idade;
+	}
+	public String getCbIdade() {
+		return cbIdade;
+	}
+
+
+
+	public void setCbIdade(String cbIdade) {
+		this.cbIdade = cbIdade;
+	}
+
+
+
+	public String getDataNasc() {
+		return dataNasc;
+	}
+	public void setDataNasc(String dataNasc) {
+		this.dataNasc = dataNasc;
+	}
+	public String getPai() {
+		return pai;
+	}
+	public void setPai(String pai) {
+		this.pai = pai;
+	}
+	public String getMae() {
+		return mae;
+	}
+	public void setMae(String mae) {
+		this.mae = mae;
+	}
+	public String getOutResp() {
+		return outResp;
+	}
+	public void setOutResp(String outResp){
+		this.outResp = outResp;
+	}
+	public String getNacionalidade() {
+		return nacionalidade;
+	}
+	public void setNacionalidade(String nacionalidade){
+		this.nacionalidade = nacionalidade;
+	}
+	public String getNaturalidade() {
+		return naturalidade;
+	}
+	public void setNaturalidade(String naturalidade) {
+		this.naturalidade = naturalidade;
+	}
+	public String getEndereco() {
+		return endereco;
+	}
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+	public String getBairro() {
+		return bairro;
+	}
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getRelAfetivo() {
+		
+		return relAfetivo;
+	}
+
+	public void setRelAfetivo(String relAfetivo) {
+		
+		this.relAfetivo = relAfetivo;
+	}
+
+	public String getInfoAdicional() {
+		
+		return infoAdicional;
+	}
+
+	public void setInfoAdicional(String infoAdicional) {
+		this.infoAdicional = infoAdicional;
+	}
+
+	public String getDataCadastro() {
+		return dataCadastro;
+	}
+	public void SetDataCadastro(String dataCadastro){
+		this.dataCadastro = dataCadastro;
+	}
+
+	public String getDataAtualizacao() {
+		return dataAtualizacao;
+	}
+
+
+	public void setDataAtualizacao(String dataAtualizacao) {
+		this.dataAtualizacao = dataAtualizacao;
+	}
+
+	public String getFoto() {
+		
+		return foto;
+	}
+	
+	public void setFoto(String foto) {
+		
+		this.foto = foto;
+	}
+
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+
+	public String getCelular() {
+		return celular;
+	}
+
+
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
+
+
+	public String getStatus(int status) {
+		if (status != 0){
+			return "Ativo";
+		}
+		return "Inativo";
+	}
+
+
+	public  void setStatus(int status) {
+		this.status = status;
+	}
+
+
+	public  static String getStatusTelacadastro() {
+		return statusTelacadastro;
+	}
+
+
+	public void setStatusTelacadastro(String statusTelacadastro) {
+		Aluno.statusTelacadastro = statusTelacadastro;
+	}
+
+	
+	
+	public int getLinhaSelecionada() {
+		return linhaSelecionada;
+	}
+
+
+	public void setLinhaSelecionada(int linhaSelecionada) {
+		this.linhaSelecionada = linhaSelecionada;
+	}
+
+
+	public int getStatus() {
+		return status;
+	}
+
+
+	public void setDataCadastro(String dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+
+
+
+	public static String getCaminhofoto() {
+		return caminhofoto;
+	}
+
+
+
+	public static void setCaminhofoto(String caminhofoto) {
+		Aluno.caminhofoto = caminhofoto;
+	}
+	
+
+	public static String getPastaImg() {
+		return pastaImg;
+	}
+
+
+
+	public static void setPastaImg(String pastaImg) {
+		Aluno.pastaImg = pastaImg;
+	}
+
+
+
+	public String splitstring(String splited) {
+		if (((splited).length()) != 0) {
+			String array[] = splited.split("-");
+			splited = array[1];
+		}
+		return splited;
+	}
+
+	public String splitDate(String s) {
+		try{
+		if (((s).length()) != 0) {
+			String array[] = s.split("-");
+			String s0 = array[0];
+			String s1 = array[1];
+			String s2 = array[2];
+			s = (s2 + "/" + s1 + "/" + s0);
+			}
+		}catch(Exception e) {
+			 System.out.println("Preencha a data corretamente");  
+	          e.printStackTrace();
+		}
+		return s;
+
+	}
+	 public String joinDate(String o){
+		 try{
+		 if (((o).length()) != 0) {
+			 String array [] = o.split("/");
+			 String s0 = array[0];
+			 String s1 = array[1];
+			 String s2 = array[2];
+			 o = (s2+"-"+s1+"-"+s0);}
+		 }catch(Exception e) {
+			 System.out.println("Preencha a data corretamente");  
+	          e.printStackTrace();
+	     }
+		 return o;
+	 }
+	
+	 /** Converte a data que vem do banco de yyy-mm-dd para dd/mm/yyyy */
+	 public String converteDataToString(Date data){  
+		   SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd");
+		   SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
+		   data = new Date();
+		   try {  
+		     return   out.format(in.parse(data.toString()));   
+		   } catch (ParseException Ex) {  
+		      return "Erro na conversão da data";  
+		   }  
+		}
+
+	 /**
+		 * Converte uma String para um objeto Date. Caso a String seja vazia ou nula, 
+		 * retorna null - para facilitar em casos onde formulários podem ter campos
+		 * de datas vazios.
+		 * @param data String no formato dd/MM/yyyy a ser formatada
+		 * @return Date Objeto Date ou null caso receba uma String vazia ou nula
+		 * @throws Exception Caso a String esteja no formato errado
+		 */
+		@SuppressWarnings("cast")
+		public static Date formataData(String data) throws Exception { 
+			if (data == null || data.equals(""))
+				return null;
+	        Date date = null;
+	        try {
+	            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	            date = (java.util.Date)formatter.parse(data);
+	        } catch (ParseException e) {            
+	            throw e;
+	        }
+	        return date;
+		}
+}

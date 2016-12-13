@@ -1,0 +1,215 @@
+package br.com.alunosproject.cadastro.GUI;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.Image;
+import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.net.URL;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.border.BevelBorder;
+
+import br.com.alunosproject.cadastro.cadastros.Aluno;
+
+public class Mainwindow extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public static final int YES_OPTION = 0;
+	public static final int NO_OPTION = 1;
+	public static int tac= 0;
+
+
+	public Mainwindow() {
+		setSize(new Dimension(800, 500));
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		JPanel panel = new JPanel();
+		getContentPane().add(panel, BorderLayout.NORTH);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setPreferredSize(new Dimension(10, 50));
+		panel_1.setMinimumSize(new Dimension(10, 50));
+		panel_1.setSize(new Dimension(0, 50));
+		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, Color.DARK_GRAY, null));
+		getContentPane().add(panel_1, BorderLayout.SOUTH);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, Color.DARK_GRAY, null));
+		getContentPane().add(panel_2, BorderLayout.CENTER);
+		panel_2.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(Mainwindow.class.getResource("/iconi_grande/fotoPrincipal.png")));
+		lblNewLabel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, Color.BLUE));
+		panel_2.add(lblNewLabel, BorderLayout.CENTER);
+		
+		@SuppressWarnings("unused")
+		Aluno aluno = new Aluno();
+		fotoprincipal();
+		criaPrincipal();
+
+	}
+
+	/**
+	 * Create the frame.
+	 * 
+	 * @param ResultSet
+	 */
+	public void criaPrincipal() {
+		setExtendedState(Frame.MAXIMIZED_BOTH);
+		setTitle("Cadastro de Alunos");
+																
+		
+
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setAlignmentY(Panel.CENTER_ALIGNMENT);
+		menuBar.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+		setJMenuBar(menuBar);
+		
+		JMenu mnArquivo = new JMenu("Arquivo");
+		menuBar.add(mnArquivo);
+		
+		JMenuItem mntmCadastro = new JMenuItem("Cadastro");
+		mnArquivo.add(mntmCadastro);
+		
+		JMenuItem mntmAbrir = new JMenuItem("Abrir");
+		mnArquivo.add(mntmAbrir);
+
+		JMenuItem mntmSalvar = new JMenuItem("Salvar");
+		mnArquivo.add(mntmSalvar);
+
+		JMenuItem mntmSalvarComo = new JMenuItem("Salvar Como");
+		mnArquivo.add(mntmSalvarComo);
+
+		JMenuItem mntmFechar = new JMenuItem("Fechar");
+		mnArquivo.add(mntmFechar);
+
+		JMenuItem mntmFecharTudo = new JMenuItem("Fechar Tudo");
+		mnArquivo.add(mntmFecharTudo);
+
+		JSeparator separator_1 = new JSeparator();
+		mnArquivo.add(separator_1);
+
+		JMenuItem mntmSair = new JMenuItem("Sair");
+		mnArquivo.add(mntmSair);
+
+		JMenu mntmEditar = new JMenu("Editar");
+		menuBar.add(mntmEditar);
+
+		JMenuItem mntmDesfazer = new JMenuItem("Desfazer");
+		mntmEditar.add(mntmDesfazer);
+
+		JMenuItem mntmRefazer = new JMenuItem("Refazer");
+		mntmEditar.add(mntmRefazer);
+
+		JSeparator separator_2 = new JSeparator();
+		mntmEditar.add(separator_2);
+
+		JMenuItem mntmRecortar = new JMenuItem("Recortar");
+		mntmEditar.add(mntmRecortar);
+
+		JMenuItem mntmColar = new JMenuItem("Colar");
+		mntmEditar.add(mntmColar);
+
+		JSeparator separator_3 = new JSeparator();
+		mntmEditar.add(separator_3);
+
+		JMenuItem mntmApagar = new JMenuItem("Apagar");
+		mntmEditar.add(mntmApagar);
+
+		JMenu mnProcurar = new JMenu("Procurar");
+		menuBar.add(mnProcurar);
+
+		JMenuItem mntmCadastroAlunos = new JMenuItem("Cadastro Alunos");
+		mnProcurar.add(mntmCadastroAlunos);
+
+		JMenuItem mntmPesquisaAvanada = new JMenuItem("Pesquisa Avançada");
+		mnProcurar.add(mntmPesquisaAvanada);
+
+		JMenu mnImpressora = new JMenu("Impressora");
+		menuBar.add(mnImpressora);
+
+		JMenuItem mntmConfigurarImpressora = new JMenuItem("Configurar impressora");
+		mnImpressora.add(mntmConfigurarImpressora);
+		
+		mntmCadastro.addActionListener(new mntmCadastroActionListener());
+		mntmSair.addActionListener(new mntmSairActionListener());
+	//	btnSair.addActionListener(new btnSairActionListener());
+	}
+	
+
+	public void fotoprincipal(){
+
+		Icon img = new ImageIcon(
+				"B:\\WorkspaceSVN\\br.com.alunosproject\\imagem\\wallpaper-coffee-1024x576.jpg");
+		JLabel fotoPrincipal = new JLabel();
+		fotoPrincipal.setIcon(img);
+
+	}
+
+
+
+	// listener of menu start here.
+
+	private class mntmCadastroActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent ev) {
+			try {
+				CadastroAlunos frame = new CadastroAlunos();
+				frame.setVisible(true);
+			} catch (Exception o) {
+			o.printStackTrace();
+			}
+		}
+	}
+	
+	private class mntmSairActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e){
+			System.exit(0);
+		}
+	}
+
+
+	public Image getImage(String path) {
+		URL imageURL = getClass().getResource(path);
+		if (imageURL == null)
+			return null;
+		return new ImageIcon(imageURL).getImage();
+	}
+
+	/**
+	 * ; Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+
+				try {
+
+					Mainwindow frame = new Mainwindow();
+					frame.setVisible(true);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+}

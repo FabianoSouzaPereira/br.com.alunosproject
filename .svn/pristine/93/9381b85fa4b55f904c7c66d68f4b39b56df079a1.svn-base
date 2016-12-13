@@ -1,0 +1,35 @@
+package br.com.alunosproject.cadastro.cadastros;
+
+public class OutroResponsavel extends Pessoa{
+
+	@Override
+	public String getNome() {
+		return super.getNome();
+	}
+
+	@Override
+	public void setNome(String nome) {
+		super.setNome(nome);
+	}
+
+	@Override
+	public String getIdade() {
+		return super.getIdade();
+	}
+
+	@Override
+	public void setIdade(String idade) {
+		super.setIdade(idade);
+	}
+
+	@Override
+	public String getSexo() {
+		return super.getSexo();
+	}
+
+	@Override
+	public void setSexo(String sexo) {
+		super.setSexo(sexo);
+	}
+
+}

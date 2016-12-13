@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)http://www.devmedia.com.br/sql-avancado/28889 -->
+<html xmlns:og="http://opengraphprotocol.org/schema/" xml:lang="pt-br" lang="pt-br"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>SQL Avançado</title>
+
+<link href="./SQL Avançado_files/css" rel="stylesheet" type="text/css">
+<link href="./SQL Avançado_files/css(1)" rel="stylesheet" type="text/css">
+<link href="./SQL Avançado_files/css(2)" rel="stylesheet" type="text/css">
+
+<link href="./SQL Avançado_files/viewcomp.css" rel="stylesheet" type="text/css">
+<link href="./SQL Avançado_files/menu-pagina-post.css" rel="stylesheet" type="text/css">
+
+<link href="./SQL Avançado_files/artigodev_style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="./SQL Avançado_files/font-awesome.min.css">
+
+<!--add mar-2016-->
+
+
+
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+
+<meta name="author" content="https://www.facebook.com/DevmediaWeb03">
+
+
+	<meta property="og:image" content="http://www.devmedia.com.br/imagens/fotoscolunistas/4_20131008095540.png">
+
+<meta name="description" content="Veja nesse artigo algumas funções avançadas de SQL, assim como trabalhar com datas, conversões e relacionamento entre tabelas."> 
+
+<link rel="canonical" href="http://www.devmedia.com.br/sql-avancado/28889">
+
+
+<meta http-equiv="content-language" content="pt-br">
+<meta name="viewport" id="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=3.0,initial-scale=1.0">
+<meta name="msapplication-tap-highlight" content="no">
+
+<!-- ICON MAC -->  
+<link rel="apple-touch-icon" href="http://www.devmedia.com.br/favicon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="http://www.devmedia.com.br/imagens/2013/Devmedia72x.png">
+<link rel="apple-touch-icon" sizes="114x114" href="http://www.devmedia.com.br/imagens/2013/Devmedia114x.png">
+<link rel="apple-touch-icon" sizes="129x129" href="http://www.devmedia.com.br/imagens/2013/Devmedia129x.png">  
+<!-- FAVICON HTML5-->
+<link rel="icon" href="http://www.devmedia.com.br/favicon.png">
+<!-- FAVICON IE-->
+<link rel="icon" type="image/png" href="http://www.devmedia.com.br/favicon.png">
+
+<link href="https://plus.google.com/101753743720604160232" rel="publisher">
+<!-- CSS - RESET E PRESET -->
+<link rel="stylesheet" type="text/css" href="./SQL Avançado_files/devmedia.css">
+<!-- CSS - RESPONSIVO -->
+<link rel="stylesheet" type="text/css" href="./SQL Avançado_files/devmedia-responsive.css">
+<!-- CSS - HEADER E FOOTER -->
+<link rel="stylesheet" type="text/css" href="./SQL Avançado_files/devmedia-header-footer.css">
+<!-- <link rel="stylesheet" type="text/css" href="http://www.devmedia.com.br/includeb/style.min.css"> -->
+
+
+<script src="./SQL Avançado_files/cb=gapi.loaded_0" async=""></script><script async="" src="./SQL Avançado_files/gtm.js"></script><script async="" src="./SQL Avançado_files/fbevents.js"></script><script type="text/javascript" async="" src="./SQL Avançado_files/ga.js"></script><script id="facebook-jssdk" src="./SQL Avançado_files/sdk.js"></script><script src="./SQL Avançado_files/jquery.min.js"></script>
+<script async="" src="./SQL Avançado_files/menu.js"></script><script async="" src="./SQL Avançado_files/menu.desktop.js"></script>
+  <!--[if lt IE 9]>
+	<script async defer src="js/modernizr.custom.js"></script>
+  <![endif]-->
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  /*js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=145393072270566";*/
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.3&appId=145393072270566";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-15997918-1']);
+_gaq.push(['_setDomainName', 'devmedia.com.br']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','//connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '1701038830155422');
+fbq('track', "PageView");
+
+// ViewContent
+// Track key page views (ex: product page, landing page or article)
+fbq('track', 'ViewContent');
+
+// Search
+// Track searches on your website (ex. product searches)
+fbq('track', 'Search');
+
+// AddToCart
+// Track when items are added to a shopping cart (ex. click/landing page on Add to Cart button)
+fbq('track', 'AddToCart');
+
+// AddToWishlist
+// Track when items are added to a wishlist (ex. click/landing page on Add to Wishlist button)
+fbq('track', 'AddToWishlist');
+
+// InitiateCheckout
+// Track when people enter the checkout flow (ex. click/landing page on checkout button)
+fbq('track', 'InitiateCheckout');
+
+// AddPaymentInfo
+// Track when payment information is added in the checkout flow (ex. click/landing page on billing info)
+fbq('track', 'AddPaymentInfo');
+
+// Purchase
+// Track purchases or checkout flow completions (ex. landing on "Thank You" or confirmation page)
+fbq('track', 'Purchase', {value: '1.00', currency: 'USD'});
+
+// Lead
+// Track when a user expresses interest in your offering (ex. form submission, sign up for trial, landing on pricing page)
+fbq('track', 'Lead');
+
+// CompleteRegistration
+// Track when a registration form is completed (ex. complete subscription, sign up for a service)
+fbq('track', 'CompleteRegistration');
+
+// Other
+// 
+fbq('track', 'Other');
+</script>
+<noscript>&lt;img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1701038830155422&amp;ev=PageView&amp;noscript=1"/&gt;</noscript>
+<!-- End Facebook Pixel Code -->
+
+<!-- Twitter universal website tag code -->
+<script src="./SQL Avançado_files/oct.js" type="text/javascript"></script>
+<script type="text/javascript">twttr.conversion.trackPid('nv2d6', { tw_sale_amount: 0, tw_order_quantity: 0 });</script>
+<noscript>
+&lt;img height="1" width="1" style="display:none;" alt="" src="https://analytics.twitter.com/i/adsct?txn_id=nv2d6&amp;p_id=Twitter&amp;tw_sale_amount=0&amp;tw_order_quantity=0" /&gt;
+&lt;img height="1" width="1" style="display:none;" alt="" src="//t.co/i/adsct?txn_id=nv2d6&amp;p_id=Twitter&amp;tw_sale_amount=0&amp;tw_order_quantity=0" /&gt;
+</noscript>
+<!-- End Twitter universal website tag code -->
+
+<!-- Google Tag Manager -->
+<noscript>&lt;iframe src="//www.googletagmanager.com/ns.html?id=GTM-M947VW" height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-M947VW');</script>
+<!-- End Google Tag Manager -->
+
+<script async="" defer="" src="./SQL Avançado_files/article.js"></script>
+
+<!-- add mar-2016 -->
+
+
+<script async="" type="text/javascript" src="./SQL Avançado_files/plusone.js" gapi_processed="true"></script>
+
+<!-- shareThis -->
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="./SQL Avançado_files/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "d4f7d861-1a1a-45fb-896b-9d3336126226", doNotHash: true, doNotCopy: true, hashAddressBar: false});</script>
+<!-- fim shareThis -->
+
+<meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=3">
+
+
+<link rel="publisher" href="https://plus.google.com/101753743720604160232">
+
+<link rel="stylesheet" href="./SQL Avançado_files/comentario_a.css">
+<script type="text/javascript" src="./SQL Avançado_files/comentario_a.js"></script>    
+
+<!-- syntax highlighter -->
+<link rel="stylesheet" href="./SQL Avançado_files/shCore.css">  
+<link rel="stylesheet" href="./SQL Avançado_files/shCoreEclipse.css">  
+<script type="text/javascript" src="./SQL Avançado_files/shCore.js"></script>    
+<script type="text/javascript" src="./SQL Avançado_files/shAutoloader.js"></script>    
+<script type="text/javascript" src="./SQL Avançado_files/highlighter.js"></script>  
+<!-- fim SH -->
+
+<!-- estevao edit comentarios -->
+<link rel="stylesheet" href="./SQL Avançado_files/dvm.editable.css">  
+<script type="text/javascript" src="./SQL Avançado_files/elastic.js"></script>  
+<script type="text/javascript" src="./SQL Avançado_files/dvm.editable.js"></script>  
+<script type="text/javascript" src="./SQL Avançado_files/edita_comentario.js"></script>  
+<link rel="stylesheet" href="./SQL Avançado_files/notifit.css">    
+<script type="text/javascript" src="./SQL Avançado_files/notifit.js"></script>  
+<!-- fim edit comentarios -->
+
+<style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f6f7f9;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{width:auto;height:auto;min-height:initial;min-width:initial;background:none}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{color:#fff;display:block;padding-top:20px;clear:both;font-size:18px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;bottom:0;left:0;right:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #29487d;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f9;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-repeat:no-repeat;background-position:50% 50%;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style><link rel="stylesheet" type="text/css" href="./SQL Avançado_files/buttons.ab966a004186897711de4a5ed256c924.css"></head>
+<body>
+<div class="dm-shadow"></div>
+<section class="dm-shell">
+<header>
+<span class="opacity"></span>
+<nav class="lateral" style="height: 639px;">
+<ul style="height: 639px;">
+<li><strong><a href="http://www.devmedia.com.br/" rel="nofollow"><span class="font-dev">bem</span><span class="font-media">vindo</span><span class="icon home"></span></a></strong></li>
+<li><a href="http://www.devmedia.com.br/sql-avancado/28889#" class="back" data-main="true">Voltar</a></li>
+
+<!-- <li><a href="http://www.devmedia.com.br/meu-devmedia/"><span class="icon2 dashboard"></span>Meu DevMedia</a></li> -->
+<!-- <li><a href="http://www.devmedia.com.br/forum/"><span class="icon2 forum"></span>Fórum</a></li> -->
+<!-- <li><a href="http://www.devmedia.com.br/recomendado/"><span class="icon2 recomendado"></span>Recomendado</a></li> -->
+<!-- <li><a href="#" rel="nofollow"><span class="icon2 servicos"></span>Serviços<span></span></a> -->
+<!-- <ul> -->
+<!-- <li><h5>Serviços<span class="icon servicos"></span></h5></li> -->
+
+<!-- <li><p>Meus créditos: R$ --> <!-- </p></li> -->
+
+<!-- <li><a href="#" class="back">Voltar</a></li>
+
+<li><a href="http://www.devmedia.com.br/player" rel="nofollow">Devmedia Player</a></li>
+<li><a href="http://www.devmedia.com.br/join" rel="nofollow">Cadastre-se</a></li>
+<li><a href="http://www.devmedia.com.br/feed" rel="nofollow">RSS</a></li>
+<li><a href="http://www.devmedia.com.br/whatsnew/?id=1">O que há de novo </a></li>
+<li><a href="http://www.devmedia.com.br/como-gerenciar-os-posts-lidos-assistidos-no-portal-devmedia/25840" rel="nofollow">Gerenciando o que foi lido</a></li> -->
+<!-- <li><a href="http://www.devmedia.com.br/api/" style="text-transform:none;">APIs</a></li>
+</ul>
+</li> -->
+<li><a href="http://www.devmedia.com.br/jobs/" rel="nofollow"><span class="icon2 tecnologia"></span>JOBS</a></li>
+<li><a href="http://www.devmedia.com.br/app/" rel="nofollow"><span class="icon2 app"></span>Baixe o APP</a></li>
+<li><a href="http://www.devmedia.com.br/mvp/" rel="nofollow"><span class="icon2 mvp"></span>Assine MVP</a></li>
+<!-- <li><a href="#" rel="nofollow"><span class="icon2 comprar"></span>Comprar<span></span></a> -->
+<!-- <ul>
+<li><h5>Comprar<span class="icon comprar"></span></h5></li>
+<li><a href="#" class="back">Voltar</a></li>
+<li><a href="http://www.devmedia.com.br/mvp/" rel="nofollow">MVP</a></li>
+<li><a href="http://www.devmedia.com.br/shop/" rel="nofollow">Loja Virtual</a></li>
+<li><a href="http://www.devmedia.com.br/assine/#assine-revistas">Assine revistas</a></li>
+</ul>
+</li> -->
+<li><a href="http://www.devmedia.com.br/guias/" rel="nofollow"><span class="icon2 guias"></span>Guias de Referência<!-- <span></span> --></a>
+<!-- <ul>
+<li><h5>Guias de Referência</h5></li>
+<li><a href="#" class="back">Voltar</a></li>
+<li><a href="http://www.devmedia.com.br/guias/front-end">Guia Front-end</a></li>
+<li><a href="http://www.devmedia.com.br/guias/net">Guia ASP.NET MVC</a></li>
+<li><a href="http://www.devmedia.com.br/guias/php">Guia PHP</a></li>
+<li><a href="http://www.devmedia.com.br/guias/java">Guia Java</a></li>
+<li><a href="http://www.devmedia.com.br/guias/banco-de-dados">Banco de dados</a></li>
+<li><a href="http://www.devmedia.com.br/guias/guia-de-java-se-seu-guia-de-estudos-sobre-java/10">Guia JAVA</a></li>
+<li><a href="http://www.devmedia.com.br/canal-mais">Canal mais</a></li>
+<li><a href="http://www.devmedia.com.br/guias/">Todos os Guias</a></li>
+</ul> -->
+</li>
+<li><a href="http://www.devmedia.com.br/cursos/" rel="nofollow"><span class="icon2 cursos"></span>Cursos &amp; Séries<!-- <span></span> --></a>
+<!-- <ul>
+<li><h5>Cursos & Formações<span class="icon cursos"></span></h5></li>
+<li><a href="#" class="back">Voltar</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/formacoes/">Formações completas</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/front-end-web">Cursos de front-end web</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/mobile">Cursos de Mobile</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/java">Cursos de Java</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/net">Cursos de .net</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/banco-de-dados">Cursos de Banco de dados</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/engenharia-de-software">Cursos de Engenharia de Software</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/php">Cursos de PHP</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/automacao">Cursos de Automação / NFe / Paf-ecf</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/delphi">Cursos de Delphi</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/">Todos os cursos</a></li>
+</ul> -->
+</li>
+<li><a href="http://www.devmedia.com.br/sql-avancado/28889#" rel="nofollow"><span class="icon2 tecnologia"></span>Últimas Atualizações<span></span></a>
+<ul>
+<li><h5>Últimas Atualizações<span class="icon tecnologia"></span></h5></li>
+<li><a href="http://www.devmedia.com.br/sql-avancado/28889#" class="back">Voltar</a></li>
+<!-- <li><a href="http://www.devmedia.com.br/mentoring/">Mentoring</a></li> -->
+<li><a href="http://www.devmedia.com.br/front-end-web">Front-end web</a></li>
+<li><a href="http://www.devmedia.com.br/mobile">Mobile</a></li>
+<li><a href="http://www.devmedia.com.br/java">Java</a></li>
+<li><a href="http://www.devmedia.com.br/dotnet">.net</a></li>
+<li><a href="http://www.devmedia.com.br/banco-de-dados">Banco de dados</a></li>
+<li><a href="http://www.devmedia.com.br/engenharia-de-software">Engenharia de Software</a></li>
+<li><a href="http://www.devmedia.com.br/delphi">Delphi</a></li>
+<li><a href="http://www.devmedia.com.br/php">PHP</a></li>
+<li><a href="http://www.devmedia.com.br/canal-mais">Canal Mais</a></li>
+<li><a href="http://www.devmedia.com.br/ultimas-atualizacoes">Últimas Atualizações</a></li>
+<!--<li><a href="http://www.devmedia.com.br/canais/">Todo o conteúdo</a></li>-->
+</ul>
+</li>
+<li><a href="http://www.devmedia.com.br/devcast/"><span class="icon2 pocketvideos"></span>DevCast</a></li>
+<li><a href="http://www.devmedia.com.br/artigos/"><span class="icon2 recomendado"></span>Artigos</a></li>
+<li><a href="http://www.devmedia.com.br/desafios/"><span class="icon2 guias"></span>Desafios</a></li>
+<li><a href="http://www.devmedia.com.br/sql-avancado/28889#" rel="nofollow"><span class="icon2 revistas"></span>Revistas<span></span></a>
+<ul>
+<li><h5>Revistas</h5></li>
+<li><a href="http://www.devmedia.com.br/sql-avancado/28889#" class="back">Voltar</a></li>
+<li><a href="http://www.devmedia.com.br/revista-front-end-magazine">Front-end Magazine</a></li>
+<li><a href="http://www.devmedia.com.br/revista-mobile-magazine">Mobile magazine</a></li>
+<li><a href="http://www.devmedia.com.br/revista-java-magazine">Java Magazine</a></li>
+<li><a href="http://www.devmedia.com.br/revista-easy-java-magazine">easy Java Magazine</a></li>
+<li><a href="http://www.devmedia.com.br/revista-dotnet-magazine">.net Magazine</a></li>
+<li><a href="http://www.devmedia.com.br/revista-easy-dotnet-magazine">easy .net Magazine</a></li>
+<li><a href="http://www.devmedia.com.br/revista-sql-magazine">SQL Magazine</a></li>
+<li><a href="http://www.devmedia.com.br/revista-clubedelphi">Clube Delphi</a></li>
+<li><a href="http://www.devmedia.com.br/revista-infra-magazine">Infra Magazine</a></li>
+<li><a href="http://www.devmedia.com.br/revista-engenharia-de-software-magazine">Engenharia de Software</a></li>
+<!--<li><a href="http://www.devmedia.com.br/revistas/">Todas as revistas</a></li>-->
+<li><a href="http://www.devmedia.com.br/assine/#assine-revistas">Assine revistas</a></li>
+</ul>
+</li>
+<li><a href="http://www.devmedia.com.br/sql-avancado/28889#" rel="nofollow"><span class="icon2 servicos"></span>Serviços<span></span></a>
+<ul>
+<li><h5>Serviços<span class="icon servicos"></span></h5></li>
+
+<li><a href="http://www.devmedia.com.br/sql-avancado/28889#" class="back">Voltar</a></li>
+
+<!--<li><a href="http://www.devmedia.com.br/player" rel="nofollow">Devmedia Player</a></li>-->
+<li><a href="http://www.devmedia.com.br/join" rel="nofollow">Cadastre-se</a></li>
+<li><a href="http://www.devmedia.com.br/feed" rel="nofollow">RSS</a></li>
+<!--<li><a href="http://www.devmedia.com.br/whatsnew/?id=1">O que há de novo </a></li>-->
+<!--<li><a href="http://www.devmedia.com.br/como-gerenciar-os-posts-lidos-assistidos-no-portal-devmedia/25840" rel="nofollow">Gerenciando o que foi lido</a></li>-->
+<li><a href="http://www.devmedia.com.br/api/" style="text-transform:none;">APIs</a></li>
+<li><a href="http://www.devmedia.com.br/recomendado/">RECOMENDADO</a></li>
+</ul>
+</li>
+<li><a href="http://www.devmedia.com.br/forum/"><span class="icon2 forum"></span>Fórum</a></li>
+<li><a href="http://www.devmedia.com.br/fale-conosco/" rel="nofollow"><span class="icon2 atendimento"></span>Fale conosco</a></li>
+
+</ul>
+</nav>
+            <!-- MENU DESKTOP -->  
+            <nav class="dm-bgnav-out">
+        <div class="container-fluid dm-bgnav"> <!-- MOSTRAR E OCULTAR NAVBAR -->
+                <div class="container">     
+                  <div class="devmenu">  
+                    
+                    <i class="drop-mobile"><a href="http://www.devmedia.com.br/sql-avancado/28889#" class="menu"></a></i>
+          <a class="logo-mob" href="http://www.devmedia.com.br/"><span class="font-dev">Dev</span><span class="font-media">Media </span></a>
+                    <span id="headermenudesktop"><ul class="navspace menucel ativo3 dm-1"><li><a href="http://www.devmedia.com.br/sql-avancado/28889#" rel="nofollow" class="menulink">Códigos &nbsp;<small>&#9660;</small></a>	<ul class="submenu">		<li><a class="menu-destak" href="http://www.devmedia.com.br/guias/">Guias de Referência</a>			<ul class="submenu2">			</ul>		</li>		<li><a class="menu-destak" href="http://www.devmedia.com.br/cursos/">Cursos &amp; Séries</a>			<ul class="submenu2">			</ul>		</li>		<li class="submenu-line"><a class="menu-destak" href="http://www.devmedia.com.br/ultimas-atualizacoes/">Últimas atualizações &nbsp;»</a>			<ul class="submenu2">			<li><a href="http://www.devmedia.com.br/front-end-web/">Front-end web</a></li>			<li><a href="http://www.devmedia.com.br/mobile/">Mobile</a></li>			<li><a href="http://www.devmedia.com.br/java/">Java</a></li>			<li><a href="http://www.devmedia.com.br/dotnet/">.net</a></li>			<li><a href="http://www.devmedia.com.br/php/">PHP</a></li>			<li><a href="http://www.devmedia.com.br/delphi/">Delphi</a></li>			<li><a href="http://www.devmedia.com.br/banco-de-dados/">Banco de dados</a></li>			<li><a href="http://www.devmedia.com.br/engenharia-de-software/">Engenharia de Software</a></li>			<li><a href="http://www.devmedia.com.br/canal-mais/">Canal Mais</a></li>			<li><a href="http://www.devmedia.com.br/ultimas-atualizacoes/" class="btn-dm-nav">Últimas atualizações</a></li>			</ul>		</li>		<li class="submenu-bottom-line menu-small"><a href="http://www.devmedia.com.br/devcast/">DevCast &nbsp;»</a>			<ul class="submenu2">			<li><a href="http://www.devmedia.com.br/devcast/front-end-web">DevCast Front-end web</a></li>			<li><a href="http://www.devmedia.com.br/devcast/mobile">DevCast Mobile</a></li>			<li><a href="http://www.devmedia.com.br/devcast/java">DevCast Java</a></li>			<li><a href="http://www.devmedia.com.br/devcast/dotnet">DevCast .NET</a></li>			<li><a href="http://www.devmedia.com.br/devcast/php">DevCast PHP</a></li>			<li><a href="http://www.devmedia.com.br/devcast/delphi">DevCast Delphi</a></li>			<li><a href="http://www.devmedia.com.br/devcast/banco-de-dados">DevCast Banco de dados</a></li>			<li><a href="http://www.devmedia.com.br/devcast/engenharia-de-software">DevCast Engenharia de Software</a></li>			<li><a href="http://www.devmedia.com.br/devcast/canal-mais">DevCast Canal Mais</a></li>			<li><a href="http://www.devmedia.com.br/devcast/" class="btn-dm-nav">Todos os DevCast</a></li>			</ul>		</li>		<li class="submenu-guias menu-small"><a href="http://www.devmedia.com.br/artigos/">Artigos &nbsp;»</a>			<ul class="submenu2">			<li><a href="http://www.devmedia.com.br/artigos/front-end-web">Artigos de Front-end web</a></li>			<li><a href="http://www.devmedia.com.br/artigos/mobile">Artigos de Mobile</a></li>			<li><a href="http://www.devmedia.com.br/artigos/java">Artigos de Java</a></li>			<li><a href="http://www.devmedia.com.br/artigos/dotnet">Artigos de .NET</a></li>			<li><a href="http://www.devmedia.com.br/artigos/php">Artigos de PHP</a></li>			<li><a href="http://www.devmedia.com.br/artigos/delphi">Artigos de Delphi</a></li>			<li><a href="http://www.devmedia.com.br/artigos/banco-de-dados">Artigos de Banco de dados</a></li>			<li><a href="http://www.devmedia.com.br/artigos/engenharia-de-software">Artigos de Engenharia de Software</a></li>			<li><a href="http://www.devmedia.com.br/artigos/canal-mais">Artigos Canal Mais</a></li>			<li><a href="http://www.devmedia.com.br/artigos/" class="btn-dm-nav">Todos os artigos</a></li>			</ul>		</li>		<li class="menu-small"><a href="http://www.devmedia.com.br/desafios/">Desafios</a>			<ul class="submenu2">			</ul>		</li>		<li class="submenu-recomendado menu-small"><a href="http://www.devmedia.com.br/recomendado/">Recomendado</a>			<ul class="submenu2">			</ul>		</li>	</ul></li></ul><ul class="menucel dm-5"><li><a href="http://www.devmedia.com.br/forum/" class="menulink2">Fórum</a></li></ul><ul class="menucel dm-6"><li><a href="http://www.devmedia.com.br/jobs/" class="jobs-beta menulink2">JOBS</a></li></ul><ul class="menucel dm-6"><li><strong><a href="http://www.devmedia.com.br/mvp/" class="menulink2">Assine MVP</a></strong></li></ul>
+           
+          </span>
+          
+          <div class="login-box">
+                    <div class="login-btn">
+                        <a href="http://www.devmedia.com.br/app/" class="baixe-app" rel="nofollow">Baixe o APP</a>
+          <!-- <a href="http://www.devmedia.com.br/join/" class="cadastre-se" rel="nofollow">Cadastre-se</a> -->
+                      <div class="popover1">Login</div>
+            <div class="pai">
+                        <div class="login-pop deslogado">
+                          <div class="login-form">
+                            <div class="seta"></div>
+                              <form class="form-inline" method="post" action="http://www.devmedia.com.br/login/login.asp">
+                                <input type="text" name="usuario" class="input-medium pull-left" placeholder="Usuário" inputmode="verbatim">
+                                <input type="password" name="senha" class="input-medium pull-right" placeholder="Senha" inputmode="verbatim">
+                <input type="hidden" name="ac" value="1">
+                                <button type="submit">OK</button>
+                                <a href="http://www.devmedia.com.br/join/" class="cadastre-se">Cadastre-se</a>
+                <!-- <a href="http://www.devmedia.com.br/cadastro/lembrar-cadastro/" class="esqueci-senha-full">Esqueci minha senha</a> -->
+                <a href="http://www.devmedia.com.br/cadastro/lembrar-cadastro/" class="cadastre-se esqueci-senha">Esqueci minha senha</a>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </nav>
+            <!-- FIM MENU DESKTOP -->
+
+            <!-- REVELAR MENU DROP-->
+      <div class="revelar dm-cor5">
+            <!-- DIV COM O Z-INDEX QUE SOBREPOE O DROPDOWN, CRIA A IDEIA DE REVELAR O MENU ESCONDIDO NA TRANSIÇÃO --> 
+              <!-- BLOCO TOPO -->
+        <div class="container-fluid dm-busca">
+                <div class="container">
+                  <div class="row-fluid"> <!-- CABEÇALHO -->
+                    <a href="http://www.devmedia.com.br/">
+            <img src="./SQL Avançado_files/logo_new.png" alt="DevMedia" title="DevMedia" style="width: 260px;">
+          </a>
+			<a href="http://www.devmedia.com.br/quer-aprender-algo-novo-em-5-minutos/36896" class="new_info"><span>NOVO!</span> Cursos #ShowMeTheCode</a>
+                    <!-- BUSCA EM TELA DESKTOP E TABLET -->
+                    <nav id="busca">
+            <form action="http://www.devmedia.com.br/busca/">
+                        <input type="text" name="txtsearch" placeholder="Buscar">
+                        <button type="submit"></button>
+            </form>
+                    </nav>
+                  </div><!-- FIM CABEÇALHO -->
+                </div>
+              </div>
+              <!-- FIM BLOCO TOPO -->
+        
+
+      </div>
+      <style>.user-webc {color: #fff; float: left; font-size: 12px; line-height: 1.2; margin: 0 8px 0 0; padding: 11px 18px 10px; text-transform: initial; margin: 3px 3px 0 -8px;}.user-webc:hover {background-color:#FFF; color:#494949;} @media (max-width: 767px){.user-webc{margin-left: -18px;}}@media (max-width: 579px){.user-webc{display:none;}}</style>
+</header>
+
+ <div id="main">	 
+	
+	
+	<div id="div_corpo_post">
+						
+			
+			<!-- section barra botoes -->
+			
+			
+			<article id="div_conteudo_post">
+			
+			
+				
+			<div id="pop">
+			
+				Para efetuar o download você precisa estar logado. <a href="http://www.devmedia.com.br/login/login.asp">Clique aqui para efetuar o login</a>
+			
+			</div>
+
+			<section id="barra_botoes">
+			
+						   
+			   <label class="label_barra_botoes_new"><a href="http://www.devmedia.com.br/favorite/addfavorite.asp?comp=28889" rel="nofollow" target="_blank" class="link_barra_botoes_new">favorito (15)</a></label>
+				
+				
+				
+				<label class="label_barra_botoes_new2"><a class="link_barra_botoes_new" href="http://www.devmedia.com.br/articles/viewcomp_forprint.asp?comp=28889">imprimir</a></label>
+				
+
+				<label class="label_barra_botoes_new2"><a class="link_barra_botoes_new" href="http://www.devmedia.com.br/anotacoes/add/?idcomp=28889" rel="nofollow">anotar</a></label>
+
+				
+				<label class="label_barra_botoes_new"><a href="http://www.devmedia.com.br/favorite/add_finished.asp?comp=28889" class="link_barra_botoes_new" rel="nofollow">marcar como lido</a></label>
+					
+
+				<label class="label_barra_botoes_new"><a href="http://www.devmedia.com.br/sql-avancado/28889#comentariosArtigo" rel="nofollow" class="link_barra_botoes_new">tirar dúvidas</a></label>
+
+			   
+			   	
+			</section>		
+
+			
+									
+			<header style="margin-bottom:40px;padding:0;">
+			
+			
+			<section id="div_descricao">					
+			<h1 class="normal_video">SQL Avançado</h1>				
+			<h2 class="normal_video">Veja nesse artigo algumas funções avançadas de SQL, assim como trabalhar com datas, conversões e relacionamento entre tabelas.</h2>				
+			</section>
+			
+			
+			</header>
+			
+																
+			
+			<section id="boxes_de_aviso">
+			<a name="boxvalorcreditos"></a>
+			<div id="div_feedback_post">
+		
+		Você precisa estar logado para dar um feedback. 
+		<a href="http://www.devmedia.com.br/login/login.asp?ret=articles/viewcomp.asp?comp=28889" rel="nofollow">Clique aqui para efetuar o login</a>
+		
+			</div>
+	
+			</section>
+				<a name="link_voto_negativo"></a>
+<section id="box_voto_negativo">
+
+	<p>(opcional) Onde podemos melhorar?</p>		
+
+	<div id="form_voto_negativo">
+	<form name="form_voto_negativo" method="post" action="http://www.devmedia.com.br/articles/grava_fb_negativo.asp">
+	  <textarea id="texto_voto" name="texto_voto"></textarea>
+	  <input type="hidden" name="idcomp" value="28889">
+	</form>
+	</div>
+
+	<span id="div_confirma_voto_negativo">
+	<a href="http://www.devmedia.com.br/sql-avancado/28889#" class="botao_confirma_negativo" onclick="document.forms[&#39;form_voto_negativo&#39;].submit(); return false;">Confirmar voto</a>
+	</span>
+</section>
+			<div id="div_barrasocial"> <!--  -->
+				<div id="box_social">	
+
+				  <span class="st_facebook_large" displaytext="Facebook" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(&quot;http://w.sharethis.com/images/facebook_32.png&quot;);"></span></span></span>
+				  <span class="st_twitter_large" displaytext="Tweet" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(&quot;http://w.sharethis.com/images/twitter_32.png&quot;);"></span></span></span>
+				  <span class="st_linkedin_large" displaytext="LinkedIn" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(&quot;http://w.sharethis.com/images/linkedin_32.png&quot;);"></span></span></span>
+				  <span class="st_whatsapp_large" displaytext="WhatsApp"></span>
+				</div> 	
+				<span id="ja_votou">0</span>
+
+
+<div style=""> <!-- id="box_fb_comp" -->			
+
+	
+	
+	<span class="md_lido btn_like   gs_btn_like " title="Gostei" id="33706">
+           <i class="fa fa-thumbs-up" onclick="document.getElementById(&#39;div_feedback_post&#39;).style.display=&#39;block&#39;;"></i></span>&nbsp;<span id="counterUp_rodape">(21)</span>
+    
+			
+	
+	 <span class="md_lido btn_dislike  gs_btn_dislike " title="Não gostei" id="33706">                        
+	<i class="fa fa-thumbs-o-down" onclick="document.getElementById(&#39;div_feedback_post&#39;).style.display=&#39;block&#39;;"></i></span>&nbsp;<span style="font-family:sans-serif;font-size:0.8em;">(0)</span>
+     
+	
+
+	
+	
+</div>
+	
+			 </div>
+				
+	
+
+				<div id="div_conteudo">
+					
+					<div id="section_conteudo_post"> 
+					
+					<p>Após vermos algumas <a href="http://www.devmedia.com.br/sql-basico/28877" target="_blank">funções básicas em SQL</a>, podemos começar a nos aprofundar mais no assunto.</p>
+<p>Como sabemos o SQL é uma linguagem de comunicação com Banco de dados e é a mais utilizada do mundo.</p>
+ 
+<h3>Trabalhando com Funções</h3>
+ 
+<h4>NVL</h4>
+<p>A função NVL é utilizada para substituir O código abaixo apenas para exibição. o valor nulo do campo pesquisado por outro valor determinado.</p>
+
+<p>O código abaixo seleciona o campo punit dos registros da tabela pcmov, atribuindo valor 0 se for nulo.</p>
+<p><strong>Listagem 1:</strong> NVL</p>
+<div class="div_listagem"><pre>select nvl(punit,0) from pcmov
+ </pre></div>
+<h4>NVL2</h4>
+<p>A função NVL2 é utilizada para substituir O código abaixo apenas para exibição. o valor do campo, sendo este nulo ou não.</p>
+<p> O código abaixo seleciona o campo vpago dos registros da tabela pcprest, atribuindo valor 0 se NÃO for nulo, e atribuindo 2 se for nulo.</p>
+<p><strong>Listagem 2</strong>: NVL2</p>
+<div class="div_listagem"><pre>select nvl2(vpago,0,2) from pcprest
+</pre></div>
+ 
+ 
+<h4>NULLIF</h4>
+<p>A função NULLIF compara dois valores. Se os valores forem iguais, a função retornará valor nulo. Se os valores dos campos valor e vpago forem iguais, a função retornará valor nulo. Se os valores desses campos forem diferentes, a função retornará o primeiro valor.</p>
+<p><strong> Listagem 3</strong>: NULLIF </p>
+<div class="div_listagem"><pre>select valor, vpago, nullif(valor, vpago) from pcprest;
+</pre></div>
+ 
+ 
+<h4>COALESCE</h4>
+<p>A função COALESCE verifica os valores da expressão e retorna o primeiro valor não nulo.</p>
+<p>O código abaixo seleciona dos registros da tabela pcprest, dentre os campos vldesconto, vpago e valor o primeiro que apresentar valor não nulo.</p>
+
+<p><strong>Listagem 4</strong>: Usando a função COALESCE</p>
+<div class="div_listagem"><pre>select coalesce(vldesconto, vpago, valor) from pcprest;
+</pre></div>
+ 
+ 
+<h4>DECODE</h4>
+<p>A função Decode tem como objetivo ‘decodificar’ o valor do campo selecionado, atribuindo um valor de resposta para cada valor de condição estipulado.</p>
+<p> O código abaixo mostra como selecionar dos registros da tabela pcmov o campo numnota, e exibe mensagem de acordo com as condições: se o campo numnota for igual a 100, exibe ‘CEM’, se for 200, exibe ‘DUZENTOS’, se for 300, exibe ‘TREZENTOS’, se não for nenhum dos anteriores, exibe ‘NENHUM’.</p>
+
+<p><strong>Listagem 5</strong>: Usando função decode</p>
+<div class="div_listagem"><pre>select numnota, decode(numnota, 100, ‘CEM’, 200, ‘DUZENTOS’, 300, ‘TREZENTOS’, ‘NENHUM’) resultado from pcmov;
+ </pre></div>
+  
+<h4>CASE</h4>
+<p>A função CASE é utilizada para determinar a exibição do resultado a partir de condições especificadas dentro da função.</p>
+ 
+<p>O código abaixo seleciona dos registros da tabela pcmov o campo numnota, e exibe mensagem de acordo com as condições: caso o campo numnota seja menor que 100, exibe a mensagem ‘MENOR QUE 100’, caso o campo numnota esteja entre 101 e 200, exibe a mensagem ‘ENTRE 101 E 200’, caso contrário, exibe a mensagem ‘MAIOR QUE 200’.</p>
+
+<p><strong>Listagem 6:</strong> Usando Case</p>
+<div class="div_listagem"><pre>select numnota, case        when numnota &lt; 100 then ‘MENOR QUE 100’
+                                         when numnota between 101 and 200 then ‘ENTRE 101 E 200’
+                                         else ‘MAIOR QUE 200’ end “RESULTADO”
+from pcmov;
+</pre></div>
+<p><i><strong>Obs</strong>.: Para melhor entendimento da função: para todo ‘case’ deve existir um ‘end’, e para todo ‘when’ deve existir um ‘then’. O ‘else’ existe sozinho, como última alternativa da função.</i></p>
+ 
+ 
+<h4>LOWER</h4>
+<p>O código abaixo seleciona dos registros da tabela pcempr os campos matricula e nome, convertendo o conteúdo do campo nome para que seja exibido todo em caracterees minúsculos.</p>
+<p><strong>Listagem 7</strong>: Usando função Lower</p>
+<div class="div_listagem"><pre>select matricula, lower(nome) from pcempr;
+ </pre></div>
+ 
+<h4>UPPER</h4>
+<p>O código abaixo seleciona dos registros da tabela pcempr os campos matricula e nome, convertendo o conteúdo do campo nome para que seja exibido todo em caracterees maiúsculos.</p>
+
+<p><strong>Listagem 8</strong>: Usando função Upper</p>
+<div class="div_listagem"><pre>select matricula, upper(nome) from pcempr;
+ </pre></div>
+ 
+<strong>INITCAP</strong>
+<p>O código abaixo seleciona dos registros da tabela pcempr os campos matricula e nome, convertendo o conteúdo do campo nome para que seja exibido com as iniciais em caracterees maiúsculos.</p>
+<p><strong>Listagem 9:</strong> Usando função initcap</p>
+<div class="div_listagem"><pre>select matricula, initcap(nome) from pcempr;
+</pre></div>
+ 
+ 
+<h4>SUBSTR</h4>
+<p>A função SUBSTR tem como objetivo extrair parte do conteúdo do campo selecionado, de acordo com os parâmetros informados na função, independente do tipo do campo (numérico, texto ou data).</p>
+<p>O código abaixo seleciona dos registros da tabela pcempr os campos matricula e nome, exibindo, do campo nome, apenas o conteúdo a partir do primeiro caractere, os próximos 5 caracterees.</p>
+<p><strong>Listagem 10</strong>: Usando Substr</p>
+ <div class="div_listagem"><pre>select matricula, substr(nome,1,5) from pcempr;
+</pre></div>
+ 
+ 
+<h4>LENGTH</h4>
+<p>A função LENGTH tem como objetivo exibir o tamanho do valor que está gravado no campo selecionado.</p>
+<p> O código abaixo seleciona dos registros da tabela pcempr os campos matricula e nome, e exibe, logo em seguida, o tamanho do conteúdo do campo nome.</p>
+
+<p><strong>Listagem 11</strong>: Usando Length</p>
+<div class="div_listagem"><pre>select matricula, nome, length()from pcempr;
+</pre></div> 
+ 
+<h4>REPLACE</h4>
+<p>A função REPLACE tem como objetivo possibilitar a substituição de caracteres específicos por outros.</p>
+<p> O código abaixo seleciona dos registros da tabela pcempr os campos matricula e nome, e exibe, logo em seguida, o campo nome, substituindo o caractere ‘A’ por ‘*’.</p>
+
+<p><strong>Listagem 12</strong>: Usando replace</p>
+<div class="div_listagem"><pre>select matricula, nome, replace(nome,'A','*') from pcempr;
+</pre></div>
+<p><i><strong>Obs</strong>.: Podem ser substituídos 1 caracteree por vários, vários caracterees por 1, vários por vários, ou até mesmo 1 ou vários por nenhum caracteree. Para substituir por nenhum caractere, basta abrir e fechar as aspas simples, não informando nenhum valor.</i></p>
+ 
+ 
+<h4>ROUND</h4>
+<p>A função ROUND tem como objetivo efetuar o arredondamento de números para a quantidade de casas decimais determinada na função.</p>
+<p>O código abaixo seleciona dos registros da tabela pctabpr os campos codprod, numregiao, ptabela, e exibe, logo em seguida, o campo ptabela com seu valor arredondado para 2 casas decimais.</p>
+
+<p><strong>Listagem 13</strong>: Usando Round</p>
+<div class="div_listagem"><pre> 
+select codprod, numregiao, ptabela, roundO(ptabela,2) from pctabpr;
+</pre></div>
+ 
+ 
+<h4>TRUNC</h4>
+<p>A função TRUNC tem como objetivo efetuar o truncamento(corte) de números para a quantidade de casas determinada na função.</p>
+<p> O código abaixo seleciona dos registros da tabela pctabpr os campos codprod, numregiao, ptabela, e exibe, logo em seguida, o campo ptabela com seu valor truncado na segunda casa decimal.</p>
+
+<p><strong>Listagem 14</strong>: Usando função Trunc</p>
+<div class="div_listagem"><pre>select codprod, numregiao, ptabela, trunc(ptabela,2) from pctabpr;
+</pre></div>
+ 
+ 
+<h4>MOD</h4>
+<p>A função MOD tem como objetivo exibir o resto da divisão de um valor por outro.</p>
+<p>O código abaixo seleciona dos registros ds tabela pcprest, o resto da divisão do campo valor por 2.</p>
+
+<p><strong>Listagem 15</strong>: Usando MOD</p>
+<div class="div_listagem"><pre> 
+select mod(valor,2) from pcprest;
+</pre></div>
+<p><i><strong>Obs</strong>.: para facilitar o entendimento desta função, recomendamos utilizar a seleção da divisão informada, com truncamento para nenhuma casa decimal.</i></p>
+<p>Exemplo: select trunc(( valor/2),0) from pcprest;</p>
+ 
+ 
+ 
+<h3>Trabalhando com Datas</h3>
+ 
+<h4>Função SYSDATE</h4>
+<p>O código abaixo seleciona a data do sistema.</p>
+<p><strong>Listagem 16:</strong> Selecionando data do sistema com Sysdate</p>
+<div class="div_listagem"><pre>select sysdate from dual;</pre></div>
+ 
+<h4>Aritmética com Datas</h4>
+<p>O código abaixo seleciona a data do sistema adicionando 2 dias.</p>
+
+<p><strong>Listagem 17:</strong> Adicionando dias</p>
+<div class="div_listagem"><pre>select sysdate+2 from dual;</pre></div>
+
+<p> O código abaixo seleciona a data do sistema subtraindo 2 dias.</p>
+
+<p><strong>Listagem 18: </strong>Subtraindo dias</p>
+<div class="div_listagem"><pre>select sysdate-2 from dual;</pre></div>
+ 
+<p>O código abaixo seleciona dos registros da tabela pcnfsaid os campos numnota, dtsaida, dtentrega, e exibe, logo em seguida, a diferença entre os campos dtentrega e dtsaida, apelidando o campo com o nome de ‘diferenca’.</p>
+
+<p><strong>Listagem 19:</strong> Diferença entre datas</p>
+<div class="div_listagem"><pre>select numnota, dtsaida, dtentrega, dtentrega-dtsaida diferenca from pcnfsaid;</pre></div>
+ 
+ 
+ 
+<h3>Funções de Conversão</h3>
+<p> O código abaixo seleciona dos registros da tabela pcmov os campos dtmov e numnota e, logo em seguida, o campo numnota sendo convertido para caractere, no formato de 6 dígitos.</p>
+
+<p><strong>Listagem 20</strong>: NUMBER to VARCHAR</p>
+<div class="div_listagem"><pre>select dtmov, numnota, to_char(numnota,'000000') from pcmov;</pre></div>
+
+<p> O código abaixo seleciona dos registros da tabela pcmov os campos dtmov e numnota e, logo em seguida, o campo dtmov sendo convertido para caractere, no formato ‘dd/mm’.</p>
+
+<p><strong>Listagem 21</strong>: DATE to VARCHAR</p>
+<div class="div_listagem"><pre>select dtmov, numnota, to_char(dtmov,'dd/mm') from pcmov;</pre></div>
+ 
+<p><strong>Elementos para formatação de data</strong></p>
+<ul>
+<li>        YYYY é ano completo em números</li>
+<li>          YEAR é ano escrito por extenso</li>
+<li>          MM é mês em dois dígitos</li>
+<li>          MONTH é mês escrito por extenso</li>
+<li>          MON é mês escrito com as 3 primeiras letras iniciais</li>
+<li>          DY é dia escrito com a abreviação em 3 letras</li>
+<li>          DAY é dia escrito por extenso</li>
+<li>          DD é dia em dois dígitos</li>
+<li>          D é dia da semana O código abaixo de 1 a 7.</li>
+<li>          DDD é dia do ano O código abaixo de 1 a 356.</li>
+<li>          WW é número da semana dentro do ano</li>
+<li>          W é número da semana dentro do mês</li>
+</ul>
+
+
+ 
+ 
+ 
+<h3>Funções de Grupo (AVG, COUNT, MAX, MIN, SUM)</h3>
+ 
+<h4>AVG</h4>
+<p>A função AVG tem como finalidade efetuar o cálculo de média simples do campo informado na função. O código abaixo seleciona a média dos valores do campo vltotal dos registros da tabela pcnfsaid.</p>
+
+<p><strong>Listagem 22</strong>: Usando função AVG</p>
+ <div class="div_listagem"><pre>select avg(vltotal) from pcnfsaid;
+ </pre></div>
+ 
+     <h4> COUNT</h4>
+      <p>A função COUNT tem como finalidade efetuar a contagem do campo informado na função.</p>
+ <p>O código abaixo efetua contagem do campo numnota dos registros da tabela pcnfsaid.</p>
+
+<p><strong>Listagem 23</strong>: Usando função Count</p>
+<div class="div_listagem"><pre>select count(numnota) from pcnfsaid;</pre></div>
+ 
+ 
+     <h4> MAX</h4>
+      <p>A função MAX tem como finalidade exibir o maior valor encontrado no campo informado na função.</p>
+<p> O código abaixo seleciona o maior valor encontrado no campo vltotal dentre todos os registros da tabela pcnfsaid.</p>
+<p><strong>Listagem 24</strong>: Usando função MAX</p>
+<div class="div_listagem"><pre>select max(vltotal) from pcnfsaid;
+</pre></div>
+ 
+ 
+<h4>MIN</h4>
+<p>Assim como acontece na função MAX, a função MIN faz exatamente o inverso, ou seja, exibe o menor valor encontrado no campo informado na função.</p>
+<p> O código abaixo seleciona o menor valor encontrado no campo vltotal dentre todos os registros da tabela pcnfsaid.</p>
+
+<p><strong>Listagem 25</strong>: Usando função MIN</p>
+<div class="div_listagem"><pre>select min(vltotal) from pcnfsaid;
+ </pre></div>
+ 
+<h4>SUM</h4>
+<p>A função SUM tem como finalidade efetuar a soma dos valores do campo informado na função.</p>
+<p> O código abaixo seleciona a soma dos valores do campo vltotal de todos os registros da tabela pcnfsaid.</p>
+
+<p><strong>Listagem 26</strong>: Usando função SUM</p>
+<div class="div_listagem"><pre>select sum(vltotal) from pcnfsaid;
+ </pre></div>
+ 
+<h4>GROUP BY</h4>
+ 
+<p>Sempre que algumas das funções de grupo citadas no item 6 for utilizada, e também forem selecionados campos ‘puros’ das tabelas utilizadas, é necessário utilizar a expressão ‘GROUP BY’ para determinar o agrupamento das informações que serão exibidas.</p>
+<p> O código abaixo seleciona dos registros da tabela pcmov os campos dtmov, codprod, a soma do campo qt, onde o campo codprod for 0 ou 1, agrupando as informações pelos campos codprod e dtmov.</p>
+<p><strong>Listagem 27:</strong> Usando Group By</p>
+<div class="div_listagem"><pre>select dtmov, codprod, sum( qt)
+from pcmov where codprod in (0,1)
+group by codprod, dtmov;
+</pre></div>
+ 
+ 
+ 
+<h3>Relacionamento entre tabelas</h3>
+<p>Em boa parte das pesquisas de dados, pode ser necessário exibir informações de campos existentes em mais de uma tabela. Para que isso seja possível, é necessário determinar a junção/relacionamento que será empregada nas tabelas que estão sendo utilizadas.</p>
+<p>O código abaixo seleciona os campos codcli[pcnfsaid], cliente[pcclient] e numnota[pcnfsaid], dos registros das tabelas pcnfsaid e pcclient, onde o valor do campo codcli da tabela pcnfsaid for igual ao valor do campo codcli da tabela pcclient. Os resultados serão exibidos apenas se essa condição for obedecida.</p>
+
+
+<p><strong> Listagem 28</strong>: Relacionamento entre tabelas</p>
+<div class="div_listagem"><pre>select pcnfsaid.codcli, pcclient.cliente, pcnfsaid.numnota
+from pcnfsaid, pcclient
+where pcnfsaid.codcli = pccleint.codcli;
+</pre></div>
+<p>O código abaixo seleciona os campos codcli[pcnfsaid], cliente[pcclient] e numnota[pcnfsaid], dos registros das tabelas pcnfsaid e pcclient, onde o valor do campo codcli da tabela pcnfsaid for igual ao valor do campo codcli da tabela pcclient. Caso os valores dos campos não sejam iguais, as informações solicitadas da tabela pcnfsaid serão exibidas, e os campos da tabela pcclient serão exibidos em branco.</p>
+
+<p><strong> Listagem 29:</strong> Exibindo resultados apenas se a condição for obedecida</p>
+<div class="div_listagem"><pre>select pcnfsaid.codcli, pcclient.cliente, pcnfsaid.numnota
+from pcnfsaid, pcclient
+where codcli = codcli (+);
+</pre></div>
+<p>O código abaixo seleciona os campos codusur[pcnfsaid], nome[pcusuari], codsupervisor[pcusuari] e nome[pcsuperv], dos registros das tabelas pcnfsaid, pcusuari e pcsuperv, onde o valor do campo codusur da tabela pcnfsaid for igual ao valor do campo codusur da tabela pcusuari, e o valor do campo codsupervisor da tabela pcusuari for igual ao valor do campo codsupervisor da tabela pcsuperv. Os resultados serão exibidos apenas se ambas as condições forem obedecidas.</p>
+
+<p><strong>Listagem 30</strong>: Exibindo campos em branco</p>
+<div class="div_listagem"><pre>select pcnfsaid.codusur, pcusuari.nome, pcusuari.codsupervisor, pcsuperv.nome
+from pcnfsaid, pcusuari, pcsuperv
+where pcnfsaid.codusur = pcusuari.codusur
+and pcusuari.codsupervisor = pcsuperv.codsupervisor;
+</pre></div>
+ <p>O código abaixo seleciona os campos codusur[pcnfsaid], nome[pcusuari], codsupervisor[pcusuari] e nome[pcsuperv], dos registros das tabelas pcnfsaid, pcusuari e pcsuperv, onde o valor do campo codusur da tabela pcnfsaid for igual ao valor do campo codusur da tabela pcusuari, e o valor do campo codsupervisor da tabela pcusuari for igual ao valor do campo codsupervisor da tabela pcsuperv. Caso os valores dos campos codsupervisor[pcusuari] e codsupervisor[pcsuperv] não forem iguais, as demais informações serão exibidas normalmente, porém, as informações da tabela pcsuperv não serão exibidas.</p>
+<p><strong>Listagem 31</strong>: Exemplo de relacionamento</p>
+<div class="div_listagem"><pre>select pcnfsaid.codusur, pcusuari.nome, pcusuari.codsupervisor, pcsuperv.nome
+from pcnfsaid, pcusuari, pcsuperv
+where pcnfsaid.codusur = pcusuari.codusur
+and pcusuari.codsupervisor = pcsuperv.codsupervisor( +);
+ </pre></div>
+ 
+ 
+<h3>Cláusula HAVING</h3>
+<p>A cláusula HAVING tem funcionamento muito parecido ao funcionamento das cláusulas de restrição WHERE, porém, com uma grande diferença. Enquanto a cláusula WHERE é utilizada para efetuar restrições de informações baseadas em campos das tabelas, a cláusula HAVING é utilizada para efetuar restrições de informações baseadas em resultados das funções de grupo (SUM, AVG, MAX, MIN e COUNT).</p>
+<p> O código abaixo seleciona dos registros da tabela pcnfsaid os campos codcli e a soma do campo vltotal, agrupando as informações pelo campo codcli. </p>
+<p>As informações só serão exibidas se o valor da soma do campo vltotal for maior que 10000.</p>
+
+<p><strong>Listagem 32</strong>: Usando Having</p>
+<div class="div_listagem"><pre>select codcli, sum(vltotal)
+from pcnfsaid
+group by codcli
+having sum(vltotal) &gt; 10000;
+</pre></div>
+ 
+ 
+ 
+<h3>Sub-select’s</h3>
+<p>Como o próprio nome diz, sub-select’s são select’s que podem ser utilizados dentro de um select maior, com o objetivo de auxiliar na extração de dados, seja através da consulta de uma nova informação, ou através da utilização de seus resultados no processo de restrição de dados.</p>
+ 
+<p>O código abaixo seleciona todos os campos dos registros da tabela pcprodut, onde o valor do campo codprod não existir na lista distinta de valores do campo codprod de todos os registros da tabela pcmov.</p>
+
+<p><strong>Listagem 33</strong>: Usando sub-selects</p>
+<div class="div_listagem"><pre>select * from pcprodut
+where codprod not in (select distinct(codprod) from pcmov);
+</pre></div>
+
+<h3>Conclusão</h3>
+<p>Esses foram mais alguns comandos importantíssimos no desenvolvimento de profissionais que vão atuar como programadores ou administradores de banco de dados.</p>
+<p>Espero que tenham gostado e até a próxima.</p>
+
+<h3>Veja também</h3>
+<ul>
+<li><a href="http://www.devmedia.com.br/calculos-avancados-em-sql-revista-sql-magazine-104/25969" target="_blank">Cálculos avançados em SQL - Revista SQL Magazine 104</a></li>
+<li><a href="http://www.devmedia.com.br/escrevendo-queries-otimizadas-sql-magazine-84/19068" target="_blank">Escrevendo queries otimizadas - SQL Magazine 84</a></li>
+</ul>
+
+
+					</div>	
+
+					
+<div id="box_artigo_canal">  
+
+
+	<label style="font-family:verdana;font-size:0.9em;"><!-- id="div_link_canal" -->
+	<img src="./SQL Avançado_files/info_canal.png" width="9px">
+	
+	
+	Publicado no <u><a href="http://www.devmedia.com.br/banco-de-dados/" target="_blank" style="border-bottom:0px;text-decoration:none;">Canal Banco de dados</a></u>
+	
+	</label>	
+   			
+
+</div>
+<div style="height:30px;"></div>
+					
+					
+				</div>
+
+				
+			
+				<a name="comentariosArtigo">&nbsp;</a>	
+
+					
+				<footer>
+				<section style="border-top-color:#ececec;border-top-style:solid;border-top-width:1px;padding-top:0px;padding:6px;"> <!-- id="box_autor_revista" -->
+
+	<img src="./SQL Avançado_files/usuariosemfoto.png" width="45px" style="float:left;margin-right:7px;">
+	
+
+<a href="http://www.devmedia.com.br/space/paulo-roberto-queiroz-s-jr" rel="author" class="nome_autor">por Paulo Roberto</a>
+	
+
+	<p class="minibio_autor">
+	Banco de dados &amp; BigData expert</p>	
+	
+</section>					
+				</footer>
+				
+				
+				<div id="separador_vert_60"></div>
+			
+				
+				
+<div id="box_aviso_post_rodape">
+
+		Você precisa estar logado para dar um feedback. 
+		<a href="http://www.devmedia.com.br/login/login.asp?ret=articles/viewcomp.asp?comp=28889" rel="nofollow">Clique aqui para efetuar o login</a>
+		
+			</div>
+
+	
+
+				<section id="feedback_rodape_post"> <!--  --> 
+					
+					<div style="">
+					<span style="font-family: sans-serif;font-size:0.8em;">Ajude-nos a evoluir: você gostou do post?</span>
+					
+	
+	<span class="md_lido btn_like   gs_btn_like " title="Gostei" id="33706">
+           <i class="fa fa-thumbs-up" onclick="document.getElementById(&#39;box_aviso_post_rodape&#39;).style.display=&#39;block&#39;;"></i></span>&nbsp;<span id="counterUp_rodape">(21)</span>
+    
+	
+			
+	 <span class="md_lido btn_dislike  gs_btn_dislike " title="Não gostei" id="33706">                        
+	<i class="fa fa-thumbs-o-down" onclick="document.getElementById(&#39;box_aviso_post_rodape&#39;).style.display=&#39;block&#39;;"></i></span>&nbsp;<span style="font-family:sans-serif;font-size:0.8em;">(0)</span>
+ 
+		
+					</div>
+					<section id="box_voto_negativo_rodape"> 
+
+	<p class="frase_box_qualidade2">(opcional) Onde podemos melhorar?</p>		
+												
+	<div style="margin-bottom:20px;"> 
+	<form name="form_voto_negativo2" method="post" action="http://www.devmedia.com.br/articles/grava_fb_negativo.asp">
+	  <textarea id="texto_voto2" name="texto_voto"></textarea>
+	  <input type="hidden" name="idcomp" value="28889">
+	</form>
+	</div>
+
+	<span id="div_confirma_voto_negativo_rodape">
+	<a href="http://www.devmedia.com.br/sql-avancado/28889#" class="botao_confirma_negativo" onclick="document.forms[&#39;form_voto_negativo2&#39;].submit(); return false;">Confirmar voto</a>
+	</span>
+</section>
+					<div style="font-family:verdana;font-size:0.6em;margin-top:12px;margin-bottom:7px;">Compartilhe:</div>
+					<div>
+					  <label>		
+						<span class="st_facebook_large" displaytext="Facebook" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(&quot;http://w.sharethis.com/images/facebook_32.png&quot;);"></span></span></span>
+						<span class="st_twitter_large" displaytext="Tweet" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(&quot;http://w.sharethis.com/images/twitter_32.png&quot;);"></span></span></span>
+						<span class="st_linkedin_large" displaytext="LinkedIn" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(&quot;http://w.sharethis.com/images/linkedin_32.png&quot;);"></span></span></span>
+						<span class="st_whatsapp_large" displaytext="WhatsApp"></span>
+					  </label> 	 
+					</div>
+					
+
+				</section>
+				
+				
+												
+		</article>				
+						
+		
+	</div>
+
+<div class="t_clear_both"></div>
+
+
+
+
+	
+<div id="div_comentarios_outer">
+     <div id="botao_duvidas_rodape">Ficou com alguma dúvida?</div>
+
+	 
+<style>
+	.mark-mvp {
+		display: inline-block;
+		background-color: #8CC53E;
+		margin-left: 7px;
+		padding: 0 5px;
+		height: 2em;
+		color: #fff;
+		font-weight: normal;
+		font-size: 10px;
+		line-height: 2.1em;
+		border-radius: 3px;
+		text-transform: uppercase;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+
+	.mark-consultor {
+		border: 1px solid #8CC53E;
+		border-radius: 3px;
+		color: #8CC53E;
+		display: inline-block;
+		font-weight: normal;
+		font-size: 10px;
+/*		height: 2em;
+		line-height: 2.1em;*/
+		margin: 0 0 8px 8px;
+		padding: 0 5px;
+		text-transform: uppercase;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+
+	.div_listagem
+	{
+	   word-wrap: normal !important;
+	}
+	.linkMyComments{text-decoration: none;color: #000;}
+	.linkMyComments:hover{text-decoration:underline;}
+	@media screen and (max-width: 480px){
+	.btn_postarDuvida{float: right;margin-top: -77px;font-family: arial;color: #fff;background-color: rgb(73, 197, 191);padding: 4px 9px 4px 9px;  border-radius: 3px;width: 25%;text-align: center;}
+	.link_postarDuvida:after{font-size:14px;content:"Postar dúvida Comentário" !important;text-align: center;}
+	}
+	.btn_postarDuvida{float: right;margin-top: -77px;font-family: arial;color: #fff;background-color: rgb(73, 197, 191);padding: 4px 9px 4px 9px;border-radius: 3px;}
+	.link_postarDuvida{color:#fff;text-decoration:none;}
+	.link_postarDuvida:after{content:"Postar dúvida / Comentário";}
+	
+	.dm-comentario-thumb-down {
+		/* padding: 0px 4px; */
+	    font-size: 16px;
+	    color: #f05f5c;
+	    /* background-color: #f05f5c; */
+	    border-radius: 4px;
+	    /* border: 1px solid #f05f5c; */
+	    position: relative;
+	    top: 2px;
+	}
+
+	.comentario-editavel {
+		cursor: pointer;
+	}
+</style>
+<aside id="div_comentarios">
+
+
+<div class="box_adicionar_comentario_pai">
+	<img class="img_usuario" src="./SQL Avançado_files/user2.png"> 
+	<textarea data-idcopai="-1" data-idcomp="28889" class="txt_perguntar" placeholder="Post aqui sua dúvida ou comentário que nossa equipe responderá o mais rápido possível."></textarea>
+</div>
+
+
+</aside>
+
+
+  
+
+</div>
+
+
+
+<link href="./SQL Avançado_files/css" rel="stylesheet" type="text/css">
+<link href="./SQL Avançado_files/box_relacionados_style.css" rel="stylesheet" type="text/css">
+<section id="section_relacionados">
+	<!-- <div class="separador10px"></div> -->
+	<nav id="nav_relacionados">		
+		<p class="titulo_relacionados">Mais posts</p> 
+		<ul class="ul_lista_relacionados"> 
+			<li class="lista_relacionados"><div id="tipo_post_relacionado">Video aula</div><div id="box_titulo_post_relacionado"><a href="http://www.devmedia.com.br/tarefas-pos-instalacao-curso-de-introducao-ao-oracle-aula-4/36906" class="titulo_post_relacionado">Tarefas pós-instalação - Curso de introdução ao Oracle - Aula 4</a></div></li><li class="lista_relacionados"><div id="tipo_post_relacionado">Aplicativo com fontes</div><div id="box_titulo_post_relacionado"><a href="http://www.devmedia.com.br/codigo-fonte-curso-de-introducao-ao-oracle/36934" class="titulo_post_relacionado">Código Fonte - Curso de introdução ao Oracle</a></div></li><li class="lista_relacionados"><div id="tipo_post_relacionado">Video aula</div><div id="box_titulo_post_relacionado"><a href="http://www.devmedia.com.br/configurando-e-criando-cdb-e-pdbs-curso-de-introducao-ao-oracle-aula-30/36933" class="titulo_post_relacionado">Configurando e criando CDB e PDBs - Curso de introdução ao Oracle - Aula 30</a></div></li><li class="lista_relacionados"><div id="tipo_post_relacionado">Video aula</div><div id="box_titulo_post_relacionado"><a href="http://www.devmedia.com.br/basico-do-multitenant-container-database-cdb-curso-de-introducao-ao-oracle-aula-29/36932" class="titulo_post_relacionado">Básico do Multitenant Container Database (CDB) - Curso de introdução ao Oracle - Aula 29</a></div></li><li class="lista_relacionados"><div id="tipo_post_relacionado">Video aula</div><div id="box_titulo_post_relacionado"><a href="http://www.devmedia.com.br/utilizando-o-oracle-flashback-curso-de-introducao-ao-oracle-aula-28/36931" class="titulo_post_relacionado">Utilizando o Oracle FlashBack - Curso de introdução ao Oracle - Aula 28</a></div></li>
+		</ul>
+
+		<div id="div_listar_relacionados">
+			<div id="botao_listar_relacionados"> 
+				<center>
+				    
+					  <a href="http://www.devmedia.com.br/banco-de-dados" class="link_listar_relacionados">Listar mais conteúdo</a>
+								
+				</center>
+			</div>				
+		</div>
+	</nav>	
+</section>
+<section class="dm-limitfoot"></section>
+<footer class="footer-fixed">
+<section class="container-fluid dm-cor1 footer-box">
+<div class="container">
+<div class="row-fluid">
+<div class="span7 f-box-filho">
+<div class="row-fluid cx2">
+<img src="./SQL Avançado_files/logo-footer.png" alt="DevMedia - asp.net, Java, Delphi, SQL e web Design, tudo em um só lugar!" title="DevMedia - asp.net, Java, Delphi, SQL e web Design, tudo em um só lugar!" width="145" height="32">
+<nav>
+<a href="http://www.devmedia.com.br/seja-um-autor-devmedia/28103">Publique</a> | <a href="http://www.devmedia.com.br/mvp/">Assine</a> | <a href="http://www.devmedia.com.br/fale-conosco/">Fale conosco</a></nav>
+</div>
+<ul class="social-bar">
+<li><a class="icon-1" href="http://www.facebook.com/pages/DevMedia/144522665592650" target="_blank"></a></li>
+<li><a class="icon-3" href="http://twitter.com/devmedia" target="_blank"></a></li>
+<li><a class="icon-4" href="https://plus.google.com/101753743720604160232?prsrc=3" target="_blank"></a></li>
+<li><a class="icon-2" href="http://www.devmedia.com.br/feed/"></a></li>
+</ul>
+</div>
+<div class="span5 cx3">
+<div id="fb-root"></div>
+<div class="fb-shell">
+<!--<div class="fb-like-box" data-href="https://www.facebook.com/DevmediaWeb03" data-width="767" data-height="184" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="false" data-show-border="false"></div>-->
+<div class="fb-like-box">
+<div id="fb-root"></div>
+<div class="fb-page fb_iframe_widget" data-href="https://www.facebook.com/DevmediaWeb03" data-width="765" data-height="184" data-small-header="true" data-adapt-container-width="false" data-hide-cover="false" data-show-facepile="true" data-show-posts="false" fb-xfbml-state="parsed" fb-iframe-plugin-query="adapt_container_width=false&amp;app_id=145393072270566&amp;container_width=380&amp;height=184&amp;hide_cover=false&amp;href=https%3A%2F%2Fwww.facebook.com%2FDevmediaWeb03&amp;locale=pt_BR&amp;sdk=joey&amp;show_facepile=true&amp;show_posts=false&amp;small_header=true&amp;width=765"><span style="vertical-align: top; width: 0px; height: 0px; overflow: hidden;"><iframe name="f156da6aff3b4e8" width="765px" height="184px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="fb:page Facebook Social Plugin" src="./SQL Avançado_files/page.html" style="border: none; visibility: hidden; width: 0px; height: 0px;"></iframe></span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="container-fluid dm-cor2 footer-box2">
+<div class="container">
+<div class="row-fluid">
+<div class="span4">Hospedagem web por <a href="http://www.porta80.com.br/" target="_blank">Porta 80 Web Hosting</a></div>
+
+</div>
+</div>
+</section>
+</footer></div>
+
+</section><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./SQL Avançado_files/P5DLcu0KGJB.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./SQL Avançado_files/P5DLcu0KGJB(1).html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div><script src="./SQL Avançado_files/adsct" type="text/javascript"></script>
+
+<iframe id="stSegmentFrame" name="stSegmentFrame" src="./SQL Avançado_files/getSegment.html" frameborder="0" scrolling="no" width="0px" height="0px" style="display:none;"></iframe><div id="stwrapper" class="stwrapper stwrapper5x" style="display: none;"><iframe allowtransparency="true" id="stLframe" class="stLframe" name="stLframe" frameborder="0" scrolling="no" src="./SQL Avançado_files/index.70a9955821a08deefa8f5d2a4467e1bb.html"></iframe></div><div id="stOverlay" onclick="javascript:stWidget.closeWidget();"></div></body></html>
